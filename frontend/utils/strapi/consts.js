@@ -1,0 +1,1 @@
+export const target = 'http://localhost:1337'

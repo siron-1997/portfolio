@@ -1,0 +1,9 @@
+.image_container {
+    position: relative;
+}
+
+.image_container img {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+}
