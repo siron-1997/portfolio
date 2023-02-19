@@ -1,15 +1,15 @@
 export const siteMap = [
     {
-        text: '',
-        link: '',
+        text: 'about',
+        link: '/about',
     },
     {
-        text: '',
-        link: '',
+        text: 'works',
+        link: '/works',
     },
     {
-        text: '',
-        link: '',
+        text: 'profile',
+        link: '/profile',
     },
     {
         text: '',
