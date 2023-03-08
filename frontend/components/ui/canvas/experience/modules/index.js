@@ -1,3 +1,3 @@
-export { Camera } from './camera'
-export { Lights } from './lights'
-export { Renderer } from './Rnderer'
+export { default as Lights } from './Lights'
+export { default as Model } from './Model'
+export { default as TestObjects } from './TestObjects'
