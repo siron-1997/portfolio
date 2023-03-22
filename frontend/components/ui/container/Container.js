@@ -1,6 +1,8 @@
+import s from '@styles/ui/Container.module.css'
+
 export default function Container({ children }) {
     return (
-        <div>
+        <div className={s.container}>
             {children}
         </div>
     )
