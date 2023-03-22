@@ -12,7 +12,7 @@ export const siteMap = [
         link: '/profile',
     },
     {
-        text: '',
-        link: '',
+        text: 'contact',
+        link: '/contact',
     }
 ]

@@ -10,7 +10,8 @@ const nextConfig = {
         pathname: '/uploads/**'
       }
     ]
-  }
+  },
+  // pageExtensions: ['js', 'jsx']
 }
 
 module.exports = nextConfig
