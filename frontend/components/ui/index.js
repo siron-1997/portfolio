@@ -1,2 +1,2 @@
-export { CanvasHome } from './canvas'
-export { Containenr } from './container'
+export { Container } from './container'
+export { Close, Hamburger } from './buttons'
