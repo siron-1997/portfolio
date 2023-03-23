@@ -1,54 +1,34 @@
-.portal {
+.portal,
+.rain {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 10;
-}
-
-/* .canvas {
-    position: relative;
-    z-index: 10;
-} */
-
-.rain {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 20;
-}
-
-.rain {
-    background:#0D343A;
-    background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(#000000)  );
-    background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(0,0,0,1) 100%);
-    
-    overflow:hidden;}
-
-/* animate the drops*/
-@-webkit-keyframes fall {
-	to {
-        margin-top: 900px;
-    }
-}
-
-@-moz-keyframes fall {
-	to {
-        margin-top: 900px;
-    }
+    height: 100vh;
+    overflow: hidden;   
 }
 
 .drop {
-    background: -webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(rgba(255,255,255,0.6)));
-    background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,.6) 100%);
-    width:1px;
-    height:89px;
+    width: 50px;
+    border-color: transparent;
+    border-right-color: rgba(255, 255, 255, 0.7);
+    border-right-width: 50px;
     position: absolute;
-    bottom:200px;
-    -webkit-animation: fall .63s linear infinite;
-    -moz-animation: fall .63s linear infinite;
-    z-index: 1000;
-}
+    bottom: 100%;
+    transform-origin: 0% 50%;
+    animation-name: rain;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    opacity: 0.5;
+  }
+
+  @keyframes rain {
+    from {
+      transform: rotate(90deg) translateX(0) scale(1.2);
+    } 
+    to {
+      transform: rotate(90deg) translateX(calc(100vh + 20px));
+    }
+  }

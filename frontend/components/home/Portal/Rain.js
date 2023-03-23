@@ -4,27 +4,22 @@ import s from '@styles/home/Portal.module.css'
 export default function Rain() {
     const rainRef = useRef()
 
-    const nbDrop = 858
-
-    const randRange = (minNum, maxNum) => {
-        return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum)
-    }
-
     useEffect(() => {
         const rain = rainRef.current
-        for (let i = 0; i < nbDrop; i ++) {
-            const dropLeft = randRange(0, 1000)
-            const dropTop = randRange(- 1400, 1800)
-            const drop = document.createElement('div')
-            drop.className = s.drop
-            drop.style.top = String(dropTop)
-            drop.style.left = String(dropLeft)
 
+        let hrElement
 
-            rain.appendChild(drop)
+        const counter = 10
+
+        for (let i = 0; i < counter; i ++) {
+            hrElement = document.createElement('hr')
+            hrElement.className = s.drop
+            hrElement.style.left = Math.floor(Math.random() * window.innerWidth) + 'px'
+            hrElement.style.animationDuration = 0.2 + Math.random() * 0.3 + 's'
+            hrElement.style.animationDelay = Math.random() * 5 + 's'
+         
+          rain.appendChild(hrElement)
         }
-
-        console.log(rain)
     }, [])
 
     return <div ref={rainRef} className={s.rain} />
