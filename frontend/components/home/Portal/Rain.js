@@ -9,7 +9,7 @@ export default function Rain() {
 
         let hrElement
 
-        const counter = 10
+        const counter = 100
 
         for (let i = 0; i < counter; i ++) {
             hrElement = document.createElement('hr')

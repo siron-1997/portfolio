@@ -6,9 +6,14 @@ export default function Model() {
 
     children.forEach((child) => {
         if (child.name === 'Plane') {
-            child.children.forEach(c => c.receiveShadow = true)
+            child.children.forEach(c => {
+                c.castShadow = true
+                c.receiveShadow = true
+                
+            })
         } else {
             child.castShadow = true
+            child.receiveShadow = true
         }
     })
 
