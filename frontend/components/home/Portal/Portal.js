@@ -1,5 +1,7 @@
 import { lazy, Suspense, ACESFilmicToneMapping, LinearEncoding } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
+import { useFetch } from '@utils/hooks'
+import { Loading } from '@components/etc'
 import Ocean from './Ocean'
 import Star from './Star'
 import Rain from './Rain'
@@ -11,9 +13,17 @@ import s from '@styles/home/Portal.module.css'
 const ModelComponent = lazy(() => import('./Model'))
 
 export default function Portal () {
+    const { data, loading } = useFetch()
+
+    if (loading) {
+        return <Loading />
+    }
+
+    console.log(data)
+
     return (
         <div className={s.portal}>
-            <Suspense fallback='loading...'>
+            <Suspense fallback={<Loading />}>
                 <Canvas
                     dpr={[ 1, 2 ]}
                     gl={{
