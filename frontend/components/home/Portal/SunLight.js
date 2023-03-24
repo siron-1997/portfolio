@@ -1,32 +1,32 @@
+import { Color } from 'three'
 import { useThree } from '@react-three/fiber'
 
 export default function SunLight() {
+    const size = 50
+
     useThree((state, delta) => {
+        console.log(state)
         state.camera.lookAt(0, 2, 0)
-        state.scene.children.forEach(child => {
-            if (child.type === 'DirectionalLight') {
-                const camera = child.shadow.camera
-                // camera.top = camera.right = 10
-                // camera.bottom = camera.left = - 10
-                // camera.far = 1000
-            }
-        })
     })
+
+    // '0x0064b5'
 
     return (
         <directionalLight
-            color='0x0064b5'
-            intensity={2}
+            color='#6D4FD7'
+            intensity={4}
             position={[50, 50, 50]}
             castShadow
             shadow-mapSize-width={512}
             shadow-mapSize-height={512}
+            shadow-bias={0.0015}
+            shadow-normalBias={0.4}
             shadow-camera-near={1}
-            shadow-camera-far={1}
-            shadow-camera-top={10}
-            shadow-camera-bottom={- 10}
-            shadow-camera-left={- 10}
-            shadow-camera-right={10}
+            shadow-camera-far={90}
+            shadow-camera-top={size}
+            shadow-camera-bottom={- size}
+            shadow-camera-left={- size}
+            shadow-camera-right={size}
         />
     )
 }

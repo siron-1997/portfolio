@@ -5,6 +5,7 @@ import Star from './Star'
 import Rain from './Rain'
 import Lightning from './Lightning'
 import SunLight from './SunLight'
+import Cloud from './Cloud'
 import s from '@styles/home/Portal.module.css'
 
 const ModelComponent = lazy(() => import('./Model'))
@@ -33,7 +34,8 @@ export default function Portal () {
                     <ModelComponent />
                     <Ocean />
                     <Star />
-                    <Lightning />
+                    {/* <Lightning /> */}
+                    <Cloud />
                 </Canvas>
             </Suspense>
             <Rain />
