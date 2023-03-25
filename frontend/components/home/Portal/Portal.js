@@ -1,6 +1,6 @@
-import { lazy, Suspense, ACESFilmicToneMapping, LinearEncoding } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { useFetch } from '@utils/hooks'
+import { ACESFilmicToneMapping, sRGBEncoding } from 'three'
 import { Loading } from '@components/etc'
 import Ocean from './Ocean'
 import Star from './Star'
@@ -13,13 +13,32 @@ import s from '@styles/home/Portal.module.css'
 const ModelComponent = lazy(() => import('./Model'))
 
 export default function Portal () {
-    const { data, loading } = useFetch()
+    const [data, setData] = useState(null)
+    const [loading, setLoading] = useState(true)
 
-    if (loading) {
-        return <Loading />
-    }
+    const API_KEY = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY
 
-    console.log(data)
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                let lat = position.coords.latitude,
+                    lon = position.coords.longitude
+                fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
+                    .then(res => res.json())
+                    .then(d => {
+                        setData(d)
+                        setLoading(false)
+                    })
+                    .catch(error => console.log(error))
+            })
+        } else {
+            alert('Geolocationはサポートされていません。')
+        }
+        console.log(data)
+
+    }, [loading])
+
+    if (loading) return <Loading />
 
     return (
         <div className={s.portal}>
@@ -29,7 +48,7 @@ export default function Portal () {
                     gl={{
                         antialias: true,
                         toneMapping: ACESFilmicToneMapping,
-                        outputEncoding: LinearEncoding
+                        outputEncoding: sRGBEncoding
                     }}
                     camera={{
                         position: [1.5, 1, 10],
@@ -44,7 +63,7 @@ export default function Portal () {
                     <ModelComponent />
                     <Ocean />
                     <Star />
-                    {/* <Lightning /> */}
+                    <Lightning />
                     <Cloud />
                 </Canvas>
             </Suspense>

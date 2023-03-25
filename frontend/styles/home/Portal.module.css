@@ -6,29 +6,37 @@
     left: 0;
     right: 0;
     height: 100vh;
-    overflow: hidden;   
+    overflow: hidden;
+}
+
+.rain {
+  left: -30%;
+  transform: scale(2);
 }
 
 .drop {
-    width: 50px;
-    border-color: transparent;
-    border-right-color: rgba(255, 255, 255, 0.7);
-    border-right-width: 50px;
-    position: absolute;
-    bottom: 100%;
-    transform-origin: 0% 50%;
-    animation-name: rain;
-    animation-duration: 1.2s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    opacity: 0.5;
-  }
+  width: 50px;
+  height: 1px;
+  border-color: transparent;
+  border-right-color: rgba(255, 255, 255, 0.7);
+  border-right-width: 40px;
+  position: absolute;
+  /* left: ${Math.floor(Math.random() * window.innerWidth)}px; */
+  bottom: 100%;
+  transform-origin: 0% 50%;
+  animation-name: rain;
+  /* animation-duration: ${0.2 + Math.random() * 0.8}s; */
+  /* animation-delay: ${Math.random() * 0.1}s; */
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  opacity: 0.5;
+}
 
-  @keyframes rain {
+@keyframes rain {
     from {
-      transform: rotate(90deg) translateX(0) scale(1.2);
+        transform: rotate(45deg) translateX(0);
     } 
     to {
-      transform: rotate(90deg) translateX(calc(100vh + 20px));
+        transform: rotate(45deg) translateX(100vh);
     }
-  }
+}

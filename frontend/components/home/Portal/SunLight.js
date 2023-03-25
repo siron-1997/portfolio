@@ -5,7 +5,6 @@ export default function SunLight() {
     const size = 50
 
     useThree((state, delta) => {
-        console.log(state)
         state.camera.lookAt(0, 2, 0)
     })
 

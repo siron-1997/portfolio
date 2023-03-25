@@ -8,8 +8,8 @@ export default function useFetch(url, options = {}) {
         setLoading(true)
         fetch(url, options)
             .then(res => res.json())
-            .then(data => {
-                setData(data)
+            .then(d => {
+                setData(d)
                 setLoading(false)
             })
             .catch(error => console.log(error))
