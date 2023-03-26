@@ -15,11 +15,11 @@ export default function Rain() {
             hrElement = document.createElement('hr')
             hrElement.className = s.drop
             hrElement.style.left = Math.floor(Math.random() * window.innerWidth) + 'px'
-            hrElement.style.animationDuration = 0.2 + Math.random() * 0.3 + 's'
+            hrElement.style.animationDuration = 0.2 + Math.random() * 0.8 + 's'
             hrElement.style.animationDelay = Math.random() * 5 + 's'
-         
-          rain.appendChild(hrElement)
+            rain.appendChild(hrElement)
         }
+        rain.style.transform = 'rotate(45deg) scale(2.2)'
     }, [])
 
     return <div ref={rainRef} className={s.rain} />
