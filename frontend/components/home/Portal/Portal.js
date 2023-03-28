@@ -18,7 +18,7 @@ export default function Portal () {
     const [loading, setLoading] = useState(true)
     const [currentTime, setCurrentTime] = useState('')
 
-    const API_KEY = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY
+    const API_KEY = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY || process.env.OPEN_WEATHER_API_KEY
 
     const bgEvening = 'linear-gradient(0deg, rgba(212, 139, 0, 1) 28%, rgba(174, 21, 58, 1) 61%, rgba(68, 4, 116, 1) 84%, rgba(43, 7, 110, 1) 91%, rgba(1, 3, 93, 1) 99%)',
           bgNight = 'linear-gradient(0deg, rgba(2, 69, 111, 1) 20%, rgba(23, 17, 105, 1) 53%, rgba(0, 2, 71, 1) 79%)',
