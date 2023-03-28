@@ -1,4 +1,5 @@
 import { useGLTF } from '@react-three/drei'
+// import { MeshLambertMaterial } from 'three'
 
 export default function Model() {
     const model = useGLTF("http://localhost:3000/models/gltf/mountain.glb")

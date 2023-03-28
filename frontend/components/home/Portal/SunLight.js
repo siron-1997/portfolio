@@ -1,19 +1,22 @@
-import { Color } from 'three'
-import { useThree } from '@react-three/fiber'
+import { Color, Vector3 } from 'three'
+import { useThree, useFrame } from '@react-three/fiber'
 
-export default function SunLight() {
+export default function SunLight({ color }) {
     const size = 50
 
-    useThree((state, delta) => {
-        console.log(state)
-        state.camera.lookAt(0, 2, 0)
-    })
+    const vec = new Vector3()
 
-    // '0x0064b5'
+    const { camera, mouse } = useThree()
+
+    // camera.lookAt(0, 2, 0)
+
+    // useFrame(() => {
+    //     camera.position.lerp(vec.set(mouse.x * 2, 1, 60), 0.05)
+    // })
 
     return (
         <directionalLight
-            color='#6D4FD7'
+            color={color}
             intensity={4}
             position={[50, 50, 50]}
             castShadow

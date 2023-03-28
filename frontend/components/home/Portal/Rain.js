@@ -1,25 +1,25 @@
 import React, { useEffect, useRef } from 'react'
 import s from '@styles/home/Portal.module.css'
 
-export default function Rain() {
-    const rainRef = useRef()
+export default function Rain({ data }) {
+    const rainRef = useRef(null)
 
     useEffect(() => {
         const rain = rainRef.current
 
-        let hrElement
+        const rainFall = data?.rain !== undefined ? data.rain['h1'] : 0,
+              windSpeed = data?.wind?.speed || 0
 
-        const counter = 100
-
-        for (let i = 0; i < counter; i ++) {
-            hrElement = document.createElement('hr')
+        for (let i = 0; i < rainFall; i ++) {
+            const hrElement = document.createElement('hr')
             hrElement.className = s.drop
-            hrElement.style.left = Math.floor(Math.random() * window.innerWidth) + 'px'
-            hrElement.style.animationDuration = 0.2 + Math.random() * 0.8 + 's'
-            hrElement.style.animationDelay = Math.random() * 5 + 's'
+            hrElement.style.left = `${Math.floor(Math.random() * window.innerWidth)}px`
+            hrElement.style.animationDuration = 0.2 + Math.random() * 0.6 + 's'
+            hrElement.style.animationDelay = Math.random() * 0.8 + 's'
             rain.appendChild(hrElement)
         }
-        rain.style.transform = 'rotate(45deg) scale(2.2)'
+    
+        rain.style.transform = `rotate(${windSpeed * 1.6}deg) scale(2.2)`
     }, [])
 
     return <div ref={rainRef} className={s.rain} />
