@@ -1,1 +1,1 @@
-export { default as Loading } from './Loading'
+export { default as ItemLoading } from './ItemLoading'

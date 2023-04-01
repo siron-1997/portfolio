@@ -11,7 +11,7 @@ export default function useWindowSize() {
       const handler = () => {
         setWindowSize({
           width: window.innerWidth,
-          height: Math.ceil(window.scrollY),
+          height: window.innerHeight,
         })
       }
 

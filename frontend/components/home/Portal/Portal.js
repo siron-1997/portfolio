@@ -1,15 +1,17 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, extend } from '@react-three/fiber'
 import { ACESFilmicToneMapping, sRGBEncoding } from 'three'
-import { Loading } from '@components/etc'
+import { OrbitControls } from '@react-three/drei'
+import { ItemLoading } from '@components/etc'
 import Ocean from './Ocean'
 import Star from './Star'
 import Rain from './Rain'
 import Rig from './Rig'
-import Lightning from './Lightning'
 import SunLight from './SunLight'
 import Cloud from './Cloud'
 import s from '@styles/home/Portal.module.css'
+
+extend({ OrbitControls })
 
 const ModelComponent = lazy(() => import('./Model'))
 
@@ -44,22 +46,22 @@ export default function Portal () {
             alert('Geolocationはサポートされていません。')
         }
         // 朝、昼、夕方または明け方、夜の判定
-        if ((hours > 15 && hours < 18) || (hours > 3 && hours < 6)) {
+        if ((hours >= 15 && hours <= 18) || (hours > 3 && hours < 6)) {
             setCurrentTime('evening')
         }
         else if ((hours > 18 || hours < 3)) {
             setCurrentTime('night')
         }
         else setCurrentTime('lunch')
-
-        console.log(currentTime)
     }, [loading])
 
-    if (loading) return <Loading />
-
+    // if (loading) {
+    //     return <Loading />
+    // } else {
+    // }
     return (
         <div className={s.portal}>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<ItemLoading />}>
                 <Canvas
                     dpr={[ 1, 2 ]}
                     gl={{
@@ -68,29 +70,29 @@ export default function Portal () {
                         outputEncoding: sRGBEncoding,
                     }}
                     camera={{
-                        position: [1.5, 1, 10],
                         fov: 45,
                         near: 1,
                         far: 200,
                     }}
                     className={s.canvas}
                     shadows
-                    style={{background: (hours > 15 && hours < 18) || (hours > 3 && hours < 6) ? bgEvening : hours < 3 ? bgNight : bgLunch }}
+                    style={{background: (hours > 15 && hours < 18) || (hours > 3 && hours < 6) ? bgEvening : hours < 3 ? bgNight : bgLunch, zIndex: 10000}}
                 >
+                    <fog attach="fog" color={'#605D7B'} near={25} far={30} />
                     <SunLight
                         color={currentTime === 'evening' ? '#B45DD1' : currentTime === 'night' ? '#694DDC' : '#98BFC7'}
                     />
                     <ambientLight
-                        color={currentTime === 'lunch' && '#fff'}
-                        intensity={currentTime === 'lunch' ? 0.08 : 0}
+                        color={currentTime === 'evening' ? '#B45DD1' : currentTime === 'night' ? '#694DDC' : '#98BFC7'}
+                        intensity={currentTime === 'lunch' ? 0.08 : 0.25}
                     />
-                    <ModelComponent />
-                    {data?.rain !== undefined && <Ocean />}
+                    <ModelComponent currentTime={currentTime} />
+                    <Ocean currentTime={currentTime} visible={data?.rain !== undefined ? true : false} />
                     <Star />
-                    {/* <Lightning /> */}
-                    {/* <Cloud /> */}
                     {/* カメラ */}
                     <Rig />
+                    <Cloud density={data ? data.cloud : 0} />
+                    {/* <OrbitControls /> */}
                 </Canvas>
             </Suspense>
             <Rain data={data} />
