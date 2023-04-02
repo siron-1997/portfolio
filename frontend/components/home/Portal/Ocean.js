@@ -5,7 +5,10 @@ import { Water } from 'three/examples/jsm/objects/Water'
 
 extend({ Water })
 
-export default function Ocean() {
+// #98BFC7
+// default 0xeb8934 0x0064b5
+
+export default function Ocean({ currentTime, visible }) {
     const waterRef = useRef()
     const gl = useThree(state => state.gl)
     const waterNormals = useLoader(
@@ -13,30 +16,32 @@ export default function Ocean() {
         'images/textures/waternormals.jpg'
     )
     waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping
+    // const sunColor = currentTime === 'evening' ? 
     const geom = useMemo(() => new PlaneGeometry(15, 15))
     const config = useMemo(() => ({
         textureWidth: 512,
         textureHeight: 512,
         waterNormals,
         sunDirection: new Vector3(),
-        sunColor: 0xeb8934,
-        waterColor: 0x0064b5,
-        distortionScale: 0.15,
-        fog: false,
+        sunColor: '#98BFC7',
+        waterColor: '#01DFD7',
+        distortionScale: 0.35,
+        fog: true,
         format: gl.encoding,
     }), [waterNormals])
 
     useFrame((state, delta) => {
-        waterRef.current.material.uniforms['time'].value += delta
+        waterRef.current.material.uniforms['time'].value += delta * 0.4
     })
 
     return (
-        <water
-            ref={waterRef}
-            args={[geom, config]}
-            rotation-x={MathUtils.degToRad(- 90)}
-            position-y={- 0.0003}
-            name={'my ocean'}    
-        />
+        <group name='water' visible={visible}>
+            <water
+                ref={waterRef}
+                args={[geom, config]}
+                rotation-x={MathUtils.degToRad(- 90)}
+                name={'my ocean'}    
+            />
+        </group>
     )
 }

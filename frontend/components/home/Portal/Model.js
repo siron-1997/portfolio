@@ -1,20 +1,27 @@
 import { useGLTF } from '@react-three/drei'
-// import { MeshLambertMaterial } from 'three'
+import { MeshLambertMaterial, Color, Mesh } from 'three'
 
-export default function Model() {
-    const model = useGLTF("http://localhost:3000/models/gltf/mountain.glb")
-    const children = model.scene.children
+export default function Model({ currentTime }) {
+    const model = useGLTF('models/gltf/mountain.glb')
+    model.scene.name = 'mountain'
 
-    children.forEach((child) => {
-        if (child.name === 'Plane') {
-            child.children.forEach(c => {
-                c.castShadow = true
-                c.receiveShadow = true
-                
-            })
+    model.scene.children.forEach(child => {
+        if (child instanceof Mesh) {
+            const matColor = child.material.color
+            const color = new Color(matColor.r, matColor.g, matColor.b)
+            const mat = new MeshLambertMaterial({ color: color })
+            mat.name = child.material.name
+            child.material = mat
+            child.material.needsUpdate = true
         } else {
-            child.castShadow = true
-            child.receiveShadow = true
+            child.children.forEach(mesh => {
+                const matColor = mesh.material.color
+                const color = new Color(matColor.r, matColor.g, matColor.b)
+                const mat = new MeshLambertMaterial({ color: color })
+                mat.name = mesh.material.name
+                mesh.material = mat
+                mesh.material.needsUpdate = true
+            })
         }
     })
 

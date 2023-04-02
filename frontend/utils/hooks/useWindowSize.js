@@ -11,14 +11,13 @@ export default function useWindowSize() {
       const handler = () => {
         setWindowSize({
           width: window.innerWidth,
-          height: Math.ceil(window.scrollY),
+          height: window.innerHeight,
         })
       }
 
       handler()
   
       window.addEventListener('resize', handler)
-      window.addEventListener('scroll', handler, {passive: true})
   
       return () => {
         window.removeEventListener('resize', handler)

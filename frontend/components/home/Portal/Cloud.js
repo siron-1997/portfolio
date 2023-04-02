@@ -1,7 +1,7 @@
-import { RepeatWrapping, PlaneGeometry, MeshLambertMaterial, Mesh, Group } from 'three'
+import { RepeatWrapping, PlaneGeometry, MeshLambertMaterial, Mesh, Group, MathUtils } from 'three'
 import { useTexture } from '@react-three/drei'
 
-export default function Cloud() {
+export default function Cloud({ density }) {
     const group = new Group()
     const texture = useTexture('/images/textures/smoke.png', texture => {
         texture.wrapS = texture.wrapT = RepeatWrapping
@@ -9,22 +9,17 @@ export default function Cloud() {
     const geom = new PlaneGeometry(500, 500)
     const mat = new MeshLambertMaterial({
         map: texture,
-        transparent: true
+        transparent: true,
+        opacity: density * 0.1
     })
+    const cloud1 = new Mesh(geom, mat)
 
-    for (let i = 0; i < 25; i ++) {
-        const cloud = new Mesh(geom, mat)
-        cloud.position.set(
-            Math.random() * 800 - 400,
-            200,
-            Math.random() * 500 - 450
-        )
-        cloud.rotation.x = 1.16
-        cloud.rotation.y = - 0.12
-        cloud.rotation.z = Math.random() * 360
-        cloud.material.opacity = 0.6
-        group.add(cloud)
-    }
+    cloud1.position.y = 10
+    cloud1.position.z = - 50
+    cloud1.rotation.x = MathUtils.degToRad(80)
+    cloud1.rotation.z = MathUtils.degToRad(- 90)
+
+    group.add(cloud1)
 
     return <primitive object={group} name='cloud' />
 }
