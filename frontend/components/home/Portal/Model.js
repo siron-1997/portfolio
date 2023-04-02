@@ -13,6 +13,7 @@ export default function Model({ currentTime }) {
             mat.name = child.material.name
             child.material = mat
             child.material.needsUpdate = true
+            child.castShadow = true
         } else {
             child.children.forEach(mesh => {
                 const matColor = mesh.material.color
@@ -21,6 +22,8 @@ export default function Model({ currentTime }) {
                 mat.name = mesh.material.name
                 mesh.material = mat
                 mesh.material.needsUpdate = true
+                mesh.receiveShadow = true
+                mesh.castShadow = true
             })
         }
     })

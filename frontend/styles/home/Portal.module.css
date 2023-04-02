@@ -17,18 +17,21 @@
     position: absolute;
     bottom: 100%;
     transform-origin: 0% 50%;
-    animation-name: rain;
-    animation-duration: 1.2s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    /* animation-name: rain; */
+    /* transition-duration: 1.2s;
+    transition-timing-function: linear;
+    animation-iteration-count: infinite; */
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    animation: rain 2s linear infinite;
     opacity: 0.5;
   }
 
   @keyframes rain {
-    from {
+    0% {
       transform: rotate(90deg) translateX(0) scale(1.2);
     } 
-    to {
+    100% {
       transform: rotate(90deg) translateX(calc(100vh + 20px));
     }
   }

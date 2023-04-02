@@ -1,7 +1,7 @@
 import { Color, Vector3 } from 'three'
 import { useThree, useFrame } from '@react-three/fiber'
 
-export default function SunLight({ color }) {
+export default function SunLight({ color, intensity }) {
     const size = 50
 
     const vec = new Vector3()
@@ -17,8 +17,16 @@ export default function SunLight({ color }) {
     return (
         <directionalLight
             color={color}
-            intensity={3}
+            intensity={intensity}
             position={[50, 50, 50]}
+            shadow-mapSize={[1024, 1024]}
+            shadow-camera-near={1}
+            shadow-camera-far={300}
+            shadow-camera-left={-50}
+            shadow-camera-right={50}
+            shadow-camera-top={50}
+            shadow-camera-bottom={-50}
+            castShadow
         />
     )
 }
