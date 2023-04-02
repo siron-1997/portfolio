@@ -23,9 +23,8 @@ export default function Portal () {
 
     const { width } = useWindowSize()
 
-    // NEXT_PUBLIC_OPEN_WEATHER_API_KEY
-    // OPEN_WEATHER_API_KEY
-    const API_KEY = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY
+
+    const API_KEY = process.env.OPEN_WEATHER_API_KEY
 
     const bgEvening = 'linear-gradient(0deg, rgba(212, 139, 0, 1) 28%, rgba(174, 21, 58, 1) 61%, rgba(68, 4, 116, 1) 84%, rgba(43, 7, 110, 1) 91%, rgba(1, 3, 93, 1) 99%)',
           bgNight = 'linear-gradient(0deg, rgba(15, 32, 114, 1) 8%, rgba(10, 8, 105, 1) 47%, rgba(9, 7, 90, 1) 90%)',
