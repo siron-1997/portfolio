@@ -56,7 +56,7 @@ export default function Rig() {
         maxYaw={0.01}
         maxPitch={0.01}
         maxRoll={0.01}
-        yawFrequency={0.4}
-        pitchFrequency={0.5}
+        yawFrequency={0.2}
+        pitchFrequency={0.2}
     />
 }
