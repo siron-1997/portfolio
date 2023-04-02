@@ -2,7 +2,8 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { Canvas, extend } from '@react-three/fiber'
 import { ACESFilmicToneMapping, sRGBEncoding } from 'three'
 import { OrbitControls } from '@react-three/drei'
-import { ItemLoading } from '@components/etc'
+import { Loading } from '@components/etc'
+import { useWindowSize } from '@/utils/hooks'
 import Ocean from './Ocean'
 import Star from './Star'
 import Rain from './Rain'
@@ -20,7 +21,9 @@ export default function Portal () {
     const [loading, setLoading] = useState(true)
     const [currentTime, setCurrentTime] = useState('')
 
-    const API_KEY = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY
+    const { width } = useWindowSize()
+
+    const API_KEY = process.env.OPEN_WEATHER_API_KEY
 
     const bgEvening = 'linear-gradient(0deg, rgba(212, 139, 0, 1) 28%, rgba(174, 21, 58, 1) 61%, rgba(68, 4, 116, 1) 84%, rgba(43, 7, 110, 1) 91%, rgba(1, 3, 93, 1) 99%)',
           bgNight = 'linear-gradient(0deg, rgba(2, 69, 111, 1) 20%, rgba(23, 17, 105, 1) 53%, rgba(0, 2, 71, 1) 79%)',
@@ -61,7 +64,7 @@ export default function Portal () {
     // }
     return (
         <div className={s.portal}>
-            <Suspense fallback={<ItemLoading />}>
+            <Suspense fallback={<Loading />}>
                 <Canvas
                     dpr={[ 1, 2 ]}
                     gl={{
@@ -78,13 +81,13 @@ export default function Portal () {
                     shadows
                     style={{background: (hours > 15 && hours < 18) || (hours > 3 && hours < 6) ? bgEvening : hours < 3 ? bgNight : bgLunch, zIndex: 10000}}
                 >
-                    <fog attach="fog" color={'#605D7B'} near={25} far={30} />
+                    <fog attach="fog" color={'#605D7B'} near={width < 768 ? 35 : 25} far={width < 768 ? 40 : 50} />
                     <SunLight
                         color={currentTime === 'evening' ? '#B45DD1' : currentTime === 'night' ? '#694DDC' : '#98BFC7'}
                     />
                     <ambientLight
                         color={currentTime === 'evening' ? '#B45DD1' : currentTime === 'night' ? '#694DDC' : '#98BFC7'}
-                        intensity={currentTime === 'lunch' ? 0.08 : 0.25}
+                        intensity={currentTime === 'lunch' ? 0.25 : 0.25}
                     />
                     <ModelComponent currentTime={currentTime} />
                     <Ocean currentTime={currentTime} visible={data?.rain !== undefined ? true : false} />

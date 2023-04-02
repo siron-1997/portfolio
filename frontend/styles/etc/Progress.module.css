@@ -1,0 +1,38 @@
+.progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: red;
+    z-index: 9999;
+}
+
+/* #3D3A45 */
+
+.bar_container {
+    border: 4px solid #eee;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+@keyframes barstart {
+    from {
+      width: 30%;
+    }
+    to {
+      width: 90%;
+    }
+  }
+  
+  @keyframes barcomp {
+    from {
+      width: 90%;
+    }
+    to {
+      width: 100%;
+    }
+  }

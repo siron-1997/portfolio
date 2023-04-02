@@ -47,9 +47,9 @@ export default function Rig() {
 
 
     useFrame(() => {
-        camera.position.lerp(
-            vec.set(mouse.x * 1, 0, 10), 0
-        )
+        // camera.position.lerp(
+        //     vec.set(mouse.x * 1, 0, 10), 0
+        // )
     })
 
     return <CameraShake

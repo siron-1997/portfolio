@@ -18,7 +18,6 @@ export default function useWindowSize() {
       handler()
   
       window.addEventListener('resize', handler)
-      window.addEventListener('scroll', handler, {passive: true})
   
       return () => {
         window.removeEventListener('resize', handler)

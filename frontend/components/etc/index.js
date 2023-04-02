@@ -1,1 +1,2 @@
-export { default as ItemLoading } from './ItemLoading'
+export { default as Loading } from './Loading'
+export { default as Progress } from './Progress'

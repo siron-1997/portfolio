@@ -2,7 +2,7 @@ import { useGLTF } from '@react-three/drei'
 import { MeshLambertMaterial, Color, Mesh } from 'three'
 
 export default function Model({ currentTime }) {
-    const model = useGLTF('models/gltf/mountain_evening.glb')
+    const model = useGLTF('models/gltf/mountain.glb')
     model.scene.name = 'mountain'
 
     model.scene.children.forEach(child => {
