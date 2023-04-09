@@ -6,14 +6,14 @@ export default function Rain({ data }) {
 
     useEffect(() => {
         const rain = rainRef.current
-        const rainFall = data?.rain !== undefined ? data.rain['h1'] : 0,
+        const rainFall = data?.rain !== undefined ? data.rain['1h'] : 0,
               windSpeed = data?.wind?.speed || 0
 
-        for (let i = 0; i < rainFall; i ++) {
+        for (let i = 0; i < Math.floor(rainFall * 10); i ++) {
             const hrElement = document.createElement('hr')
             hrElement.className = s.drop
             hrElement.style.left = `${Math.floor(Math.random() * window.innerWidth)}px`
-            hrElement.style.animationDuration = 0.2 + Math.random() * 0.6 + 's'
+            hrElement.style.animationDuration = 0.2 + Math.random() * 0.8 + 's'
             hrElement.style.animationDelay = Math.random() * 0.8 + 's'
 
             rain.appendChild(hrElement)

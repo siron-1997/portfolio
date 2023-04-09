@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react'
-import { Progress } from '@/components/etc'
+import { Loading } from '@/components/etc'
 import { useRouter } from 'next/router'
 import NextNProgress from 'nextjs-progressbar'
 import '@/styles/globals.css'

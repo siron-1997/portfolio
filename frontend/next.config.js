@@ -14,7 +14,6 @@ const nextConfig = {
   env: {
     OPEN_WEATHER_API_KEY: process.env.OPEN_WEATHER_API_KEY
   }
-  // pageExtensions: ['js', 'jsx']
 }
 
 module.exports = nextConfig
