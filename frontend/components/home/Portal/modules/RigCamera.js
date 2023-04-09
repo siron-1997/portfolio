@@ -3,7 +3,7 @@ import { CameraShake } from "@react-three/drei"
 import { Vector3, Group } from "three"
 import { useWindowSize } from "@/utils/hooks"
 
-export default function Rig() {
+export default function RigCamera() {
     const vec = new Vector3()
     const { camera, mouse, scene } = useThree()
     const { width, height } = useWindowSize()

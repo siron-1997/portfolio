@@ -17,7 +17,7 @@
     position: absolute;
     bottom: 100%;
     transform-origin: 0% 50%;
-    /* animation-name: rain; */
+    animation-name: rain;
     /* transition-duration: 1.2s;
     transition-timing-function: linear;
     animation-iteration-count: infinite; */
