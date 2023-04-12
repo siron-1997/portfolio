@@ -2,11 +2,15 @@ const setTimePointIntensity = (value, timePoint) => {
     let intensity = 0
 
     switch (timePoint) {
-        case 'night':
-            intensity = value + 0.5
+        case 'evening':
+            intensity = value - 0.5
             break
+        case 'night':
+            intensity = value + 0.2
+            break
+        case 'lunch':
+            intensity = value - 0.8
         default:
-            intensity = value + 0
             break
     }
 
@@ -34,7 +38,6 @@ export default function getSunIntensity(currentWeather, timePoint) {
             sunIntensity = setTimePointIntensity(3.0, timePoint)
             break
         default:
-            sunIntensity = setTimePointIntensity(6.0, timePoint)
             break
     }
 

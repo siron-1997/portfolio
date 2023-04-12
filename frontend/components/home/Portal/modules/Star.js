@@ -1,7 +1,7 @@
 import { BufferGeometry, BufferAttribute, PointsMaterial, Points } from 'three'
 import { useIsIos } from '@/utils/hooks'
 
-export default function Star({ opacity }) {
+export default function Star({ opacity, timePoint }) {
     const isIos = useIsIos()
 
     const starCount = 9500
@@ -17,9 +17,9 @@ export default function Star({ opacity }) {
 
     const starMaterial = new PointsMaterial({
         color: '#fff',
-        size: 0.35,
+        size: timePoint === 'lunch' ? 0 : 0.35,
         transparent: true,
-        opacity: isIos ? 100 - opacity : 1 - opacity / 100,
+        opacity: isIos ? 100 - opacity :  timePoint === 'night' ? 1 - (opacity / 100) : timePoint === 'evening' ? 0.4 : 0,
         fog: false
     })
 

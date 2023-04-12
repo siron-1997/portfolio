@@ -8,7 +8,7 @@ export default function Fog({ humidity, color }) {
             attach="fog"
             color={color}
             near={width < 768 ? 35 : 4}
-            far={width < 768 ? 40 : 120 - humidity}
+            far={width < 768 ? 40 : 115 - humidity}
         />
     )
 }

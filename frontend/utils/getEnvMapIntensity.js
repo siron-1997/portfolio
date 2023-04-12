@@ -7,22 +7,26 @@ const setTimePointIntensity = (value, timePoint, type) => {
                 intensity = value + 4
                 break
             case 'evening':
-                intensity = value + 2
+                intensity = value - 1
+                break
+            case 'lunch':
+                intensity = value + 9
                 break
             default:
-                intensity = value + 0
                 break
         }
     } else if (type === 'clouds') {
         switch (timePoint) {
             case 'night':
-                intensity = value + 1
+                intensity = value + 20
                 break
             case 'evening':
                 intensity = value + 2
                 break
+            case 'lunch':
+                intensity = value + 30
+                break
             default:
-                intensity = 0
                 break
         }
     }
@@ -37,12 +41,12 @@ export default function getEnvMapIntensity(currentWeather, timePoint, type) {
         switch (currentWeather) {
             case 'rain':
             case 'overcast clouds':
-                envMapIntensity = setTimePointIntensity(0.4, timePoint, type)
+                envMapIntensity = setTimePointIntensity(6.4, timePoint, type)
                 break
             case 'broken clouds':
             case 'scattered clouds':
             case 'few clouds':
-                envMapIntensity = setTimePointIntensity(0.6, timePoint, type)
+                envMapIntensity = setTimePointIntensity(6.6, timePoint, type)
                 break
             case 'clear sky':
                 envMapIntensity = setTimePointIntensity(6.8, timePoint, type)

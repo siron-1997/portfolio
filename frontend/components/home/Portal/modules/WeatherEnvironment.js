@@ -12,7 +12,8 @@ export default function WeatherEnvironment({
                     color={color}
                     side={BackSide}
                     transparent={true}
-                    opacity={timePoint === 'night' && currentWeather === 'clear sky' ? 0.2 : cloudsAll / 100} // 雲の密度 0 ~ 1
+                    // opacity={timePoint === 'night' ? 0.2 : cloudsAll / 100} // 雲の密度 0 ~ 1
+                    opacity={0.2}
                 />
             </mesh>
         </Environment>

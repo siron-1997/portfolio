@@ -10,6 +10,8 @@ import axios from 'axios'
 
 extend({ OrbitControls })
 
+
+
 const Model= lazy(() => import('./modules/Model'))
 
 export default function Portal () {
@@ -64,7 +66,7 @@ export default function Portal () {
             // 日の出時間（日の出から45分経過）～日没時間（日没から45分経過）
 
             // sunsetPoint || sunrisePoint ? setTimePoint('evening') : nightPoint ? setTimePoint('night') : setTimePoint('lunch')
-            setTimePoint('night')
+            setTimePoint('lunch')
 
             // setCurrentWeather(data.weather[0].description)
 
@@ -112,7 +114,8 @@ export default function Portal () {
                             background={true}
                             timePoint={timePoint}
                             currentWeather={currentWeather}
-                            cloudsAll={data?.clouds?.all}
+                            // cloudsAll={data?.clouds?.all}
+                            cloudsAll={100}
                             color={getEnvironmentColor(timePoint)}
                         />
                         {/* 雨の時 */}
@@ -128,21 +131,25 @@ export default function Portal () {
                         <Model envMapIntensity={getEnvMapIntensity(currentWeather, timePoint, 'model')} />
                         {/* 雨の時、シーンに追加 */}
                         <Ocean
-                            timePoint={timePoint}
-                            visible={data?.rain !== undefined ? true : false}
+                            // visible={data?.rain !== undefined ? true : false}
+                            visible={true}
                         />
-                        <Star opacity={data?.clouds?.all} />
+                        <Star
+                            opacity={data?.clouds?.all}
+                            timePoint={timePoint}
+                        />
                         {/* 薄曇、散在雲、切雲のときはBrokenCloudでそれ以外はCloud */}
                         <Clouds
-                            opacity={data?.clouds?.all}
-                            intensity={getEnvMapIntensity(currentWeather, timePoint, 'clouds')}
+                            // opacity={data?.clouds?.all}
+                            opacity={95}
+                            envMapIntensity={getEnvMapIntensity(currentWeather, timePoint, 'clouds')}
                             thinCloudVisible={currentWeather === 'broken clouds' || currentWeather === 'scattered clouds' || currentWeather === 'few clouds' && true}
                             thickCloudVisible={currentWeather === 'overcast clouds' || currentWeather === 'rain' && true}
                         />
                         {/* 星 */}
                         <RigCamera />
                         {/* <OrbitControls /> */}
-                        <BakeShadows bias={- 0.3} />
+                        {/* <BakeShadows bias={- 0.3} /> */}
                     </Canvas>
                     <Rain data={data} />
                 </Suspense>

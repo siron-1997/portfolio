@@ -3,11 +3,11 @@ import { useThree } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { useIsIos } from '@/utils/hooks'
 
-export default function Clouds({ opacity, intensity, thickCloudVisible, thinCloudVisible }) {
+export default function Clouds({ opacity, envMapIntensity, thickCloudVisible, thinCloudVisible }) {
     const isIos = useIsIos()
     const { scene } = useThree()
 
-    const thickCloudTexture = useTexture('/images/textures/smoke.png', texture => {
+    const thickCloudTexture = useTexture('/images/textures/cloud.png', texture => {
         texture.wrapS = texture.wrapT = RepeatWrapping
     })
     const thinCloudTexture = useTexture('/images/textures/broken_cloud.png', texture => {
@@ -22,13 +22,13 @@ export default function Clouds({ opacity, intensity, thickCloudVisible, thinClou
                 visible={thickCloudVisible}
                 name='thick cloud'
             >
-                <planeGeometry args={[250, 250]} />
+                <planeGeometry args={[100, 100]} />
                 <meshStandardMaterial
                     map={thickCloudTexture}
                     transparent={true}
                     opacity={isIos ? opacity : opacity / 100}
                     envMap={scene.environment}
-                    envMapIntensity={intensity}
+                    envMapIntensity={envMapIntensity}
                     depthTest={true}
                     depthWrite={true}
                 />
@@ -45,7 +45,7 @@ export default function Clouds({ opacity, intensity, thickCloudVisible, thinClou
                     transparent={true}
                     opacity={isIos ? opacity : opacity / 100}
                     envMap={scene.environment}
-                    envMapIntensity={intensity}
+                    envMapIntensity={envMapIntensity}
                     depthTest={true}
                     depthWrite={true}
                 />
