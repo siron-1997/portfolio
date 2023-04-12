@@ -1,12 +1,14 @@
 import { useWindowSize } from '@/utils/hooks'
 
-export default function Fog({ rain, color }) {
+export default function Fog({ humidity, color }) {
     const { width } = useWindowSize()
-    
-    rain && <fog
-        attach="fog"
-        color={color}
-        near={width < 768 ? 35 : 10}
-        far={width < 768 ? 40 : 25}
-    />
+
+    return (
+        <fog
+            attach="fog"
+            color={color}
+            near={width < 768 ? 35 : 4}
+            far={width < 768 ? 40 : 120 - humidity}
+        />
+    )
 }

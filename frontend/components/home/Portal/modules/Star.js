@@ -1,6 +1,9 @@
 import { BufferGeometry, BufferAttribute, PointsMaterial, Points } from 'three'
+import { useIsIos } from '@/utils/hooks'
 
-export default function Star() {
+export default function Star({ opacity }) {
+    const isIos = useIsIos()
+
     const starCount = 9500
     const starGeom = new BufferGeometry()
     const positions = new Float32Array(starCount * 3)
@@ -13,13 +16,19 @@ export default function Star() {
     starGeom.setAttribute('position', new BufferAttribute(positions, 3))
 
     const starMaterial = new PointsMaterial({
-        color: 0xaaaaaa,
-        size: 0.3,
-        transparent: true
+        color: '#fff',
+        size: 0.35,
+        transparent: true,
+        opacity: isIos ? 100 - opacity : 1 - opacity / 100,
+        fog: false
     })
 
     const star = new Points(starGeom, starMaterial)
     star.name = 'star'
 
-    return <primitive object={star} />
+    return (
+        <group renderOrder={1}>
+            <primitive object={star} />
+        </group>
+    )
 }

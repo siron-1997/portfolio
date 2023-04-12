@@ -1,10 +1,10 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { Canvas, extend } from '@react-three/fiber'
-import { OrbitControls, BakeShadows, Environment } from '@react-three/drei'
-import { ACESFilmicToneMapping, sRGBEncoding, BackSide } from 'three'
+import { OrbitControls, BakeShadows } from '@react-three/drei'
+import { ACESFilmicToneMapping, sRGBEncoding } from 'three'
 import { Loading } from '@components/etc'
-import { useWindowSize } from '@/utils/hooks'
-import { BrokenCloud, Cloud, Ocean, Rain, RigCamera, Star, SunLight } from './modules'
+import { getBackgroundColor, getEnvironmentColor, getEnvMapIntensity, getFogColor, getSunIntensity, getSunLightColor } from '@/utils'
+import { Clouds, Fog, Ocean, Rain, RigCamera, Star, SunLight, WeatherEnvironment } from './modules'
 import s from '@styles/home/Portal.module.css'
 import axios from 'axios'
 
@@ -13,37 +13,10 @@ extend({ OrbitControls })
 const Model= lazy(() => import('./modules/Model'))
 
 export default function Portal () {
-    const { width } = useWindowSize()
-
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
     const [timePoint, setTimePoint] = useState('')
     const [currentWeather, setCurrentWeather] = useState('')
-
-    const bgEvening = 'linear-gradient(0deg, rgba(212, 139, 0, 1) 28%, rgba(174, 21, 58, 1) 61%, rgba(68, 4, 116, 1) 84%, rgba(43, 7, 110, 1) 91%, rgba(1, 3, 93, 1) 99%)',
-          bgNight = 'linear-gradient(0deg, rgba(15, 32, 114, 1) 8%, rgba(10, 8, 105, 1) 47%, rgba(9, 7, 90, 1) 90%)',
-          bgLunch = data?.rain ? '#eee' : 'linear-gradient(0deg, rgba(116, 201, 246, 1) 8%, rgba(73, 160, 255, 1) 47%, rgba(60, 121, 255, 1) 90%)'
-
-
-    const getEnvironmentColor = () => {
-        let environmentColor = ''
-        switch (timePoint) {
-            case 'evening':
-                // environmentColor = '#B45DD1'
-                currentWeather === 'sky is clear' || currentWeather === 'few clouds' || currentWeather === 'scattered clouds' ? environmentColor = '#B45DD1' : environmentColor = '#9E81C2'
-                break
-            case 'night':
-                environmentColor = '#694DDC'
-                break
-            case 'lunch':
-                currentWeather === 'sky is clear' || currentWeather === 'few clouds' || currentWeather === 'scattered clouds' ? environmentColor = '#ABCEE7' : environmentColor = '#849BA9'
-                break
-            default:
-                environmentColor = 'red'
-                break
-        }
-        return environmentColor
-    }
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -89,18 +62,32 @@ export default function Portal () {
             const nightPoint = currentHour < 3 || currentHour + (currentMinute / 100) >= (sunsetHour + (sunsetMinute / 100)) + areaMinute
             // 朝～昼、夕方または明け方、夜の判定。
             // 日の出時間（日の出から45分経過）～日没時間（日没から45分経過）
-            sunsetPoint || sunrisePoint ? setTimePoint('evening') : nightPoint ? setTimePoint('night') : setTimePoint('lunch')
 
-            data?.weather.forEach(w => w.main === 'Clouds' && setCurrentWeather(w.description))
+            // sunsetPoint || sunrisePoint ? setTimePoint('evening') : nightPoint ? setTimePoint('night') : setTimePoint('lunch')
+            setTimePoint('night')
 
+            // setCurrentWeather(data.weather[0].description)
+
+            /* -------------------
+
+            "clear sky" 
+            "few clouds"
+            "scattered clouds"
+            "broken clouds"
+            "overcast clouds"
+            
+            ---------------------- */
+            
+            setCurrentWeather("clear sky")
             setLoading(false)
 
             console.log(data)
+            console.log(currentWeather)
+            console.log(timePoint)
         }
-        
     }, [data])
         
-    if (!loading) {
+    // if (!loading) {
         return (
             <div className={s.portal}>
                 <Suspense fallback={<Loading />}>
@@ -118,58 +105,41 @@ export default function Portal () {
                             far: 200,
                         }}
                         className={s.canvas}
-                        style={{background: timePoint === 'evening' ? bgEvening : timePoint === 'night' ? bgNight : bgLunch, zIndex: 1000}}
+                        style={{ background: data && getBackgroundColor(timePoint), zIndex: 1000 }}
                     >
                         {/* 薄曇、散在雲、切雲、厚雲のとき追加。曇り度によって透明度を制御 */}
-                        {(currentWeather === 'broken clouds' || currentWeather === 'scattered clouds' || currentWeather === 'few clouds' || currentWeather === 'overcast clouds') && 
-                            <Environment background>
-                                <mesh>
-                                    <boxBufferGeometry args={[100, 100, 100]} />
-                                    <meshBasicMaterial
-                                        color={timePoint === 'evening' ? '#916CB5' : timePoint === 'night' ? '#3F226A' : '#8DA1AA'}
-                                        side={BackSide}
-                                        transparent={true}
-                                        opacity={data?.clouds?.all / 100}
-                                    />
-                                </mesh>
-                            </Environment>
-                        }
-                        {/* 雨の時 */}
-                        {data?.rain &&
-                            <fog
-                                attach="fog"
-                                color={timePoint === 'evening' ? '#67517D' : timePoint === 'night' ? '#341E55' : '#8DA1AA'}
-                                near={width < 768 ? 35 : 10}
-                                far={width < 768 ? 40 : 25}
-                            />
-                        }
-                        <SunLight
-                            color={getEnvironmentColor()}
-                            intensity={currentWeather === 'Clouds' ? 1.5 : 2}
-                        />
-                        {/* 薄曇、散在雲、切雲、厚雲の状態によって環境光の輝度を制御 */}
-                        <Model
+                        <WeatherEnvironment
+                            background={true}
                             timePoint={timePoint}
-                            intensity={currentWeather === 'broken clouds' ? 0.8 : currentWeather === 'scattered clouds' ? 1.0 : currentWeather === 'few clouds' ? 1.2 : currentWeather === 'overcast clouds' && 0.4}
+                            currentWeather={currentWeather}
+                            cloudsAll={data?.clouds?.all}
+                            color={getEnvironmentColor(timePoint)}
                         />
+                        {/* 雨の時 */}
+                        <Fog
+                            humidity={data?.main?.humidity}
+                            color={getFogColor(timePoint)}
+                        />
+                        <SunLight
+                            color={getSunLightColor(currentWeather, timePoint)}
+                            intensity={getSunIntensity(currentWeather, timePoint)}
+                        />
+                        {/* 薄曇、散在雲、切雲、厚雲、晴れ、雨の状態によって環境光の輝度を制御 */}
+                        <Model envMapIntensity={getEnvMapIntensity(currentWeather, timePoint, 'model')} />
                         {/* 雨の時、シーンに追加 */}
                         <Ocean
                             timePoint={timePoint}
                             visible={data?.rain !== undefined ? true : false}
-                            />
-                        <Star />
+                        />
+                        <Star opacity={data?.clouds?.all} />
                         {/* 薄曇、散在雲、切雲のときはBrokenCloudでそれ以外はCloud */}
-                        {currentWeather === 'broken clouds' || currentWeather === 'scattered clouds' || currentWeather === 'few clouds' ?
-                            <BrokenCloud
-                                opacity={data?.clouds?.all}
-                                intensity={currentWeather === 'broken clouds' ? 2 : currentWeather === 'scattered clouds' ? 2.5 : currentWeather === 'few clouds' && 3}
-                            />
-                            :
-                            <Cloud
-                                opacity={data?.clouds?.all}
-                                intensity={1}
-                            />
-                        }
+                        <Clouds
+                            opacity={data?.clouds?.all}
+                            intensity={getEnvMapIntensity(currentWeather, timePoint, 'clouds')}
+                            thinCloudVisible={currentWeather === 'broken clouds' || currentWeather === 'scattered clouds' || currentWeather === 'few clouds' && true}
+                            thickCloudVisible={currentWeather === 'overcast clouds' || currentWeather === 'rain' && true}
+                        />
+                        {/* 星 */}
                         <RigCamera />
                         {/* <OrbitControls /> */}
                         <BakeShadows bias={- 0.3} />
@@ -178,7 +148,8 @@ export default function Portal () {
                 </Suspense>
             </div>
         )
-    } else {
-        return <Loading />
-    }
+    // } 
+    //else {
+    //     return <Loading />
+    // }
 }
