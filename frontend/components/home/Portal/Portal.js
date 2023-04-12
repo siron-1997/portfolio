@@ -81,21 +81,21 @@ export default function Portal () {
             const currentMinute = currentTime.getMinutes(),
                   sunriseMinute = sunriseTime.getMinutes(),
                   sunsetMinute = sunsetTime.getMinutes()
-            // 15時以降～日没時間（日没から45分経過）の間
+            // 15時以降～日没時間（日没から45分経過）
             const sunsetPoint = currentHour >= 15 && currentHour + (currentMinute / 100) < (sunsetHour + (sunsetMinute / 100)) + areaMinute
-            // 3時以降～日の出時間（日の出から45分経過）の間
+            // 3時以降～日の出時間（日の出から45分経過）
             const sunrisePoint = currentHour >= 3 && currentHour + (currentMinute / 100) < (sunriseHour + (sunriseMinute / 100)) + areaMinute
-            // 日没時間（日没から45分経過）～ 3時以前の間
+            // 日没時間（日没から45分経過）～ 3時以前
             const nightPoint = currentHour < 3 || currentHour + (currentMinute / 100) >= (sunsetHour + (sunsetMinute / 100)) + areaMinute
             // 朝～昼、夕方または明け方、夜の判定。
-            // 日の出時間（日の出から45分経過）～日没時間（日没から45分経過）の間
+            // 日の出時間（日の出から45分経過）～日没時間（日没から45分経過）
             sunsetPoint || sunrisePoint ? setTimePoint('evening') : nightPoint ? setTimePoint('night') : setTimePoint('lunch')
 
             data?.weather.forEach(w => w.main === 'Clouds' && setCurrentWeather(w.description))
 
             setLoading(false)
 
-            // console.log(timePoint)
+            console.log(data)
         }
         
     }, [data])
