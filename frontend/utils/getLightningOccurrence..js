@@ -1,7 +1,12 @@
 export default function getLightningOccurrence(currentWeather) {
-    const position = {
-        x: 0,
-        z: 0
+    console.log('lightning occurrence test', currentWeather)
+
+    const configs = {
+        position: {
+            x: 0, z: 0
+        },
+        radiusRange: 0,
+        visible: false
     }
 
     switch (currentWeather) {
@@ -9,24 +14,30 @@ export default function getLightningOccurrence(currentWeather) {
         case 'thunderstorm with light rain':
         case 'light thunderstorm':
         case 'thunderstorm with light drizzle':
-            position.x = 0
-            position.z = 0
+            configs.position.x = 0
+            configs.position.z = 0
+            configs.radiusRange = 3000
+            configs.visible = true           
             break
         // 雷
         case 'thunderstorm with rain':
         case 'thunderstorm':
         case 'thunderstorm with drizzle':
-            position.x = 0
-            position.z = 0
+            configs.position.x = 0
+            configs.position.z = 0
+            configs.radiusRange = 2000
+            configs.visible = true
             break
         // 強い雷
         case 'thunderstorm with heavy rain':
         case 'heavy thunderstorm':
         case 'thunderstorm with heavy drizzle':
-            position.x = 0
-            position.z = 0
+            configs.position.x = 0
+            configs.position.z = 0
+            configs.radiusRange = 1000
+            configs.visible = true
             break
     }
 
-    return position
+    return configs
 }
