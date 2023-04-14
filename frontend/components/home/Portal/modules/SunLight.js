@@ -12,7 +12,7 @@ export default function SunLight({ color, intensity }) {
 
     useEffect(() => {
         directionalLightHelper.current.visible = false
-    }, [])
+    }, [directionalLightHelper])
 
     return (
         <directionalLight

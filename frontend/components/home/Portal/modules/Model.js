@@ -1,10 +1,9 @@
-import { memo } from 'react'
 import { useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { Mesh, MeshStandardMaterial } from 'three'
 import { treeMat, leavesMat_1, leavesMat_2, leavesMat_3, leavesMat_5 } from '@assets/mountain-materials'
 
-const Model = memo(({ envMapIntensity }) => {
+export default function Model({ envMapIntensity }) {
     const model = useGLTF('models/gltf/mountain.glb')
     model.scene.name = 'mountain'
 
@@ -71,6 +70,4 @@ const Model = memo(({ envMapIntensity }) => {
             <primitive object={model.scene} />
         </group>
     )
-})
-
-export default Model
+}

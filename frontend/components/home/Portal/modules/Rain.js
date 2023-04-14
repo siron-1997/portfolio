@@ -74,7 +74,7 @@ export default function Rain({ currentWeather, data }) {
             }
             draw()
         }
-    }, [currentWeather])
+    }, [currentWeather, data])
 
     return (
         <div className={s.rain_container}>

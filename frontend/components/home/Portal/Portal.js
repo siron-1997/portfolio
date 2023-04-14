@@ -76,7 +76,7 @@ export default function Portal () {
         }
     }, [data])
         
-    if (!loading) {
+    // if (!loading) {
         return (
             <div className={s.portal}>
                 <Suspense fallback={<Loading />}>
@@ -159,7 +159,8 @@ export default function Portal () {
                 </Suspense>
             </div>
         )
-    } else {
-        return <Loading />
-    }
+    // }
+    // else {
+    //     return <Loading />
+    // }
 }
