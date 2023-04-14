@@ -1,18 +1,15 @@
 import { Environment } from '@react-three/drei'
-import { BackSide } from 'three'
+import { BackSide, Color } from 'three'
 
-export default function WeatherEnvironment({
-    background, timePoint, currentWeather, cloudsAll, color
-}) {
+export default function WeatherEnvironment({ background, color }) {
     return (
         <Environment background={background}>
             <mesh name='env cube'>
                 <boxGeometry args={[200, 200, 200]} />
                 <meshBasicMaterial
-                    color={color}
+                    color={new Color(color)}
                     side={BackSide}
                     transparent={true}
-                    // opacity={timePoint === 'night' ? 0.2 : cloudsAll / 100} // 雲の密度 0 ~ 1
                     opacity={0.2}
                 />
             </mesh>

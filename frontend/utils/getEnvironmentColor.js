@@ -11,7 +11,7 @@ export default function getEnvironmentColor(timePoint) {
             environmentColor = envColors.night.environment
             break
         case 'lunch':
-            environmentColor = envColors.night.environment
+            environmentColor = envColors.lunch.environment
             break
         default:
             break

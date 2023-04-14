@@ -1,11 +1,10 @@
 export default function getLightningOccurrence(currentWeather) {
-    console.log('lightning occurrence test', currentWeather)
+    let currentPower = 0
 
     const configs = {
-        position: {
-            x: 0, z: 0
-        },
-        radiusRange: 0,
+        power: () => 0,
+        positionX: () => null,
+        positionZ: () => null,
         visible: false
     }
 
@@ -14,28 +13,36 @@ export default function getLightningOccurrence(currentWeather) {
         case 'thunderstorm with light rain':
         case 'light thunderstorm':
         case 'thunderstorm with light drizzle':
-            configs.position.x = 0
-            configs.position.z = 0
-            configs.radiusRange = 3000
+            configs.power = value => {
+                currentPower = Math.random() * value
+                return currentPower >= 5 ? 5 : currentPower
+            }
+            configs.positionX = value => (Math.random() * (value * 3)) - (value / 2)
+            configs.positionZ = value => (Math.random() * (value * 3)) - (value / 2)
             configs.visible = true           
             break
         // 雷
         case 'thunderstorm with rain':
         case 'thunderstorm':
         case 'thunderstorm with drizzle':
-            configs.position.x = 0
-            configs.position.z = 0
-            configs.radiusRange = 2000
+            configs.power = value => {
+                currentPower = Math.random() * value
+                return currentPower >= 10 ? 10 : currentPower
+            }
+            configs.positionX = value => (Math.random() * (value * 2)) - (value / 2)
+            configs.positionZ = value => (Math.random() * (value * 2)) - (value / 2)
             configs.visible = true
             break
         // 強い雷
         case 'thunderstorm with heavy rain':
         case 'heavy thunderstorm':
         case 'thunderstorm with heavy drizzle':
-            configs.position.x = 0
-            configs.position.z = 0
-            configs.radiusRange = 1000
+            configs.power = value => Math.random() * value
+            configs.positionX = value => (Math.random() * value) - (value / 2)
+            configs.positionZ = value => (Math.random() * value) - (value / 2)
             configs.visible = true
+            break
+        default:
             break
     }
 

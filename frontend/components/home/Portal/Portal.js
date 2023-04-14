@@ -3,14 +3,20 @@ import { Canvas, extend } from '@react-three/fiber'
 import { OrbitControls, BakeShadows } from '@react-three/drei'
 import { ACESFilmicToneMapping, sRGBEncoding } from 'three'
 import { Loading } from '@components/etc'
-import { getBackgroundColor, getEnvironmentColor, getEnvMapIntensity, getFogColor, getSunIntensity, getSunLightColor } from '@/utils'
-import { Clouds, Fog, Ocean, Rain, RigCamera, Star, SunLight, WeatherEnvironment } from './modules'
+import {
+    getBackgroundColor,
+    getEnvironmentColor,
+    getEnvMapIntensity,
+    getFogColor,
+    getLightningOccurrence,
+    getSunIntensity,
+    getSunLightColor
+} from '@/utils'
+import { Clouds, Fog, Lightning, Ocean, Rain, RigCamera, Star, SunLight, WeatherEnvironment } from './modules'
 import s from '@styles/home/Portal.module.css'
 import axios from 'axios'
 
 extend({ OrbitControls })
-
-
 
 const Model= lazy(() => import('./modules/Model'))
 
@@ -64,32 +70,13 @@ export default function Portal () {
             const nightPoint = currentHour < 3 || currentHour + (currentMinute / 100) >= (sunsetHour + (sunsetMinute / 100)) + areaMinute
             // 朝～昼、夕方または明け方、夜の判定。
             // 日の出時間（日の出から45分経過）～日没時間（日没から45分経過）
-
-            // sunsetPoint || sunrisePoint ? setTimePoint('evening') : nightPoint ? setTimePoint('night') : setTimePoint('lunch')
-            setTimePoint('lunch')
-
-            // setCurrentWeather(data.weather[0].description)
-
-            /* -------------------
-
-            "clear sky" 
-            "few clouds"
-            "scattered clouds"
-            "broken clouds"
-            "overcast clouds"
-            
-            ---------------------- */
-            
-            setCurrentWeather("clear sky")
+            sunsetPoint || sunrisePoint ? setTimePoint('evening') : nightPoint ? setTimePoint('night') : setTimePoint('lunch')
+            setCurrentWeather(data.weather[0].description)
             setLoading(false)
-
-            console.log(data)
-            console.log(currentWeather)
-            console.log(timePoint)
         }
     }, [data])
         
-    // if (!loading) {
+    if (!loading) {
         return (
             <div className={s.portal}>
                 <Suspense fallback={<Loading />}>
@@ -107,15 +94,13 @@ export default function Portal () {
                             far: 200,
                         }}
                         className={s.canvas}
-                        style={{ background: data && getBackgroundColor(timePoint), zIndex: 1000 }}
+                        style={{
+                            background: data && getBackgroundColor(timePoint)
+                        }}
                     >
                         {/* 薄曇、散在雲、切雲、厚雲のとき追加。曇り度によって透明度を制御 */}
                         <WeatherEnvironment
                             background={true}
-                            timePoint={timePoint}
-                            currentWeather={currentWeather}
-                            // cloudsAll={data?.clouds?.all}
-                            cloudsAll={100}
                             color={getEnvironmentColor(timePoint)}
                         />
                         {/* 雨の時 */}
@@ -130,33 +115,51 @@ export default function Portal () {
                         {/* 薄曇、散在雲、切雲、厚雲、晴れ、雨の状態によって環境光の輝度を制御 */}
                         <Model envMapIntensity={getEnvMapIntensity(currentWeather, timePoint, 'model')} />
                         {/* 雨の時、シーンに追加 */}
-                        <Ocean
-                            // visible={data?.rain !== undefined ? true : false}
-                            visible={true}
-                        />
+                        <Ocean visible={data?.rain !== undefined ? true : false} />
+                        {/* 星 */}
                         <Star
                             opacity={data?.clouds?.all}
                             timePoint={timePoint}
                         />
                         {/* 薄曇、散在雲、切雲のときはBrokenCloudでそれ以外はCloud */}
                         <Clouds
-                            // opacity={data?.clouds?.all}
-                            opacity={95}
+                            opacity={data?.clouds?.all}
                             envMapIntensity={getEnvMapIntensity(currentWeather, timePoint, 'clouds')}
-                            thinCloudVisible={currentWeather === 'broken clouds' || currentWeather === 'scattered clouds' || currentWeather === 'few clouds' && true}
-                            thickCloudVisible={currentWeather === 'overcast clouds' || currentWeather === 'rain' && true}
+                            thinCloudVisible={
+                                currentWeather === 'broken clouds' ||
+                                currentWeather === 'scattered clouds' ||
+                                currentWeather === 'overcast clouds' && true
+                            }
+                            thickCloudVisible={
+                                currentWeather === 'light rain' ||
+                                currentWeather === 'moderate rain' ||
+                                currentWeather === 'heavy intensity rain' ||
+                                currentWeather === 'very heavy rain' ||
+                                currentWeather === 'extreme rain' ||
+                                currentWeather === 'light intensity shower rain' ||
+                                currentWeather === 'shower rain' ||
+                                currentWeather === 'heavy intensity shower rain' ||
+                                currentWeather === 'ragged shower rain' ||
+                                currentWeather === 'thunderstorm with light rain' ||
+                                currentWeather === 'thunderstorm with rain' ||
+                                currentWeather === 'thunderstorm with heavy rain' ||
+                                currentWeather === 'overcast clouds' && true
+                            }
                         />
-                        {/* 星 */}
+                        {/* 雷 */}
+                        <Lightning configs={getLightningOccurrence(currentWeather)} />
                         <RigCamera />
                         {/* <OrbitControls /> */}
-                        {/* <BakeShadows bias={- 0.3} /> */}
+                        <BakeShadows bias={- 0.3} />
                     </Canvas>
-                    <Rain data={data} />
+                    <Rain
+                        currentWeather={currentWeather}
+                        data={data}
+                    />
                 </Suspense>
             </div>
         )
-    // } 
-    //else {
-    //     return <Loading />
-    // }
+    } else {
+        return <Loading />
+    }
 }

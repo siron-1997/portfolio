@@ -20,7 +20,7 @@ const Model = memo(({ envMapIntensity }) => {
             color: color,
             envMap: environment,
             envMapIntensity: envMapIntensity,
-            roughness: 0.45,
+            roughness: 0.4,
             name: name
         })
         return material
@@ -55,10 +55,12 @@ const Model = memo(({ envMapIntensity }) => {
             }
             child.material.needsUpdate = true
             child.castShadow = true
+            child.receiveShadow = true
         } else {
             child.children.forEach(mesh => {
                 mesh.material = createMaterial(mesh.material.color, environment, mesh.material.name)
                 mesh.material.needsUpdate = true
+                mesh.castShadow = true
                 mesh.receiveShadow = true
             })
         }

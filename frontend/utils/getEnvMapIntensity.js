@@ -10,7 +10,7 @@ const setTimePointIntensity = (value, timePoint, type) => {
                 intensity = value - 1
                 break
             case 'lunch':
-                intensity = value + 9
+                intensity = value + 8
                 break
             default:
                 break
@@ -18,13 +18,13 @@ const setTimePointIntensity = (value, timePoint, type) => {
     } else if (type === 'clouds') {
         switch (timePoint) {
             case 'night':
-                intensity = value + 20
+                intensity = value + 50
                 break
             case 'evening':
                 intensity = value + 2
                 break
             case 'lunch':
-                intensity = value + 30
+                intensity = value + 100
                 break
             default:
                 break

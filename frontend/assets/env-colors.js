@@ -1,28 +1,28 @@
 export const envColors = {
     evening: {
-        fog: 'rgb(122, 24, 147)',
-        clearSky: 'rgb(188, 79, 155)',
-        thinCloud: 'rgb(180, 93, 209, 1)',
-        thickCloud: 'rgb(158, 129, 194)',
-        background: 'linear-gradient(0deg, rgba(212, 139, 0, 1) 28%, rgba(174, 21, 58, 1) 61%, rgba(68, 4, 116, 1) 84%, rgba(43, 7, 110, 1) 91%, rgba(1, 3, 93, 1) 99%)',
-        environment: 'rgb(155, 42, 192)'
+        fog: 0x7D577C,
+        clearSky:  0xAA58AA,
+        thinCloud: 0xb45dd1,
+        thickCloud: 0x83719D,
+        background: 'linear-gradient(180deg, rgba(99,72,198,1) 0%, rgba(110,46,166,1) 7%, rgba(227,73,121,1) 32%, rgba(241,145,66,1) 50%)',
+        environment: 0x9b2ac0
     },
     night: {
-        fog: 'rgb(52, 30, 85)',
-        clearSky: 'rgb(105, 67, 169)',
-        thinCloud: 'rgb(105, 67, 169)',
-        thickCloud: 'rgb(105, 67, 169)',
+        fog: 0x341e55,
+        clearSky: 0x6943a9,
+        thinCloud: 0x6943a9,
+        thickCloud: 0x6943a9,
         background: 'linear-gradient(180deg, rgba(26,3,74,1) 0%, rgba(61,118,170,1) 0%, rgba(90,67,142,1) 25%, rgba(48,7,87,1) 50%',
-        environment: '#653492'
+        environment: 0x4d206d
     },
     lunch: {
-        fog: '#B4BD90',
-        clearSky: 'rgb(171, 206, 231)',
-        thinCloud: '#BFB4C9',
-        thickCloud: '#BEA570',
-        background: 'linear-gradient(180deg, rgba(26,3,74,1) 0%, rgba(84,116,195,1) 0%, rgba(99,141,210,1) 20%, rgba(100,156,176,1) 40%)',
-        environment: '#E6C069'
+        fog: 0x899596,
+        clearSky: 0xADAEA5,
+        thinCloud: 0xADAEA5,
+        thickCloud: 0xB0AF94,
+        background: 'linear-gradient(180deg, rgba(87,65,170,1) 0%, rgba(66,98,177,1) 5%, rgba(99,139,205,1) 15%, rgba(113,187,213,1) 25%, rgba(154,214,214,1) 35%)',
+        environment: 0x3D4645
     }
 }
 
-// rgb(141, 161, 170) rgb(141, 174, 210) #A2C6C4 rgb(132, 155, 169) rgb(63, 34, 106) #E6C069 #A199A9
+export const lightningColor = 0x55A5EB

@@ -3,13 +3,13 @@ const setTimePointIntensity = (value, timePoint) => {
 
     switch (timePoint) {
         case 'evening':
-            intensity = value - 0.5
+            intensity = value - 0.0
             break
         case 'night':
-            intensity = value + 0.2
+            intensity = value + 0.3
             break
         case 'lunch':
-            intensity = value - 0.8
+            intensity = value - 0.5
         default:
             break
     }
