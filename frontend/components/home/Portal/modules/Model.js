@@ -1,20 +1,25 @@
 import { useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import { Color, Mesh, MeshStandardMaterial } from 'three'
+import { Mesh, MeshStandardMaterial } from 'three'
+import { treeMat, leavesMat_1, leavesMat_2, leavesMat_3, leavesMat_5 } from '@assets/mountain-materials'
 
-export default function Model({ timePoint, intensity }) {
+export default function Model({ envMapIntensity }) {
     const model = useGLTF('models/gltf/mountain.glb')
     model.scene.name = 'mountain'
 
     const { scene } = useThree()
     const environment = scene.environment
 
+    // 各マテリアルに環境マップと環境光を設定
+    treeMat.envMap = leavesMat_1.envMap = leavesMat_2.envMap = leavesMat_3.envMap = leavesMat_5.envMap = environment
+    treeMat.envMapIntensity = leavesMat_1.envMapIntensity = leavesMat_2.envMapIntensity = leavesMat_3.envMapIntensity = leavesMat_5.envMapIntensity = envMapIntensity
+
     const createMaterial = (color, environment, name) => {
         const material = new MeshStandardMaterial({
             color: color,
             envMap: environment,
-            envMapIntensity: intensity,
-            roughness: 0.45,
+            envMapIntensity: envMapIntensity,
+            roughness: 0.4,
             name: name
         })
         return material
@@ -22,21 +27,47 @@ export default function Model({ timePoint, intensity }) {
 
     model.scene.children.forEach(child => {
         if (child instanceof Mesh) {
-            const matColor = child.material.color
-            const color = new Color(matColor.r, matColor.g, matColor.b)
-            child.material = createMaterial(color, environment, child.material.name)
+            if (child.material.name.match(/^Tree|^Three/)) {
+                treeMat.color = child.material.color
+                treeMat.needsUpdate = true
+                child.material = treeMat
+            }
+            else if (child.material.name.match(/^Leaves_1/)) {
+                leavesMat_1.color = child.material.color
+                leavesMat_1.needsUpdate = true
+                child.material = leavesMat_1
+            }
+            else if (child.material.name.match(/^Leaves_2/)) {
+                leavesMat_2.color = child.material.color
+                leavesMat_2.needsUpdate = true
+                child.material = leavesMat_2
+            }
+            else if (child.material.name.match(/^Leaves_3/)) {
+                leavesMat_3.color = child.material.color
+                leavesMat_3.needsUpdate = true
+                child.material = leavesMat_3
+            }
+            else if (child.material.name.match(/^Leaves_5/)) {
+                leavesMat_5.color = child.material.color
+                leavesMat_5.needsUpdate = true
+                child.material = leavesMat_5
+            }
             child.material.needsUpdate = true
             child.castShadow = true
+            child.receiveShadow = true
         } else {
             child.children.forEach(mesh => {
-                const matColor = mesh.material.color
-                const color = new Color(matColor.r, matColor.g, matColor.b)
-                mesh.material = createMaterial(color, environment, mesh.material.name)
+                mesh.material = createMaterial(mesh.material.color, environment, mesh.material.name)
                 mesh.material.needsUpdate = true
+                mesh.castShadow = true
                 mesh.receiveShadow = true
             })
         }
     })
 
-    return <primitive object={model.scene} />
+    return (
+        <group renderOrder={0} name='mountain'>
+            <primitive object={model.scene} />
+        </group>
+    )
 }

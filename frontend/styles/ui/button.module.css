@@ -1,5 +1,6 @@
 /* Hamburger */
 .hamburger {
+    position: relative;
     width: 40px;
     height: 40px;
     cursor: pointer;
@@ -7,6 +8,7 @@
 
 /* Close */
 .close {
+    position: relative;
     width: 40px;
     height: 40px;
     cursor: pointer;

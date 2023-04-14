@@ -8,7 +8,7 @@ export default function Layout({ children, metaProps }) {
     return (
         <>
             <Meta {...metaProps} />
-            <Header/>
+            {/* <Header/> */}
             <main>{children}</main>
             <Footer/>
             <BackTop />

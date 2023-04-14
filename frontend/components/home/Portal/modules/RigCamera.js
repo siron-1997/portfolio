@@ -39,7 +39,6 @@ export default function RigCamera() {
             }
         } else if (width < 768) {
             camera.position.set(- 3, 5.2, 28.8)
-            console.log(camera.position)
             group.position.y = - 0.5
             water.position.y = group.position.y - 0.1
         }

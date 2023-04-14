@@ -8,11 +8,11 @@ export default function SunLight({ color, intensity }) {
     const directionalLightHelper = useHelper(directionalLightRef, DirectionalLightHelper, 1)
 
     const mapSize = 512,
-          halfSize = 10
+          halfSize = 20
 
     useEffect(() => {
         directionalLightHelper.current.visible = false
-    }, [])
+    }, [directionalLightHelper])
 
     return (
         <directionalLight

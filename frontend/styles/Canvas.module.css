@@ -8,3 +8,20 @@
     height: 100vh;
     z-index: 10;
 }
+
+/* Rain canvas */
+.rain_container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 20;
+    overflow: hidden;
+}
+
+.rain_canvas {
+    position: relative;
+}
