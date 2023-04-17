@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState, useRef } from 'react'
 import { Canvas, extend } from '@react-three/fiber'
 import { OrbitControls, BakeShadows } from '@react-three/drei'
 import { ACESFilmicToneMapping, sRGBEncoding } from 'three'
@@ -25,6 +25,16 @@ export default function Portal () {
     const [loading, setLoading] = useState(true)
     const [timePoint, setTimePoint] = useState('')
     const [currentWeather, setCurrentWeather] = useState('')
+    const [weatherParams, setWeatherParams] = useState({            
+        bgColor: '',              // キャンバス背景色
+        envColor: '',             // シーン環境色
+        fogColor: '',             // 霧色
+        sunColor: '',             // 太陽光色
+        sunIntensity: 0,          // 太陽光輝度
+        modelEnvMapIntensity: 0,
+        cloudsEnvMapIntensity: 0,
+        lightningOccurrence: 0 
+})
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -73,10 +83,25 @@ export default function Portal () {
             sunsetPoint || sunrisePoint ? setTimePoint('evening') : nightPoint ? setTimePoint('night') : setTimePoint('lunch')
             setCurrentWeather(data.weather[0].description)
             setLoading(false)
+
+            console.log(data)
         }
     }, [data])
+
+    useEffect(() => {
+        setWeatherParams({
+            bgColor: getBackgroundColor(timePoint),
+            envColor: getEnvironmentColor(timePoint),
+            fogColor: getFogColor(timePoint),
+            sunColor: getSunLightColor(currentWeather, timePoint),
+            sunIntensity: getSunIntensity(currentWeather, timePoint),
+            modelEnvMapIntensity: getEnvMapIntensity(currentWeather, timePoint, 'model'),
+            cloudsEnvMapIntensity: getEnvMapIntensity(currentWeather, timePoint, 'clouds'),
+            lightningOccurrence: getLightningOccurrence(currentWeather)
+        })
+    }, [loading])
         
-    // if (!loading) {
+    if (!loading) {
         return (
             <div className={s.portal}>
                 <Suspense fallback={<Loading />}>
@@ -94,37 +119,24 @@ export default function Portal () {
                             far: 200,
                         }}
                         className={s.canvas}
-                        style={{
-                            background: data && getBackgroundColor(timePoint)
-                        }}
+                        style={{ background: weatherParams.bgColor }}
                     >
                         {/* 薄曇、散在雲、切雲、厚雲のとき追加。曇り度によって透明度を制御 */}
-                        <WeatherEnvironment
-                            background={true}
-                            color={getEnvironmentColor(timePoint)}
-                        />
-                        {/* 雨の時 */}
-                        <Fog
-                            humidity={data?.main?.humidity}
-                            color={getFogColor(timePoint)}
-                        />
-                        <SunLight
-                            color={getSunLightColor(currentWeather, timePoint)}
-                            intensity={getSunIntensity(currentWeather, timePoint)}
-                        />
+                        <WeatherEnvironment background={true} color={weatherParams.envColor} />
+                        {/* 霧 */}
+                        <Fog humidity={data?.main?.humidity} color={weatherParams.fogColor} />
+                        {/* 太陽 */}
+                        <SunLight color={weatherParams.sunColor} intensity={weatherParams.sunIntensity} />
                         {/* 薄曇、散在雲、切雲、厚雲、晴れ、雨の状態によって環境光の輝度を制御 */}
-                        <Model envMapIntensity={getEnvMapIntensity(currentWeather, timePoint, 'model')} />
+                        <Model envMapIntensity={weatherParams.modelEnvMapIntensity} />
                         {/* 雨の時、シーンに追加 */}
                         <Ocean visible={data?.rain !== undefined ? true : false} />
                         {/* 星 */}
-                        <Star
-                            opacity={data?.clouds?.all}
-                            timePoint={timePoint}
-                        />
+                        <Star opacity={data?.clouds?.all} timePoint={timePoint} />
                         {/* 薄曇、散在雲、切雲のときはBrokenCloudでそれ以外はCloud */}
                         <Clouds
                             opacity={data?.clouds?.all}
-                            envMapIntensity={getEnvMapIntensity(currentWeather, timePoint, 'clouds')}
+                            envMapIntensity={weatherParams.cloudsEnvMapIntensity}
                             thinCloudVisible={
                                 currentWeather === 'broken clouds' ||
                                 currentWeather === 'scattered clouds' ||
@@ -147,20 +159,16 @@ export default function Portal () {
                             }
                         />
                         {/* 雷 */}
-                        <Lightning configs={getLightningOccurrence(currentWeather)} />
+                        <Lightning configs={weatherParams.lightningOccurrence} />
                         <RigCamera />
                         {/* <OrbitControls /> */}
                         <BakeShadows bias={- 0.3} />
                     </Canvas>
-                    <Rain
-                        currentWeather={currentWeather}
-                        data={data}
-                    />
+                    <Rain data={data} currentWeather={currentWeather} />
                 </Suspense>
             </div>
         )
-    // }
-    // else {
-    //     return <Loading />
-    // }
+    } else {
+        return <Loading />
+    }
 }
