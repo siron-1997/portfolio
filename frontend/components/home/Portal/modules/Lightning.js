@@ -19,8 +19,7 @@ export default function Lightning({ configs }) {
                             configs.positionZ(10)
                         )
                     }
-                    child.power = configs.power(80)
-                }
+                    child.power = configs.power !== undefined && configs.power(80)                }
             }
         })
     })
