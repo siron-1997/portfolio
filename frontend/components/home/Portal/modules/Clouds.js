@@ -10,7 +10,7 @@ export default function Clouds({ opacity, envMapIntensity, currentWeather }) {
     const clouds = {
         thinCloud: {
             texture: useTexture(
-                '/images/textures/broken_cloud.png',
+                '/images/textures/thin_cloud.png',
                 texture => {
                     texture.wrapS = texture.wrapT = RepeatWrapping
                 }
@@ -35,7 +35,7 @@ export default function Clouds({ opacity, envMapIntensity, currentWeather }) {
         },
         thickCloud: {
             texture: useTexture(
-                '/images/textures/cloud.png',
+                '/images/textures/thick_cloud.png',
                 texture => {
                     texture.wrapS = texture.wrapT = RepeatWrapping
                     texture.repeat.x = texture.repeat.y = 7
