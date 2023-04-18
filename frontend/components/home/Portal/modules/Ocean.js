@@ -5,9 +5,6 @@ import { Water } from 'three/examples/jsm/objects/Water'
 
 extend({ Water })
 
-// #98BFC7
-// default 0xeb8934 0x0064b5
-
 export default function Ocean({ visible }) {
     const waterRef = useRef()
 
