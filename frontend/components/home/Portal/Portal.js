@@ -82,26 +82,23 @@ export default function Portal () {
             // 日の出時間（日の出から45分経過）～日没時間（日没から45分経過）
             sunsetPoint || sunrisePoint ? setTimePoint('evening') : nightPoint ? setTimePoint('night') : setTimePoint('lunch')
             setCurrentWeather(data.weather[0].description)
+            setWeatherParams({
+                bgColor: getBackgroundColor(timePoint),
+                envColor: getEnvironmentColor(timePoint),
+                fogColor: getFogColor(timePoint),
+                sunColor: getSunLightColor(currentWeather, timePoint),
+                sunIntensity: getSunIntensity(currentWeather, timePoint),
+                modelEnvMapIntensity: getEnvMapIntensity(currentWeather, timePoint, 'model'),
+                cloudsEnvMapIntensity: getEnvMapIntensity(currentWeather, timePoint, 'clouds'),
+                lightningOccurrence: getLightningOccurrence(currentWeather)
+            })
             setLoading(false)
 
             console.log(data)
         }
-    }, [data])
-
-    useEffect(() => {
-        setWeatherParams({
-            bgColor: getBackgroundColor(timePoint),
-            envColor: getEnvironmentColor(timePoint),
-            fogColor: getFogColor(timePoint),
-            sunColor: getSunLightColor(currentWeather, timePoint),
-            sunIntensity: getSunIntensity(currentWeather, timePoint),
-            modelEnvMapIntensity: getEnvMapIntensity(currentWeather, timePoint, 'model'),
-            cloudsEnvMapIntensity: getEnvMapIntensity(currentWeather, timePoint, 'clouds'),
-            lightningOccurrence: getLightningOccurrence(currentWeather)
-        })
-    }, [loading])
+    }, [data, loading])
         
-    if (!loading) {
+    // if (!loading) {
         return (
             <div className={s.portal}>
                 <Suspense fallback={<Loading />}>
@@ -137,26 +134,7 @@ export default function Portal () {
                         <Clouds
                             opacity={data?.clouds?.all}
                             envMapIntensity={weatherParams.cloudsEnvMapIntensity}
-                            thinCloudVisible={
-                                currentWeather === 'broken clouds' ||
-                                currentWeather === 'scattered clouds' ||
-                                currentWeather === 'overcast clouds' && true
-                            }
-                            thickCloudVisible={
-                                currentWeather === 'light rain' ||
-                                currentWeather === 'moderate rain' ||
-                                currentWeather === 'heavy intensity rain' ||
-                                currentWeather === 'very heavy rain' ||
-                                currentWeather === 'extreme rain' ||
-                                currentWeather === 'light intensity shower rain' ||
-                                currentWeather === 'shower rain' ||
-                                currentWeather === 'heavy intensity shower rain' ||
-                                currentWeather === 'ragged shower rain' ||
-                                currentWeather === 'thunderstorm with light rain' ||
-                                currentWeather === 'thunderstorm with rain' ||
-                                currentWeather === 'thunderstorm with heavy rain' ||
-                                currentWeather === 'overcast clouds' && true
-                            }
+                            currentWeather={currentWeather}
                         />
                         {/* 雷 */}
                         <Lightning configs={weatherParams.lightningOccurrence} />
@@ -168,7 +146,5 @@ export default function Portal () {
                 </Suspense>
             </div>
         )
-    } else {
-        return <Loading />
-    }
+    // }
 }
