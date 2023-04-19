@@ -22,7 +22,7 @@ export default function getSunIntensity(currentWeather, timePoint) {
 
     currentWeather.forEach(weather => {
         switch (weather.description) {
-            // 雨、雨雲
+            // 雨、雨雲、霧
             case 'light rain':
             case 'moderate rain':
             case 'heavy intensity rain':
@@ -44,6 +44,7 @@ export default function getSunIntensity(currentWeather, timePoint) {
             case 'heavy thunderstorm':
             case 'ragged thunderstorm':
             case 'overcast clouds':
+            case 'mist':
                 sunIntensity = setTimePointIntensity(1.4, timePoint)
                 break
             // 曇り

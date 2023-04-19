@@ -23,7 +23,7 @@ export default function getEnvMapIntensity(currentWeather, timePoint, type) {
 
     currentWeather.forEach(weather => {
         switch (weather.description) {
-            // 雨、雨雲
+            // 雨、雨雲、霧
             case 'light rain':
             case 'moderate rain':
             case 'heavy intensity rain':
@@ -45,6 +45,7 @@ export default function getEnvMapIntensity(currentWeather, timePoint, type) {
             case 'heavy thunderstorm':
             case 'ragged thunderstorm':
             case 'overcast clouds':
+            case 'mist':
                 envMapIntensity = setTimePointIntensity(type === 'model' ? 6.4 : type === 'cloud' && 2.0, timePoint, type)
                 break
             // 曇り

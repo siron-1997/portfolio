@@ -6,7 +6,7 @@ export default function setCloudsVisible(currentWeather) {
 
     currentWeather.forEach(weather => {
         switch (weather.description) {
-            // 雨、雨雲、雷、雷雲
+            // 雨、雨雲、雷、雷雲、霧
             case 'light rain':
             case 'moderate rain':
             case 'heavy intensity rain':
@@ -28,6 +28,7 @@ export default function setCloudsVisible(currentWeather) {
             case 'heavy thunderstorm':
             case 'ragged thunderstorm':
             case 'overcast clouds':
+            case 'mist': 
                 clouds.thick = true
                 break
             // 曇り
