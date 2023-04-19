@@ -2,11 +2,13 @@ import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useHelper } from '@react-three/drei'
 import { PointLightHelper } from 'three'
-import { lightningColor } from '@assets/env-colors'
+import { getLightningOccurrence } from '@/utils'
 
-export default function Lightning({ configs }) {
-    const pointLightRef = useRef()
+export default function Lightning({ currentWeather }) {
+    const pointLightRef = useRef(null)
     const pointLightHelper = useHelper(pointLightRef, PointLightHelper, 100)
+
+    const configs = getLightningOccurrence(currentWeather)
 
     useFrame((state, delta) => {
         state.scene.children.forEach(child => {
@@ -14,13 +16,12 @@ export default function Lightning({ configs }) {
                 if (Math.random() > 0.93 || child.power > 80) {
                     if (child.power < 50) {
                         child.position.set(
-                            configs.positionX(1000),
+                            configs.positionX && configs.positionX(1000),
                             5,
-                            configs.positionZ(10)
+                            configs.positionZ && configs.positionZ(10)
                         )
                     }
-                    child.power = configs.power(80)
-                }
+                    child.power = configs.power && configs.power(80)                }
             }
         })
     })
@@ -31,7 +32,7 @@ export default function Lightning({ configs }) {
 
     return (
         <pointLight
-            color={lightningColor}
+            color={0x55A5EB}
             intensity={100}
             distance={300}
             decay={3}

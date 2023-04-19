@@ -2,13 +2,16 @@ import { useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { Mesh, MeshStandardMaterial } from 'three'
 import { treeMat, leavesMat_1, leavesMat_2, leavesMat_3, leavesMat_5 } from '@assets/mountain-materials'
+import { getEnvMapIntensity } from '@/utils'
 
-export default function Model({ envMapIntensity }) {
+export default function Model({ currentWeather, timePoint }) {
+
     const model = useGLTF('models/gltf/mountain.glb')
     model.scene.name = 'mountain'
 
     const { scene } = useThree()
     const environment = scene.environment
+    const envMapIntensity = getEnvMapIntensity(currentWeather, timePoint, 'model')
 
     // 各マテリアルに環境マップと環境光を設定
     treeMat.envMap = leavesMat_1.envMap = leavesMat_2.envMap = leavesMat_3.envMap = leavesMat_5.envMap = environment

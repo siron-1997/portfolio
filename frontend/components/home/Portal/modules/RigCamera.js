@@ -1,4 +1,4 @@
-import { useFrame, useThree } from "@react-three/fiber"
+import { useThree } from "@react-three/fiber"
 import { CameraShake } from "@react-three/drei"
 import { Vector3, Group } from "three"
 import { useWindowSize } from "@/utils/hooks"
@@ -43,13 +43,6 @@ export default function RigCamera() {
             water.position.y = group.position.y - 0.1
         }
     }
-
-
-    useFrame(() => {
-        // camera.position.lerp(
-        //     vec.set(mouse.x * 1, 0, 10), 0
-        // )
-    })
 
     return <CameraShake
         maxYaw={0.01}
