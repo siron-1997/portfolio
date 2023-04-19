@@ -5,7 +5,7 @@ const setCurrentWeatherColor = (currentWeather, timePointColor) => {
 
     currentWeather.forEach(weather => { 
         switch (weather.description) {
-            // 雨、雨雲
+            // 雨、雨雲、霧
             case 'light rain':
             case 'moderate rain':
             case 'heavy intensity rain':
@@ -27,6 +27,7 @@ const setCurrentWeatherColor = (currentWeather, timePointColor) => {
             case 'heavy thunderstorm':
             case 'ragged thunderstorm':
             case 'overcast clouds':
+            case 'mist':
                 color = timePointColor.thickCloud
                 break
             // 曇り
