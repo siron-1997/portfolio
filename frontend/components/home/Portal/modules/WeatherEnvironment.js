@@ -1,9 +1,12 @@
 import { Environment } from '@react-three/drei'
 import { BackSide, Color } from 'three'
+import { getEnvironmentColor } from '@/utils'
 
-export default function WeatherEnvironment({ background, color }) {
+export default function WeatherEnvironment({ timePoint }) {
+    const color = getEnvironmentColor(timePoint)
+
     return (
-        <Environment background={background}>
+        <Environment background={true}>
             <mesh name='env cube'>
                 <boxGeometry args={[200, 200, 200]} />
                 <meshBasicMaterial

@@ -1,26 +1,9 @@
-const setTimePointIntensity = (value, timePoint) => {
-    let intensity = 0
+import { envColors } from '@assets/env-colors'
 
-    switch (timePoint) {
-        case 'evening':
-            intensity = value - 0.0
-            break
-        case 'night':
-            intensity = value + 0.3
-            break
-        case 'lunch':
-            intensity = value - 0.5
-        default:
-            break
-    }
+const setCurrentWeatherColor = (currentWeather, timePointColor) => {
+    let color = ''
 
-    return intensity
-}
-
-export default function getSunIntensity(currentWeather, timePoint) {
-    let sunIntensity = 0
-
-    currentWeather.forEach(weather => {
+    currentWeather.forEach(weather => { 
         switch (weather.description) {
             // 雨、雨雲
             case 'light rain':
@@ -29,7 +12,7 @@ export default function getSunIntensity(currentWeather, timePoint) {
             case 'very heavy rain':
             case 'extreme rain':
             case 'freezing rain':
-            case 'light intensity shower rain':                   
+            case 'light intensity shower rain':                  
             case 'shower rain':
             case 'heavy intensity shower rain':
             case 'ragged shower rain':
@@ -44,26 +27,42 @@ export default function getSunIntensity(currentWeather, timePoint) {
             case 'heavy thunderstorm':
             case 'ragged thunderstorm':
             case 'overcast clouds':
-                sunIntensity = setTimePointIntensity(1.4, timePoint)
+                color = timePointColor.thickCloud
                 break
             // 曇り
-            case 'broken clouds':
-                sunIntensity = setTimePointIntensity(1.8, timePoint)
-                break
-            case 'scattered clouds':
-                sunIntensity = setTimePointIntensity(2.2, timePoint)
-                break
             case 'few clouds':
-                sunIntensity = setTimePointIntensity(2.6, timePoint)
+            case 'scattered clouds':
+            case 'broken clouds':
+                color = timePointColor.thinCloud
                 break
             // 快晴
             case 'clear sky':
-                sunIntensity = setTimePointIntensity(3.0, timePoint)
+                color = timePointColor.clearSky
                 break
             default:
                 break
         }
     })
 
-    return sunIntensity
+    return color
+}
+
+export default function getSunLightColor(currentWeather, timePoint) {
+    let sunLightColor = ''
+
+    switch (timePoint) {
+        case 'evening':
+            sunLightColor = setCurrentWeatherColor(currentWeather, envColors.evening)
+            break
+        case 'night':
+            sunLightColor = setCurrentWeatherColor(currentWeather, envColors.night)
+            break
+        case 'lunch':
+            sunLightColor = setCurrentWeatherColor(currentWeather, envColors.lunch)
+            break
+        default:
+            break
+    }
+
+    return sunLightColor
 }
