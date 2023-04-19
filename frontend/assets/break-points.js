@@ -1,0 +1,3 @@
+const BREAK_POINT_MOBILE = 768
+
+export { BREAK_POINT_MOBILE }
