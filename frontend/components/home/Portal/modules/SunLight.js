@@ -1,23 +1,26 @@
 import { useRef, useEffect } from 'react'
 import { useHelper } from '@react-three/drei'
 import { DirectionalLightHelper } from 'three'
+import { getSunIntensity, getSunColor } from '@/utils'
 
-export default function SunLight({ color, intensity }) {
-    const directionalLightRef = useRef()
-
-    const directionalLightHelper = useHelper(directionalLightRef, DirectionalLightHelper, 1)
+export default function SunLight({ currentWeather, timePoint }) {
+    const sunLightRef = useRef(null)
+    const sunLightHelper = useHelper(sunLightRef, DirectionalLightHelper, 1)
 
     const mapSize = 512,
           halfSize = 20
 
+    const color = getSunColor(currentWeather, timePoint),
+          intensity = getSunIntensity(currentWeather, timePoint)
+
     useEffect(() => {
-        directionalLightHelper.current.visible = false
-    }, [directionalLightHelper])
+        sunLightHelper.current.visible = false
+    }, [])
 
     return (
         <directionalLight
+            ref={sunLightRef}
             castShadow
-            ref={directionalLightRef}
             color={color}
             intensity={intensity}
             position={[50, 50, 50]}
