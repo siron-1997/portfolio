@@ -28,7 +28,7 @@ export default function setCloudsVisible(currentWeather) {
             case 'heavy thunderstorm':
             case 'ragged thunderstorm':
             case 'overcast clouds':
-            case 'mist':
+            case 'mist': 
                 clouds.thick = true
                 break
             // 曇り
