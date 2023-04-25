@@ -1,4 +1,5 @@
 export { default as Clouds } from './Clouds'
+export { default as Door } from './Door'
 export { default as Fog } from './Fog'
 export { default as Lightning } from './Lightning'
 export { default as Model } from './Model'
