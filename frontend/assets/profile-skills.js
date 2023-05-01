@@ -1,5 +1,6 @@
 const path = '/icons/'
-const svg = '.svg'
+const svg = '.svg',
+      webp = '.webp'
 
 export const programmingLanguages = {
     title: 'Programming Languages',
@@ -29,7 +30,7 @@ export const frameWorks = {
     title: 'Flameworks',
     frameworks: [
         {
-            image: path + 'node_js' + svg,
+            image: path + 'node_js_48x48' + svg,
             alt: 'Node.js',
             title: 'Node.js',
             text: '3 month'
@@ -41,15 +42,15 @@ export const frameWorks = {
             text: '2 ~ 3 year'
         },
         {
-            image: path + 'next_js' + svg,
+            image: path + 'next_js_100x100' + svg,
             alt: 'Next.js',
-            title: 'Node.js',
+            title: 'Next.js',
             text: '2 ~ 3 year'
         },
         {
-            image: path + 'three_js' + svg,
+            image: path + 'three_js' + webp,
             alt: 'Three.js',
-            title: 'Node.js',
+            title: 'Three.js',
             text: '2 ~ 3 year'
         },
     ]
@@ -59,19 +60,19 @@ export const developmentTools = {
     title: 'Development Tools',
     tools: [
         {
-            image: path + 'visual_studio_code' + svg,
+            image: path + 'visual_studio_code_48x48' + svg,
             alt: 'Visual Studio Code',
             title: 'Visual Studio Code',
             text: '3 year'
         },
         {
-            image: path + 'github' + svg,
+            image: path + 'github_48x48' + svg,
             alt: 'GitHub',
             title: 'GitHub',
             text: '2 ~ 3 year'
         },
         {
-            image: path + 'git' + svg,
+            image: path + 'git_48x48' + svg,
             alt: 'Git',
             title: 'Git',
             text: '2 ~ 3 year'
@@ -83,7 +84,7 @@ export const developmentTools = {
             text: '1 year'
         },
         {
-            image: path + 'fusion360_48x48' + svg,
+            image: path + 'autodesk_fusion360' + svg,
             alt: 'Fusion360',
             title: 'Fusion360',
             text: '4 year'
