@@ -1,11 +1,12 @@
 .contents {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: center; */
+    flex-direction: column;
     background-color: #333;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 30px;
-    padding: 40px 50px;
+    border-radius: 20px;
+    padding: 20px 15px;
 }
 
 
@@ -20,7 +21,10 @@
 }
 
 .my_profile_txt_container {
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 .my_profile_txt_container h1 {
     font-size: 50px;
@@ -39,10 +43,10 @@
     justify-content: center;
 }
 .skills h1 {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .skills_container {
@@ -52,17 +56,20 @@
 }
 
 .skills_headline {
-    font-size: 40px;
+    font-size: 25px;
     font-weight: bold;
     margin-bottom: 35px;
 }
 
 .skills_contents {
-    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .skills_content {
     display: flex;
+    align-items: center;
 }
 
 .skills_image_container {
@@ -74,7 +81,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 40%;
+    width: 65%;
 }
 
 .title {

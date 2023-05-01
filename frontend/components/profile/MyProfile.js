@@ -18,7 +18,7 @@ export default function MyProfile() {
                     </div>
                     <section className={s.my_profile_txt_container}>
                         <h1>Siron-1997</h1>
-                        <p>my profile</p>
+                        <p><span>京都精華大学卒業</span>:   2022/09/01<span></span></p>
                     </section>
                 </div>
             </Container>
