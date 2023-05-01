@@ -1,9 +1,11 @@
-import { Layout } from "@/components/layout"
+import { Layout } from '@/components/layout'
+import { MyProfile, Skills } from '@/components/profile'
 
 export default function Profile() {
     return (
         <Layout>
-            <h1>Profile Page</h1>
+            <MyProfile />
+            <Skills />
         </Layout>
     )
 }
