@@ -1,21 +1,37 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Drawer } from 'antd'
-import { Container, Close, Hamburger } from '@components/ui'
-import { useWindowSize } from '@utils/hooks'
+import { Drawer, Paper, makeStyles, Typography } from  '@material-ui/core'
+import { Container, Close, Hamburger } from '@/components/ui'
+import { useWindowSize } from '@/utils/hooks'
 import Nav from './Nav'
-import s from '@styles/layout/Layout.module.css'
+import s from '@/styles/layout/Layout.module.css'
+
+const useStyles = makeStyles((theme) => ({
+    
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    list: {
+        width: 300
+    }
+}))
 
 export default function Header() {
-    const [visible, setVisible] = useState(false)
+    const [open, setOpen] = useState(false)
+
+    const classes = useStyles()
 
     const { width } = useWindowSize()
 
-    const onOpen = () => setVisible(true)
-    const onClose = () => setVisible(false)
+    const toggleDrawer = open => e => {
+        if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
+            return
+        }
+        setOpen(open)
+    }
 
     useEffect(() => {
-        width > 1024 && setVisible(false)
+        width > 1024 && setOpen(false)
     }, [width])
 
     return (
@@ -24,28 +40,28 @@ export default function Header() {
                 <div className={s.row}>
                     <div className={s.logo}>
                         <Link href={'/'}>
-                            <h1>Siron-1997</h1>
+                            <Typography component='strong'>Siron-1997</Typography>
                         </Link>
                     </div>
                     { width > 1024 && <Nav />}
-                    { width < 1024 && <Hamburger onOpen={onOpen} />}
+                    { width < 1024 && <Hamburger onOpen={toggleDrawer(true)} />}
                 </div>
             </Container>
-            { width < 1024 && (
-                <Drawer
-                    placement='right'
-                    open={visible}
-                    onClose={onClose}
-                    className={s.drawer}
-                    closeIcon={<Close onClose={onClose} />}
-                    width={width < 768 ? '80%' : '60%'}
-                    zIndex={9999}
-                    style={{backgroundColor: '#413C4F'}}
-                    headerStyle={{padding: width < 768 ? '12.5px 0' : '15px 0', width: '40px', margin: '0 35px 0 auto'}}
-                >
-                    <Nav className={s.drawer_nav} />
-                </Drawer>
-            ) }
+            <Drawer
+                anchor='right'
+                open={open}
+                onClose={toggleDrawer(false)}
+                style={{ zIndex: 9000 }}
+            >
+                <Paper style={{ backgroundColor: '#281D41', borderRadius: '0' }} className={s.paper}>
+                    <div className={s.close_container}>
+                        <Close onClose={toggleDrawer(false)} />
+                    </div>
+                    <div className={classes.list} role='presentation'>
+                        <Nav />
+                    </div>
+                </Paper>
+            </Drawer>
         </header>
     )
 }
