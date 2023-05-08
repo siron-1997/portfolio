@@ -17,8 +17,7 @@ export default function ProfileImage({ imageRef }) {
                 className={classNames}
                 fill
                 quality={100}
-                placeholder='blur'
-                blurDataURL={image}
+                priority={true}
                 sizes={'(max-width: 1024px) 90vw, (max-width: 768px) 50vw, 100vw'}
             />
         </div>
