@@ -1,29 +1,19 @@
 /* Hamburger */
 .hamburger {
     position: relative;
-    width: 40px;
-    height: 40px;
     cursor: pointer;
 }
 
 /* Close */
 .close {
     position: relative;
-    width: 40px;
-    height: 40px;
     cursor: pointer;
 }
 
-@media screen and (min-width: 768px) {
-    .hamburger {
-        width: 50px;
-        height: 50px;
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    /* Hamburger */
-    .hamburger {
-        display: none;
-    }
+/* ScrollToTopButton */
+.scroll_to_top {
+    position: fixed !important;
+    bottom: 5%;
+    right: 5%;
+    z-index: 1000;
 }

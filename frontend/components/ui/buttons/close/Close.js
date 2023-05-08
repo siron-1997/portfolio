@@ -1,14 +1,22 @@
 import Image from 'next/image'
-import g from '@styles/global.module.css'
-import s from '@styles/ui/button.module.css'
+import cn from 'classnames'
+import { useIconSize } from '@/utils/hooks'
+import g from '@/styles/global.module.css'
+import s from '@/styles/ui/button.module.css'
 
 export default function Close({ onClose }) {
+    const iconSize = useIconSize(40, 40, 40)
+
+    const classNames = cn(g.image_container, s.close)
+
     return (
-        <div className={`${g.image_container} ${s.close}`} onClick={onClose}>
+        <div className={classNames} onClick={onClose}>
             <Image
                 src='icons/close.svg'
                 alt='close'
-                fill
+                width={iconSize}
+                height={iconSize}
+                quality={1}
             />
         </div>
     )

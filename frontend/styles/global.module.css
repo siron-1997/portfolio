@@ -1,5 +1,50 @@
+.global_container {
+    padding: 40px 0;
+}
+
+.custom_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    box-shadow: 5px 5px 8px #170a1d, -5px -5px 10px #441e56;
+    border-radius: 20px;
+    margin-top: 65px;
+    padding: 30px 25px;
+}
+
+
+.image_container {
+    position: relative;
+}
+
 .image_container img {
     position: relative !important;
     width: 100% !important;
     height: auto !important;
+}
+
+
+@media screen and (min-width: 768px) {
+    .global_container {
+        padding: 60px 0;
+    }
+
+    .custom_container {
+        box-shadow: 10px 10px 20px #170a1d, -10px -10px 20px #441e56;
+        padding: 40px 35px;
+        margin-top: 70px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .global_container {
+        padding: 80px 0;
+    }
+
+    .custom_container {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 50px 35px;
+    }
 }

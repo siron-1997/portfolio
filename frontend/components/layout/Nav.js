@@ -4,10 +4,7 @@ import { siteMap } from '@assets/site-map'
 import s from '@styles/layout/Layout.module.css'
 
 export default function Nav({ className }) {
-    const rootClassName = cn(
-        className,
-        s.navigation
-    )
+    const rootClassName = cn(className, s.navigation)
 
     return (
         <ul className={rootClassName}>

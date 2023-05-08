@@ -8,10 +8,6 @@ export const siteMap = [
         link: '/works',
     },
     {
-        text: 'profile',
-        link: '/profile',
-    },
-    {
         text: 'contact',
         link: '/contact',
     }
