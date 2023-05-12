@@ -32,14 +32,13 @@ const FONT_FAMILY_ROOT = `
 `
 
 const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 768,
-      md: 1024,
-      lg: 1280,
-      xl: 1920
+  root: {
+    '& .MuiAutocomplete-inputRoot[class*="MuiInput-root"]': {
+      backgroundColor: '#441E56',
     },
+  },
+  breakpoints: {
+    values: { xs: 0, sm: 768, md: 1024, lg: 1280, xl: 1920 }
   },
 })
 
