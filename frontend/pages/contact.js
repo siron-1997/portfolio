@@ -3,7 +3,7 @@ import cn from 'classnames'
 import { Layout } from '@components/layout'
 import { ContactState, Form } from '@/components/contact'
 import { Container } from '@/components/ui'
-import { Sending } from '@/components/etc'
+// import { Sending } from '@/components/etc'
 import g from '@/styles/global.module.css'
 import s from '@/styles/Contact.module.css'
 

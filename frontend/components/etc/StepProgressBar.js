@@ -27,17 +27,7 @@ const stepsReducer = (steps, action) => {
     })
 }
 
-export default function StepProgressBar({
-    steps,
-    onSubmit,
-    wrapperClass,
-    progressClass,
-    stepClass,
-    labelClass,
-    subtitleClass,
-    contentClass,
-
-}) {
+export default function StepProgressBar({ steps, onSubmit, wrapperClass, progressClass, stepClass, labelClass, subtitleClass, contentClass, }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [state, dispatch] = useReducer(stepsReducer, steps)
     /* progress */
