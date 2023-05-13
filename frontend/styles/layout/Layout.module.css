@@ -26,9 +26,11 @@
     align-items: center;
     gap: 35px;
 }
+
 .navigation li {
     position: relative;
 }
+
 .navigation a::after {
     position: absolute;
     left: 0;
@@ -44,7 +46,6 @@
 .navigation a:hover::after {
     transform: scale(1, 1);
 }
-
 
 .logo,
 .navigation {
@@ -79,7 +80,6 @@
     height: 65px;
 }
 
-
 @media screen and (min-width: 768px) {
     /* Header */
     .row {
@@ -96,7 +96,6 @@
     .logo strong {
         font-size: 35px;
     }
-
 
     /* Navigation */
     .navigation {
