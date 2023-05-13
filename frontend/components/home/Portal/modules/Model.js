@@ -2,7 +2,7 @@ import { useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { Mesh, MeshStandardMaterial } from 'three'
 import { treeMat, leavesMat_1, leavesMat_2, leavesMat_3, leavesMat_5 } from '@assets/mountain-materials'
-import { getEnvMapIntensity } from '@/utils'
+import { getEnvMapIntensity } from '@/utils/environment'
 
 export default function Model({ currentWeather, timePoint }) {
 

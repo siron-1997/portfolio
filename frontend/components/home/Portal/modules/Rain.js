@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react'
-import { getRainState } from '@/utils'
+import { getRainState } from '@/utils/environment'
 import s from '@styles/Canvas.module.css'
 
 export default function Rain({ currentWeather, data }) {

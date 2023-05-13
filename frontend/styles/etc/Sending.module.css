@@ -10,6 +10,10 @@
     z-index: 9500;
 }
 
+.sending_visible {
+    display: none;
+}
+
 .sending_container {
     display: flex;
     flex-direction: column;

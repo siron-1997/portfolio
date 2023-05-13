@@ -7,7 +7,6 @@ import Nav from './Nav'
 import s from '@/styles/layout/Layout.module.css'
 
 const useStyles = makeStyles((theme) => ({
-    
     menuButton: {
         marginRight: theme.spacing(2),
     },
@@ -18,9 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
     const [open, setOpen] = useState(false)
-
     const classes = useStyles()
-
     const { width } = useWindowSize()
 
     const toggleDrawer = open => e => {
@@ -32,7 +29,23 @@ export default function Header() {
 
     useEffect(() => {
         width > 1024 && setOpen(false)
-    }, [width])
+        
+        const html = document.getElementsByTagName('html')[0]
+
+        if (open) {
+            html.style.overflow = 'hidden'
+            document.body.style.overflow = 'hidden'
+        }
+        else {
+            html.style.overflow = 'auto'
+            document.body.style.overflow = 'auto'
+        }
+
+        return () => {
+            html.style.overflow = 'auto'
+            document.body.style.overflow = 'auto'
+        }
+    }, [width, open])
 
     return (
         <header className={s.header}>

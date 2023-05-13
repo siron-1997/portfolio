@@ -2,7 +2,7 @@ import { RepeatWrapping, MathUtils, FrontSide } from 'three'
 import { useThree } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { useIsIos, useWindowSize } from '@/utils/hooks'
-import { getEnvMapIntensity, setCloudsVisible } from '@/utils'
+import { getEnvMapIntensity, setCloudsVisible } from '@/utils/environment'
 import { BREAK_POINT_MOBILE } from '@/assets/break-points'
 
 export default function Clouds({ cloudsAll, currentWeather, timePoint }) {

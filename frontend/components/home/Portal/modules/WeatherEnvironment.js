@@ -1,6 +1,6 @@
 import { Environment } from '@react-three/drei'
 import { BackSide, Color } from 'three'
-import { getEnvironmentColor } from '@/utils'
+import { getEnvironmentColor } from '@/utils/environment'
 
 export default function WeatherEnvironment({ timePoint }) {
     const color = getEnvironmentColor(timePoint)
