@@ -1,4 +1,4 @@
-import { getFogColor } from '@/utils'
+import { getFogColor } from '@/utils/environment'
 import { useWindowSize } from '@/utils/hooks'
 import { BREAK_POINT_MOBILE } from '@/assets/break-points'
 

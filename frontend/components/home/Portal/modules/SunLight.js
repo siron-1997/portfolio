@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { useHelper } from '@react-three/drei'
 import { DirectionalLightHelper } from 'three'
-import { getSunIntensity, getSunColor } from '@/utils'
+import { getSunIntensity, getSunColor } from '@/utils/environment'
 
 export default function SunLight({ currentWeather, timePoint }) {
     const sunLightRef = useRef(null)

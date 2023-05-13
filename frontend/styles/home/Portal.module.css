@@ -1,12 +1,12 @@
-.portal,
-.rain {
+.portal {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     height: 100vh;
-    overflow: hidden;   
+    overflow: hidden;
+    z-index: 1000;
 }
 
 .drop {
@@ -18,9 +18,6 @@
     bottom: 100%;
     transform-origin: 0% 50%;
     animation-name: rain;
-    /* transition-duration: 1.2s;
-    transition-timing-function: linear;
-    animation-iteration-count: infinite; */
     will-change: transform;
     transform: translate3d(0, 0, 0);
     animation: rain 2s linear infinite;

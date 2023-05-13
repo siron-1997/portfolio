@@ -12,7 +12,7 @@ export default function ContactState() {
                     progressClass={s.progress}
                     labelClass={s.progress_label}
                     contentClass={s.current_step_container}
-                    steps={[
+                    stepPoints={[
                         {
                             label: '内容入力',
                             name: 'step 1',

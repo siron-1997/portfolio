@@ -6,7 +6,6 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 10;
 }
 
 /* Rain canvas */
@@ -18,7 +17,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 20;
+    z-index: 3000 !important;
     overflow: hidden;
 }
 
