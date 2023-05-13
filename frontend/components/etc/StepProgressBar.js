@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useReducer } from 'react'
 import cn from 'classnames'
-import { InputStateContext, EndInitialStepContext } from '@/pages/contact'
+import { SendContext, SendResultContext, StepsContext } from '@/pages/contact'
 import s from '@/styles/etc/StepProgressBar.module.css'
 
 const StepStates = {
@@ -10,30 +10,30 @@ const StepStates = {
     COMPLETED: 'completed'
 }
 
-const stepsReducer = (steps, action) => {
-    return steps.map((step, i) => {
+const stepsReducer = (stepPoints, action) => {
+    return stepPoints.map((stepPoint, i) => {
         switch (true) {
             case i < action.payload.index:
-                step.state = StepStates.COMPLETED
+                stepPoint.state = StepStates.COMPLETED
                 break
             case i === action.payload.index:
-                step.state = action.payload.state
+                stepPoint.state = action.payload.state
                 break
             default:
-                step.state = StepStates.NOT_STARTED
+                stepPoint.state = StepStates.NOT_STARTED
                 break
         }
-        return step
+        return stepPoint
     })
 }
 
-export default function StepProgressBar({ steps, onSubmit, wrapperClass, progressClass, stepClass, labelClass, subtitleClass, contentClass, }) {
+export default function StepProgressBar({ stepPoints, onSubmit, wrapperClass, progressClass, stepClass, labelClass, subtitleClass, contentClass }) {
     const [currentIndex, setCurrentIndex] = useState(0)
-    const [state, dispatch] = useReducer(stepsReducer, steps)
-    /* progress */
-    const { inputState } = useContext(InputStateContext)
-    /* initial step */
-    const { endInitialStep } = useContext(EndInitialStepContext)
+    const [state, dispatch] = useReducer(stepsReducer, stepPoints)
+    /* send result */
+    const { sendResult } = useContext(SendResultContext)
+    /* steps */
+    const { steps} = useContext(StepsContext)
 
     const wrapperClassNames = cn(s.progress_bar_wrapper, wrapperClass),
           progressClassNames = cn(s.step_progress_bar, progressClass),
@@ -43,15 +43,15 @@ export default function StepProgressBar({ steps, onSubmit, wrapperClass, progres
           contentClassNames = cn(s.step_content, contentClass)
 
     const handleNext = () => {
-        if (currentIndex === steps.length - 1) {
+        if (currentIndex === stepPoints.length - 1) {
             return
         }
-        let isStateValid = inputState
+        let isStateValid = steps.first.end
         dispatch({
             type: 'next',
             payload: {
                 index: isStateValid ? currentIndex + 1 : currentIndex,
-                state: isStateValid ? StepStates.CURRENT : StepStates.ERROR
+                state: isStateValid && sendResult === null || sendResult ? StepStates.CURRENT : StepStates.ERROR
             }
         })
         isStateValid && setCurrentIndex(currentIndex + 1)
@@ -60,7 +60,7 @@ export default function StepProgressBar({ steps, onSubmit, wrapperClass, progres
     const handlePrev = () => {
         if (currentIndex === 0) {
             return
-        } else if (!inputState) {
+        } else if (!steps.first.end) {
             dispatch({
                 type: 'previous',
                 payload: {
@@ -79,9 +79,9 @@ export default function StepProgressBar({ steps, onSubmit, wrapperClass, progres
           type: 'init',
           payload: { index: currentIndex, state: StepStates.CURRENT }
         })
-        endInitialStep && (inputState || !inputState) && handleNext()
-        !endInitialStep && !inputState && handlePrev()
-    }, [endInitialStep, inputState])
+        steps.first.start && steps.first.end && handleNext()
+        steps.first.start && !steps.first.end && handlePrev()
+    }, [steps.first.end, steps.second.end])
 
     return (
         <div className={wrapperClassNames}>
@@ -112,7 +112,7 @@ export default function StepProgressBar({ steps, onSubmit, wrapperClass, progres
                     </li>
                 ))}
             </ul>
-            <div className={contentClassNames}>{steps[currentIndex].content}</div>
+            <div className={contentClassNames}>{stepPoints[currentIndex].content}</div>
         </div>
     )
 }
