@@ -1,8 +1,8 @@
 import { sendGridEmail } from '@/utils/sendGrid'
 
-export default async function sendEmail(req, res) {
-    console.log(req)
+export default async function (req, res) {
     if (req.method === 'POST') {
+        console.log(req.body)
         const contents = req.body
         await sendGridEmail(contents)
         

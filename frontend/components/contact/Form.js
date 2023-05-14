@@ -36,7 +36,6 @@ export default function Form() {
             }
         }
     }
-
     /* ブラウザバッグ */
     const handlePopstate = () => {
         const isDiscardedOK = window.confirm(confirmMessage)
@@ -55,9 +54,9 @@ export default function Form() {
         setIsEdited(false)
         return confirmMessage
     }
-
+    /* 入力内容の確認 */
     const handleEndInput = () => {
-        // 全ての要件を満たすとき「true」、修正ボタンを押下したとき「false」
+        // 全ての要件を満たす
         if (contents.name.isError !== undefined && !contents.name.isError &&
             contents.email.isError !== undefined && contents.email.isError === false && contents.email.isError !== null &&
             contents.message.isError !== undefined && !contents.message.isError) 
@@ -68,51 +67,47 @@ export default function Form() {
         // 全ての要件を満たさない
         stepsDispatch({ type: 'FIRST_START', first: { start: true } })
     }
-
+    /* 修正する */
     const handleEndConfirmation = () => {
         stepsDispatch({ type: 'FIRST_END', first: { end: false } })
     }
-
+    /* 送信 */
     const handleSubmit = async e => {
         e.preventDefault()
         console.log(`Name: ${contents.name.text}\nEmail: ${contents.email.text}\nMessage: ${contents.message.text}`)
-
         const values = {
             name: contents.name.text,
             email: contents.email.text,
             message: contents.message.text
         }
-
+        // ロード開始
         sendDispatch({ type: 'START_LOADING', isLoading: true })
-
+        // 送信結果
+        const handleResult = (result, title, description, type, loading) => {
+            setSendResult(() => result)
+            setSendMessage(() => title)
+            setDescription(() => description)
+            sendDispatch({ type: type, isLoading: loading })
+            stepsDispatch({ type: 'SECOND_END', second: { end: true } })
+        }
+        // 送信開始
         setTimeout(async () => {
-            await sendDispatch({ type: 'END_LOADING', isLoading: false })
-            await stepsDispatch({ type: 'SECOND_END', second: { end: true } })
+            return await axios.post('/api/send-email', values, {
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    handleResult(true, '送信完了', 'お問い合わせは正常に送信されました。', 'END_LOADING', false)
+                }
+            })
+            .catch(error => {
+                if (error.response.status === 404 || error.response.status === 500) {
+                    handleResult(false, '送信エラー', '送信に失敗しました。時間をおいて再度お試し下さい。', 'END_LOADING', false)
+                }
+            })
         }, 4000)
-
-        return await axios.post('/api/sendEmail', {
-            body: JSON.stringify({ values }),
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(res => {
-            console.log(res)
-            if (res.status === 200) {
-                setSendMessage(() => '送信完了')
-                setDescription(() => 'お問い合わせは正常に送信されました。')
-            }
-        })
-        .catch(error => {
-            console.log(error)
-            if (error.response.status === 404) {
-                console.log('test')
-                setSendResult(false)
-                setSendMessage(() => '送信エラー')
-                setDescription(() => '送信に失敗しました。時間をおいて再度お試し下さい。')
-            }
-        })
     }
 
-    
     /* フォームのバリデーションを管理 */
     useEffect(() => {
         const errors = {
@@ -130,7 +125,6 @@ export default function Form() {
             })
         }
     }, [steps.first.start])
-
     /* 編集中の内容を破棄するかを確認 */
     useEffect(() => {
         if (edited) {
