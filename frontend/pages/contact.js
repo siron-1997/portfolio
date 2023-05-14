@@ -1,9 +1,10 @@
-import React, { useState, useReducer } from 'react'
+import React, { useRef, useState, useReducer, useEffect } from 'react'
 import cn from 'classnames'
 import { Layout } from '@components/layout'
 import { ContactState, Form } from '@/components/contact'
 import { Container } from '@/components/ui'
 import { Sending } from '@/components/etc'
+import { contactAnimate } from '@/animations/contact'
 import g from '@/styles/global.module.css'
 import s from '@/styles/Contact.module.css'
 
@@ -88,6 +89,10 @@ const stepsReducer = (currentState, action) => {
 }
             
 export default function Contact() {
+    const contactRef = useRef(null),
+          contactStateRef = useRef(null),
+          formRef = useRef(null),
+          sendingRef = useRef(null)
     /* name、email、message */
     const [contents, contentsDispatch] = useReducer(contentsReducer, contentsInitialState)
     /* send state */
@@ -101,19 +106,29 @@ export default function Contact() {
 
     const classNames = cn(g.custom_container, s.contact_container)
 
+    useEffect(() => {
+        const title = contactStateRef.current.children[0],
+              progress = contactStateRef.current.children[1],
+              form = formRef.current
+
+        const ctx = contactAnimate(contactRef, title, progress, form)
+
+        return () => ctx.revert()
+    }, [])
+
     return (
         <Layout>
             <Sending isLoading={send.isLoading} />
             <div className={g.global_container}>
                 <Container>
-                    <div className={classNames}>
+                    <div className={classNames} ref={contactRef}>
                         <ContentsContext.Provider value={{ contents, contentsDispatch }}>
                             <SendContext.Provider value={{ send, sendDispatch }}>
                                 <SendResultContext.Provider value={{ sendResult, setSendResult }}>
                                     <StepsContext.Provider value={{ steps, stepsDispatch }}>
                                         <IsEditedContext.Provider value={{ isEdited, setIsEdited }}>
-                                            <ContactState />
-                                            <Form />
+                                            <ContactState contactStateRef={contactStateRef} />
+                                            <Form formRef={formRef} />
                                         </IsEditedContext.Provider>
                                     </StepsContext.Provider>
                                 </SendResultContext.Provider>
