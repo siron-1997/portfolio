@@ -1,5 +1,6 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { power4_out_1, back_out_left_1, back_out_2, back_out_3 } from '@/assets/animation-options'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -7,12 +8,10 @@ export const aboutAnimate = (aboutRef, image, text, skills) => {
     const ctx = gsap.context(() => {
         // profile image
         gsap.timeline()
-            .from(image, { x: - 200, opacity: 0, duration: 1.6, ease: 'power4.out' })
-            .to(image, { x: 0, opacity: 1 })
+            .from(image, power4_out_1.from).to(image, power4_out_1.to)
         // profile text
         gsap.timeline()
-            .from(text, { x: 150, opacity: 0, duration: 1.6, delay: 0.2, ease: 'back.out' })
-            .to(text, { x: 0, opacity: 1 })
+            .from(text, back_out_left_1.from).to(text, back_out_left_1.to)
         // skill title
         Array.from(skills.children).forEach((skill, i) => {
             const title = skill.children[0], // skill title
@@ -27,8 +26,7 @@ export const aboutAnimate = (aboutRef, image, text, skills) => {
                     id: i
                 }
             })
-            .from(title, { y: 130, opacity: 0, duration: 1, delay: 0.4, ease: 'back.out' })
-            .to(title, { y: 0, opacity: 0.8 })
+            .from(title, back_out_2.from).to(title, back_out_2.to)
             // list animation
             gsap.timeline({
                 scrollTrigger: {
@@ -39,8 +37,7 @@ export const aboutAnimate = (aboutRef, image, text, skills) => {
                     id: i
                 }
             })
-            .from(list, { x: 150, opacity: 0, duration: 1.2, delay: 0.8, ease: 'back.out' })
-            .to(list, { x: 0, opacity: 1 })
+            .from(list, back_out_3.from).to(list, back_out_3.to)
         })
     }, aboutRef)
 

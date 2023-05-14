@@ -8,7 +8,7 @@ import { ContentsContext, SendContext, SendResultContext, StepsContext, IsEdited
 import s from '@/styles/Contact.module.css'
 import g from '@/styles/global.module.css'
 
-export default function Form() {
+export default function Form({ formRef }) {
     /* name、email、message */
     const { contents, contentsDispatch } = useContext(ContentsContext)
     /* send state  */
@@ -64,12 +64,13 @@ export default function Form() {
             stepsDispatch({ type: 'FIRST_END', first: { end: true } })
             stepsDispatch({ type: 'SECOND_START', second: { start: true } })
         }
-        // 全ての要件を満たさない
         stepsDispatch({ type: 'FIRST_START', first: { start: true } })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
     /* 修正する */
     const handleEndConfirmation = () => {
         stepsDispatch({ type: 'FIRST_END', first: { end: false } })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
     /* 送信 */
     const handleSubmit = async e => {
@@ -141,7 +142,7 @@ export default function Form() {
 
     return (
         <div className={s.form_container}>
-            <div className={classNames}>
+            <div className={classNames} ref={formRef}>
                 {!steps.second.end ?
                     <form className={s.form} onSubmit={handleSubmit}>
                         <InputTextFields />
@@ -182,6 +183,7 @@ export default function Form() {
                         <div className={s.txt_container}>
                             <Typography component='h2'>{sendMessage}</Typography>
                             <Typography component='p'>{description}</Typography>
+                            <br/>
                             {sendResult && (
                                 <>
                                     <Typography component='p'>土日祝を除き、1～2日以内にご返信しています。</Typography>
