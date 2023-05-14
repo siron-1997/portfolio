@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useReducer } from 'react'
 import cn from 'classnames'
-import { SendContext, SendResultContext, StepsContext } from '@/pages/contact'
+import { SendResultContext, StepsContext } from '@/pages/contact'
 import s from '@/styles/etc/StepProgressBar.module.css'
 
 const StepStates = {
@@ -27,13 +27,13 @@ const stepsReducer = (stepPoints, action) => {
     })
 }
 
-export default function StepProgressBar({ stepPoints, onSubmit, wrapperClass, progressClass, stepClass, labelClass, subtitleClass, contentClass }) {
+export default function StepProgressBar({ stepPoints, wrapperClass, progressClass, stepClass, labelClass, subtitleClass, contentClass }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [state, dispatch] = useReducer(stepsReducer, stepPoints)
     /* send result */
     const { sendResult } = useContext(SendResultContext)
     /* steps */
-    const { steps} = useContext(StepsContext)
+    const { steps } = useContext(StepsContext)
 
     const wrapperClassNames = cn(s.progress_bar_wrapper, wrapperClass),
           progressClassNames = cn(s.step_progress_bar, progressClass),
@@ -72,8 +72,6 @@ export default function StepProgressBar({ stepPoints, onSubmit, wrapperClass, pr
         }
     }
 
-    const handleSubmit = () => onSubmit()
-
     useEffect(() => {
         dispatch({
           type: 'init',
@@ -81,7 +79,7 @@ export default function StepProgressBar({ stepPoints, onSubmit, wrapperClass, pr
         })
         steps.first.start && steps.first.end && handleNext()
         steps.first.start && !steps.first.end && handlePrev()
-    }, [steps.first.end, steps.second.end])
+    }, [steps.first.end, steps.second.end, sendResult])
 
     return (
         <div className={wrapperClassNames}>
@@ -106,7 +104,7 @@ export default function StepProgressBar({ stepPoints, onSubmit, wrapperClass, pr
                         {step.state === StepStates.ERROR && <span className={s.step_icon}>!</span>}
                         {step.state !== StepStates.COMPLETED && step.state !== StepStates.ERROR && <span className={s.step_index}>{i + 1}</span>}
                         <div className={labelClassNames}>
-                            {step.label}
+                            {i === state.length - 1 && sendResult !== null && !sendResult ? '送信失敗' : step.label}
                             {step.subtitle && <div className={subtitleClassNames}>{step.subtitle}</div>}
                         </div>
                     </li>

@@ -4,12 +4,12 @@ import cn from 'classnames'
 import { ContentsContext, StepsContext, IsEditedContext } from '@/pages/contact'
 import s from '@/styles/Contact.module.css'
 
-const Label = ({ title, id, inputState }) => {
-    const indispensable = '※必須'
+const Label = ({ title, id, endSteps}) => {
+    const indispensable = '※ 必須'
 
     return (
         <InputLabel htmlFor={id}>
-            {!inputState && <span className={s.indispensable}>{indispensable}</span>}
+            {!endSteps && <span className={s.indispensable}>{indispensable}</span>}
             <span className={s.title}>{title}</span>
         </InputLabel>
     )
@@ -53,7 +53,7 @@ export default function InputTextFields() {
     /* email validation */
     const validation = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+[.]+[A-Za-z0-9]{2,}$/
 
-    /* blur */
+    /* blur name */
     const handleBlurName = value => {
         contentsDispatch({
             type: 'BLUR_NAME',
@@ -62,7 +62,7 @@ export default function InputTextFields() {
         setIsEdited(() => ({ ...isEdited, name: value ? true : false }))
         console.log(steps)
     }
-
+    /* blur email */
     const handleBlurEmail = value => {
         contentsDispatch({
             type: 'BLUR_EMAIL',
@@ -70,7 +70,7 @@ export default function InputTextFields() {
         })
         setIsEdited(() => ({ ...isEdited, email: value ? true : false }))
     }
-
+    /* blur message */
     const handleBlurMessage = value => {
         contentsDispatch({
             type: 'BLUR_MESSAGE',
@@ -81,8 +81,9 @@ export default function InputTextFields() {
     
     return (
         <>
+            {/* name */}
             <div className={s.input_container}>
-                <Label title={'Name'} id={'input-name'} inputState={endSteps} />
+                <Label title={'Name'} id={'input-name'} endSteps={endSteps} />
                 <TextField
                     id={s['input-name']}
                     className={nameClassNames}
@@ -93,8 +94,9 @@ export default function InputTextFields() {
                     InputProps={{ readOnly: endSteps, disableUnderline: true, disabled: endSteps }}
                 />
             </div>
+            {/* email */}
             <div className={s.input_container}>
-                <Label title={'E-mail'} id={'input-email'} inputState={endSteps} />
+                <Label title={'E-mail'} id={'input-email'} endSteps={endSteps} />
                 <TextField
                     id={s['input-email']}
                     className={emailClassNames}
@@ -109,8 +111,9 @@ export default function InputTextFields() {
                     InputProps={{ readOnly: endSteps, disableUnderline: true, disabled: endSteps }}
                 />
             </div>
+            {/* message */}
             <div className={s.input_container}>
-                <Label title={'Message'} id={'input-textarea'} inputState={endSteps} />
+                <Label title={'Message'} id={'input-textarea'} endSteps={endSteps} />
                 <TextField
                     id={s['input-textarea']}
                     className={messageClassNames}
