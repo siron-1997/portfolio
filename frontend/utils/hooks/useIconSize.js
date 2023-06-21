@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { BREAK_POINT_MB, BREAK_POINT_TB } from '@/assets/break-points'
 
 export default function useIconSize(mb, tb, pc) {
     const [iconSize, setIconSize] = useState(0)
@@ -6,10 +7,10 @@ export default function useIconSize(mb, tb, pc) {
     const resize = () => {
         const width = window.innerWidth
         switch (true) {
-            case width > 768 && width < 1024:
+            case width >= BREAK_POINT_MB && width < BREAK_POINT_TB:
                 setIconSize(tb)
                 break
-            case width > 1024:
+            case width >= BREAK_POINT_TB:
                 setIconSize(pc)
                 break
             default:
