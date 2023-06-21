@@ -46,7 +46,7 @@ export default function FingerPress() {
                 />
             ) : (
                 <Typography component='p' sx={{ fontWeight: 600 }} ref={textRef}>
-                    "Start"をタップすると3Dビュワーモードが開始します。<br/>
+                    「Start」をタップすると3Dビュワーモードが開始します。<br/>
                     <KeyboardArrowDown sx={{ width: 45, height: 45 }} />
                 </Typography>
             )}
