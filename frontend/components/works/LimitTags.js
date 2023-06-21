@@ -42,11 +42,12 @@ export default function LimitTags({ setSelectTags }) {
                 getOptionLabel={option => option.title}
                 defaultValue={[filmsInitialState[0], filmsInitialState[1]]}
                 renderTags={(value, getTagProps) => 
-                    value.map((option, index) => (
+                    value.map((option, i) => (
                         <Chip
+                            key={i}
                             variant='tag'
                             label={option.title}
-                            {...getTagProps({ index })}
+                            {...getTagProps({ i })}
                         />
                     ))
                 }
