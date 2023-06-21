@@ -166,3 +166,5 @@ const Model = React.memo(({
         </group>
     )
 })
+
+Model.displayName = 'Model'
