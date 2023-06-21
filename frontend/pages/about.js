@@ -1,41 +1,43 @@
 import { useRef, useEffect } from 'react'
-import cn from 'classnames'
+import { Typography } from '@mui/material'
 import { Layout } from '@/components/layout'
 import { Container } from '@/components/ui'
-import { ProfileImage, ProfileText, Skills } from '@/components/about'
-import { aboutAnimate } from '@/animations/about'
-import s from '@/styles/About.module.css'
+import { ProfileImage, Introduction, SkillList } from '@/components/about'
+import { aboutAnimation } from '@/animations/pages/about'
+import { colors } from '@/assets/colors'
+import s from '@/styles/about/index.module.css'
 import g from '@/styles/global.module.css'
 
-export default function About() {
-    const aboutRef = useRef(null),
-          imageRef = useRef(null),
-          textRef = useRef(null),
-          skillsRef = useRef(null)
-
-    const classNames = cn(g.custom_container, s.about_container)
+export default function AboutPage() {
+    const profileImageRef = useRef(null),
+          introductionRef = useRef(null),
+          skillListRef = useRef(null)
 
     useEffect(() => {
-        const image = imageRef.current.children[0],
-              text = textRef.current.children[0],
-              skills = skillsRef.current
+        const profileImage = profileImageRef.current.children[0],
+              introduction = introductionRef.current.children[0],
+              skillList = skillListRef.current
 
-        const ctx = aboutAnimate(aboutRef, image, text, skills)
+        const cleanup = aboutAnimation(profileImage, introduction, skillList)
 
-        return () => ctx.revert()
+        return () => cleanup()
     }, [])
 
     return (
-        <Layout>
-            <div className={g.global_container} ref={aboutRef}>
+        <Layout metaProps={{ title: 'Junpei Oue | About' }}>
+            <div className={g.global_root_container}>
                 <Container>
-                    <div className={classNames}>
-                        <ProfileImage imageRef={imageRef} />
+                    <Typography
+                        component='div'
+                        className={g.global_shadow_container}
+                        sx={{ bgcolor: colors.bgColor.dark.sub }}
+                    >
+                        <ProfileImage profileImageRef={profileImageRef} />
                         <div className={s.profile_info}>
-                            <ProfileText textRef={textRef} />
-                            <Skills skillsRef={skillsRef} />
+                            <Introduction introductionRef={introductionRef} />
+                            <SkillList skillListRef={skillListRef} />
                         </div>
-                    </div>
+                    </Typography>
                 </Container>
             </div>
         </Layout>
