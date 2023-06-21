@@ -13,7 +13,7 @@ export default function FingerPress() {
           textRef = useRef(null)
     const { isFingerVisible, setIsFingerVisible, isViewerActive } = useContext(WorkDataContext)
     const { width } = useWindowSize()
-    const iconSize = useIconSize(60, 80, 80)
+    const iconSize = useIconSize(75, 85, 95)
 
     useEffect(() => {
         const image = imageRef.current
@@ -32,12 +32,12 @@ export default function FingerPress() {
     }, [width < BREAK_POINT_MB, isFingerVisible, isViewerActive])
 
     return (
-        <div className={s.finger_press}>
+        <div className={s.finger_press} id='finger-press'>
             {isViewerActive ? (
                 <Image
                     ref={imageRef}
-                    src={'/icons/finger_press_48x48.svg'}
-                    alt={'finger press'}
+                    src='/icons/finger_press_48x48.svg'
+                    alt='finger press'
                     width={iconSize}
                     height={iconSize}
                     quality={1}
@@ -46,7 +46,7 @@ export default function FingerPress() {
                 />
             ) : (
                 <Typography component='p' sx={{ fontWeight: 600 }} ref={textRef}>
-                    "Start"を押すと、3Dビュワーモードが起動します。<br />終了する場合は "End" をクリック。<br />
+                    "Start"をタップすると3Dビュワーモードが開始します。<br/>
                     <KeyboardArrowDown sx={{ width: 45, height: 45 }} />
                 </Typography>
             )}
