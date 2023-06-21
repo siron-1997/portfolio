@@ -1,1 +1,2 @@
-export { default as CanvasHome } from './CanvasHome'
+export { Home } from './home'
+export { Work } from './work'

@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 import cn from 'classnames'
 import { WorkDataContext } from '@/pages/works/[work]'
 import { toggleButtonAnimation } from '@/animations/components/ui/buttons'
-import s from '@/styles/ui/button.module.css'
+import s from '@/styles/ui/buttons/ToggleButton.module.css'
 
 export default function ToggleButton() {
     const bgRef = useRef(null)
@@ -29,6 +29,7 @@ export default function ToggleButton() {
 
     useEffect(() => {
         const bg = bgRef.current
+        /* アニメーション作成 */
         const cleanup = toggleButtonAnimation(bg, isViewerActive)
 
         return () => cleanup()

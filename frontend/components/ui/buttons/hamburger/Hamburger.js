@@ -1,22 +1,22 @@
 import Image from 'next/image'
 import cn from 'classnames'
 import { useIconSize } from '@/utils/hooks'
-import g from '@/styles/global.module.css'
-import s from '@/styles/ui/button.module.css'
+import s from '@/styles/ui/buttons/Hamburger.module.css'
 
-export default function Hamburger({ onOpen }) {
-    const iconSize = useIconSize(40, 40, 50)
+export default function Hamburger({ className, onOpen }) {
+    const iconSize = useIconSize(40, 50, 50)
 
-    const classNames = cn(g.image_container, s.hamburger)
+    const classNames = cn(className, s.hamburger)
 
     return (
         <div className={classNames} onClick={onOpen}>
             <Image
-                src='icons/hamburger.svg'
-                alt='Menu'
+                src='/icons/hamburger.svg'
+                alt='hamburger menu'
                 width={iconSize}
                 height={iconSize}
                 quality={1}
+                priority={true}
             />
         </div>
     )
