@@ -1,11 +1,17 @@
+import cn from 'classnames'
 import { Container } from '@components/ui'
 import s from '@styles/general/PageHeader.module.css'
 
-export default function PageHeader({ Background, children }) {
+export default function PageHeader({
+    id, pageHeaderRef, Background, children, figureClassName, figcaptionClassName
+}) {
+    const figureClassNames = cn(s.figure, figureClassName),
+          figcaptionClassNames = cn(s.figcaption, figcaptionClassName)
+
     return (
-        <figure className={s.figure}>
-            {Background}
-            <figcaption className={s.figcaption}>
+        <figure className={figureClassNames} ref={pageHeaderRef} id={id}>
+            {Background && Background}
+            <figcaption className={figcaptionClassNames}>
                 <Container>
                     {children}
                 </Container>
