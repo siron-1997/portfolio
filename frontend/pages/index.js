@@ -1,20 +1,57 @@
+import { useRef, useState, useEffect } from 'react'
+import { Typography } from '@mui/material'
 import { Layout } from '@/components/layout'
-import { Portal } from '@components/home'
+import { Works } from '@components/home'
 import { PageHeader } from '@components/general'
-// import { Inter } from '@next/font/google'
+import { Home } from 'components/ui/canvas'
+import { ModelViewerLoading } from '@components/etc'
+import { homeAnimation } from '@/animations/pages/home'
+import { fetcher } from '@/utils/strapi'
 
-// const inter = Inter({ subsets: ['latin'] })
+export default function HomePage({ data }) {
+  const pageHeaderRef = useRef(null),
+        worksRef = useRef(null),
+        topSectionRef = useRef(null)
 
-export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const topSection = topSectionRef.current
+    const works = worksRef.current
+
+    const cleanup = homeAnimation(topSection, works)
+
+    return () => cleanup()
+  }, [])
+
   return (
-    <Layout>
-      <PageHeader Background={<Portal />}>
-        <section>
-          <h1>HOME Page</h1>
-          <p>test</p>
-        </section>
-      </PageHeader>
-      <h1>Home</h1>
-    </Layout>
+    <>
+      <ModelViewerLoading isLoading={isLoading} />
+      <Layout>
+        <PageHeader
+          pageHeaderRef={pageHeaderRef}
+          Background={
+            <Home
+              pageHeaderRef={pageHeaderRef}
+              setIsLoading={setIsLoading}
+            />
+          }
+        >
+          <Typography component='section' ref={topSectionRef}>
+            <Typography component='h1' variant='h1'>HOME Page</Typography>
+          </Typography>
+        </PageHeader>
+        <Works data={data} worksRef={worksRef} />
+      </Layout>
+    </>
   )
+}
+
+export async function getServerSideProps() {
+  const res = await fetcher(`/api/works?populate=main`)
+  const data = await res?.data?.data
+
+  return {
+    props: { data }
+  }
 }
