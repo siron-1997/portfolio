@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_text_and_rich_text_controls",
+  "info": {
+    "displayName": "Controls",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "controls title"
+    },
+    "description": {
+      "type": "richtext",
+      "default": "controls description",
+      "required": true
+    },
+    "control_list": {
+      "type": "json"
+    }
+  }
+}
