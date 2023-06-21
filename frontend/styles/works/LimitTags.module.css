@@ -1,0 +1,60 @@
+.limit_tags {
+    border-top: 1px solid rgba(200, 200, 200, 0.35);
+    border-bottom: 1px solid rgba(200, 200, 200, 0.35);
+    margin: 25px 0;
+    padding: 0 10px !important;
+}
+
+.filter_container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    opacity: 0.85;
+    cursor: pointer;
+}
+
+.autocomplete > div {
+    padding: 10px 0 !important;
+}
+
+@media screen and (min-width: 768px) {
+    .limit_tags {
+        margin: 30px 0;
+        padding: 0 15px !important;
+    }
+
+    .autocomplete > div {
+        padding: 15px 0 !important;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .limit_tags {
+        margin: 35px 0;
+    }
+
+    .autocomplete {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .limit_tags {
+        margin: 40px 0;
+    }
+
+    .autocomplete {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .limit_tags {
+        padding: 30px 0;
+    }
+}

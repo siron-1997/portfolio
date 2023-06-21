@@ -1,0 +1,9 @@
+.works_container {
+    margin-top: 65px;
+}
+
+@media screen and (min-width: 768px) {
+    .works_container {
+        margin-top: 70px;
+    }
+}

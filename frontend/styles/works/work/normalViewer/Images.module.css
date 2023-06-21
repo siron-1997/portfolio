@@ -1,0 +1,21 @@
+.thumbnail {
+    margin: 30px 0;
+}
+
+@media screen and (min-width: 768px) {
+    .thumbnail {
+        margin: 45px 0;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .thumbnail {
+        margin: 60px 0;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .thumbnail {
+        margin: 80px 0;
+    }
+}

@@ -1,0 +1,24 @@
+.paper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    background-color: #2A2E3F;
+}
+
+.close_container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 16px;
+    height: 65px;
+}
+
+@media screen and (min-width: 768px) {
+    .close_container {
+        height: 70px;
+    }
+}

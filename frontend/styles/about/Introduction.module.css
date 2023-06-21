@@ -1,0 +1,21 @@
+.profile_text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+    .my_profile_contents {
+        flex-direction: row;
+    }
+
+    .profile_text h1 {
+        width: 100%;
+        text-align: left;
+    }
+    .profile_text p {
+        width: 100%;
+        text-align: left;
+    }
+}

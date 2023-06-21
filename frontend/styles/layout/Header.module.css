@@ -1,0 +1,28 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: rgba(15,9,30,.5);
+    backdrop-filter: blur(50px);
+    z-index: 8000;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 65px;
+}
+
+.logo strong {
+    font-weight: 400;
+    font-family: 'Cabin', sans-serif;
+}
+
+@media screen and (min-width: 768px) {
+    .row {
+        height: 70px;
+    }
+}

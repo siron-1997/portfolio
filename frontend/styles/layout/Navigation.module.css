@@ -1,0 +1,32 @@
+.navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+}
+
+.navigation li {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.navigation a {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #fff;
+    opacity: 0.9;
+}
+
+@media screen and (min-width: 1024px) {
+    .navigation {
+        flex-direction: row;
+        gap: 25px;
+    }
+
+    .navigation a {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,102 @@
+/* ======================================================
+    modelViewer
+====================================================== */
+/* Work (Canvas) */
+.portal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background-color: #1D1730;
+    overflow: hidden;
+    z-index: 10;
+}
+  
+.canvas {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* PageHeader */
+.figure {
+    position: relative;
+    z-index: 20;
+}
+
+.figcaption {
+    align-items: end;
+    margin-bottom: 40px;
+}
+.figcaption section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.figcaption h1,
+.figcaption p {
+    text-shadow: 3px 3px 15px rgb(0, 0, 0);
+}
+
+
+
+/* ======================================================
+    normalViewer
+====================================================== */
+.normal_viewer {
+    margin-top: 65px;
+}
+
+.normal {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+@media screen and (min-width: 768px) {
+    /* ======================================================
+    normalViewer
+    ====================================================== */
+    .normal_viewer {
+        margin-top: 70px;
+    }
+
+    .normal {
+        margin: 35px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    /* ======================================================
+        modelViewer
+    ====================================================== */
+    /* PageHeader */
+    .figure { 
+        aspect-ratio: 16/9;
+    }
+
+    .figcaption {
+        align-items: center;
+        margin-bottom: 0;
+    }
+    .figcaption section {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    /* ======================================================
+        normalViewer
+    ====================================================== */
+    .normal {
+        margin: 40px 0;
+    }
+}
