@@ -3,10 +3,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@assets/*": ["assets/*"],
       "@animations/*": ["animations/*"],
-      "@utils/*": ["utils/*"],
+      "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
+      "@configs/*": ["configs/*"],
+      "@utils/*": ["utils/*"],
       "@styles/*": ["styles/*"]
     }
   }
