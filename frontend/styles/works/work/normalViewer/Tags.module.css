@@ -1,0 +1,18 @@
+.tags {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tags_skill {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+@media screen and (min-width: 1024px) {
+    .tags {
+        flex-direction: row;
+        gap: 15px;
+    }
+}

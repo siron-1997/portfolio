@@ -1,0 +1,18 @@
+.input_container {
+    width: 100%;
+}
+.input_container label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    height: 22px;
+    transition: none;
+    transform: none;
+    margin-bottom: 12px;
+}
+
+.error {
+    position: absolute;
+    margin-top: 6px;
+}

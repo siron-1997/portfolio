@@ -1,22 +1,13 @@
 import React, { useRef, useState, useReducer, useEffect } from 'react'
-import cn from 'classnames'
 import { Layout } from '@components/layout'
 import { ContactState, Form } from '@/components/contact'
 import { Container } from '@/components/ui'
 import { Sending } from '@/components/etc'
-import { contactAnimate } from '@/animations/contact'
+import { contactAnimation } from '@/animations/pages/contact'
+import { contentsInitialState, sendInitialState, stepsState } from '@/assets/initial-states'
 import g from '@/styles/global.module.css'
-import s from '@/styles/Contact.module.css'
 
-const contentsInitialState = { name: false, email: false, message: false }
-const sendInitialState = { isLoading: false, isError: false, isComplete: false }
-const stepsState = { first: { start: false, end: false }, second: { start: false, end: false } }
-
-export const ContentsContext = React.createContext(),
-             SendContext = React.createContext(),
-             SendResultContext = React.createContext(),
-             StepsContext = React.createContext(),
-             IsEditedContext = React.createContext()
+export const ContactDataContext = React.createContext()
 
 /* contents reducer */
 const contentsReducer = (currentState, action) => {
@@ -42,11 +33,11 @@ const contentsReducer = (currentState, action) => {
             return {
                 ...currentState,
                 message: { ...currentState.message, text: action.message.text, isError: action.message.isError }
-            }
-            default:
-                return currentState
-            }
         }
+        default:
+            return currentState
+    }
+}
 
 /* send reducer */
 const sendReducer = (currentState, action) => {
@@ -88,11 +79,9 @@ const stepsReducer = (currentState, action) => {
     }
 }
             
-export default function Contact() {
-    const contactRef = useRef(null),
-          contactStateRef = useRef(null),
-          formRef = useRef(null),
-          sendingRef = useRef(null)
+export default function ContactPage() {
+    const contactStateRef = useRef(null),
+          formRef = useRef(null)
     /* name、email、message */
     const [contents, contentsDispatch] = useReducer(contentsReducer, contentsInitialState)
     /* send state */
@@ -104,36 +93,33 @@ export default function Contact() {
     /* 編集中を管理 */
     const [isEdited, setIsEdited] = useState(false)
 
-    const classNames = cn(g.custom_container, s.contact_container)
-
     useEffect(() => {
         const title = contactStateRef.current.children[0],
-              progress = contactStateRef.current.children[1],
-              form = formRef.current
+              progress = contactStateRef.current.children[1]
+        /* アニメーション作成 */
+        const cleanup = contactAnimation(title, progress)
 
-        const ctx = contactAnimate(contactRef, title, progress, form)
-
-        return () => ctx.revert()
+        return () => cleanup()
     }, [])
 
     return (
-        <Layout>
+        <Layout metaProps={{ title: 'Junpei Oue | Contact' }}>
             <Sending isLoading={send.isLoading} />
-            <div className={g.global_container}>
+            <div className={g.global_root_container}>
                 <Container>
-                    <div className={classNames} ref={contactRef}>
-                        <ContentsContext.Provider value={{ contents, contentsDispatch }}>
-                            <SendContext.Provider value={{ send, sendDispatch }}>
-                                <SendResultContext.Provider value={{ sendResult, setSendResult }}>
-                                    <StepsContext.Provider value={{ steps, stepsDispatch }}>
-                                        <IsEditedContext.Provider value={{ isEdited, setIsEdited }}>
-                                            <ContactState contactStateRef={contactStateRef} />
-                                            <Form formRef={formRef} />
-                                        </IsEditedContext.Provider>
-                                    </StepsContext.Provider>
-                                </SendResultContext.Provider>
-                            </SendContext.Provider>
-                        </ContentsContext.Provider>
+                    <div className={g.global_container}>
+                        <ContactDataContext.Provider
+                            value={{
+                                contents, contentsDispatch,
+                                send, sendDispatch,
+                                sendResult, setSendResult,
+                                steps, stepsDispatch,
+                                isEdited, setIsEdited
+                            }}
+                        >
+                            <ContactState contactStateRef={contactStateRef} />
+                            <Form formRef={formRef} />
+                        </ContactDataContext.Provider>
                     </div>
                 </Container>
             </div>

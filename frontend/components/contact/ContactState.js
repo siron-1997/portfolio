@@ -1,11 +1,11 @@
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material'
 import { StepProgressBar } from '@/components/etc'
-import s from '@/styles/Contact.module.css'
+import s from '@/styles/contact/ContactState.module.css'
 
 export default function ContactState({ contactStateRef }) {
     return (
         <div className={s.contact_txt} ref={contactStateRef}>
-            <Typography component='h1'>Contact</Typography>
+            <Typography component='h1' variant='h1'>Contact</Typography>
             <div className={s.step_progress_bar_container}>
                 <StepProgressBar
                     wrapperClass={s.wrapper}

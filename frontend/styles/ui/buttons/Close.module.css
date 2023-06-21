@@ -1,0 +1,11 @@
+.close {
+    position: relative;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+    /* Close */
+    .close {
+        margin-right: 25px;
+    }
+}

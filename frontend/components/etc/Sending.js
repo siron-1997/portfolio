@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material'
 import cn from 'classnames'
 import s from '@/styles/etc/Sending.module.css'
 
@@ -27,7 +27,7 @@ export default function Sending({ isLoading, sendingRef }) {
     return (
         <div className={classNames} ref={sendingRef}>
             <div className={s.sending_container}>
-                <Typography component='h1'>送信中</Typography>
+                <Typography component='h1' variant='h1'>送信中</Typography>
                 <div id={s['fountainG']}>
                     <div id={s['fountainG_1']} className={s.fountainG} />
                     <div id={s['fountainG_2']} className={s.fountainG} />

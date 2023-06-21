@@ -1,0 +1,5 @@
+.scroll_to_top {
+    position: fixed !important;
+    bottom: 3%;
+    right: 3%;
+}

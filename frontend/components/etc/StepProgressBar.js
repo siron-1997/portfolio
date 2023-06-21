@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useReducer } from 'react'
 import cn from 'classnames'
-import { SendResultContext, StepsContext } from '@/pages/contact'
+import { ContactDataContext } from '@/pages/contact'
 import s from '@/styles/etc/StepProgressBar.module.css'
 
 const StepStates = {
@@ -30,10 +30,10 @@ const stepsReducer = (stepPoints, action) => {
 export default function StepProgressBar({ stepPoints, wrapperClass, progressClass, stepClass, labelClass, subtitleClass, contentClass }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [state, dispatch] = useReducer(stepsReducer, stepPoints)
-    /* send result */
-    const { sendResult } = useContext(SendResultContext)
-    /* steps */
-    const { steps } = useContext(StepsContext)
+    const {
+        sendResult, // 送信結果を管理
+        steps // ステップを管理
+    } = useContext(ContactDataContext)
 
     const wrapperClassNames = cn(s.progress_bar_wrapper, wrapperClass),
           progressClassNames = cn(s.step_progress_bar, progressClass),
@@ -47,6 +47,7 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
             return
         }
         let isStateValid = steps.first.end
+        isStateValid && setCurrentIndex(currentIndex + 1)
         dispatch({
             type: 'next',
             payload: {
@@ -54,13 +55,13 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
                 state: isStateValid && sendResult === null || sendResult ? StepStates.CURRENT : StepStates.ERROR
             }
         })
-        isStateValid && setCurrentIndex(currentIndex + 1)
     }
 
     const handlePrev = () => {
         if (currentIndex === 0) {
             return
         } else if (!steps.first.end) {
+            setCurrentIndex(currentIndex - 1)
             dispatch({
                 type: 'previous',
                 payload: {
@@ -68,7 +69,6 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
                     state: StepStates.CURRENT
                 }
             })
-            setCurrentIndex(currentIndex - 1)
         }
     }
 
@@ -77,9 +77,9 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
           type: 'init',
           payload: { index: currentIndex, state: StepStates.CURRENT }
         })
-        steps.first.start && steps.first.end && handleNext()
-        steps.first.start && !steps.first.end && handlePrev()
-    }, [steps.first.end, steps.second.end, sendResult])
+        steps.first.start && handleNext()
+        !steps.first.start && !steps.first.end && handlePrev()
+    }, [steps.first.start, steps.first.end, steps.second.end, sendResult])
 
     return (
         <div className={wrapperClassNames}>
