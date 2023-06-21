@@ -1,29 +1,27 @@
 import Link from 'next/link'
 import { useState, useEffect, useContext } from 'react'
-import { Button, Typography } from '@material-ui/core'
+import { Button, Typography } from '@mui/material'
 import axios from 'axios'
 import cn from 'classnames'
 import InputTextFields from './InputTextFields'
-import { ContentsContext, SendContext, SendResultContext, StepsContext, IsEditedContext, } from '@/pages/contact'
-import s from '@/styles/Contact.module.css'
+import { ContactDataContext } from '@/pages/contact'
+import { colors } from '@/assets/colors'
+import s from '@/styles/contact/Form.module.css'
 import g from '@/styles/global.module.css'
 
 export default function Form({ formRef }) {
-    /* name、email、message */
-    const { contents, contentsDispatch } = useContext(ContentsContext)
-    /* send state  */
-    const { send, sendDispatch } = useContext(SendContext)
-    /* send result */
-    const { sendResult, setSendResult } = useContext(SendResultContext)
-    /* steps */
-    const { steps, stepsDispatch } = useContext(StepsContext)
-    /* 編集中を管理 */
-    const { isEdited, setIsEdited } = useContext(IsEditedContext)
+    const {
+        contents, contentsDispatch, // name、email、message、を管理・更新
+        sendDispatch, // 送信ステータスを更新
+        sendResult, setSendResult, // 送信結果を管理
+        steps, stepsDispatch, // ステップを管理
+        isEdited, setIsEdited // 編集中かを管理
+    } = useContext(ContactDataContext)
     /* 送信メッセージ */
     const [sendMessage, setSendMessage] = useState('')
     const [description, setDescription] = useState('')
 
-    const classNames = cn(s.form_custom_container, g.custom_container, { [s.end_form]: steps.second.end })
+    const classNames = cn(s.form_custom_container, g.global_shadow_container, { [s.end_form]: steps.second.end })
 
     let edited
     const confirmMessage = '編集中の内容は削除されますが、よろしいですか？'
@@ -59,7 +57,7 @@ export default function Form({ formRef }) {
         // 全ての要件を満たす
         if (contents.name.isError !== undefined && !contents.name.isError &&
             contents.email.isError !== undefined && contents.email.isError === false && contents.email.isError !== null &&
-            contents.message.isError !== undefined && !contents.message.isError) 
+            contents.message.isError !== undefined && !contents.message.isError)
         {
             stepsDispatch({ type: 'FIRST_END', first: { end: true } })
             stepsDispatch({ type: 'SECOND_START', second: { start: true } })
@@ -69,13 +67,13 @@ export default function Form({ formRef }) {
     }
     /* 修正する */
     const handleEndConfirmation = () => {
+        stepsDispatch({ type: 'FIRST_START', first: { start: false } })
         stepsDispatch({ type: 'FIRST_END', first: { end: false } })
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
     /* 送信 */
     const handleSubmit = async e => {
         e.preventDefault()
-        console.log(`Name: ${contents.name.text}\nEmail: ${contents.email.text}\nMessage: ${contents.message.text}`)
         const values = {
             name: contents.name.text,
             email: contents.email.text,
@@ -112,9 +110,12 @@ export default function Form({ formRef }) {
     /* フォームのバリデーションを管理 */
     useEffect(() => {
         const errors = {
-            name: contents.name.isError === undefined && steps.first.start,
-            email: contents.email.isError === null ? null : contents.email.isError === undefined && steps.first.start,
-            message: contents.message.isError === undefined && steps.first.start
+            // name: 名前が未選択か未入力且つファーストステップ開始
+            name: contents.name.isError === undefined || contents.name.text === '' && steps.first.start,
+            // Eメールが未選択か未入力または無効なアドレス且つファーストステップ開始
+            email: contents.email.isError === null ? null : contents.email.isError === undefined || contents.email.text === '' && steps.first.start,
+            // メッセージが未選択か未入力且つファーストステップ開始
+            message: contents.message.isError === undefined || contents.message.text === '' && steps.first.start
         }
         if (steps.first.start) {
             contentsDispatch({
@@ -126,6 +127,7 @@ export default function Form({ formRef }) {
             })
         }
     }, [steps.first.start])
+
     /* 編集中の内容を破棄するかを確認 */
     useEffect(() => {
         if (edited) {
@@ -142,25 +144,26 @@ export default function Form({ formRef }) {
 
     return (
         <div className={s.form_container}>
-            <div className={classNames} ref={formRef}>
+            <Typography
+                component='div'
+                className={classNames}
+                sx={{ bgcolor: colors.bgColor.dark.sub }}
+                ref={formRef}
+            >
                 {!steps.second.end ?
-                    <form className={s.form} onSubmit={handleSubmit}>
+                    <form className={s.form} onSubmit={handleSubmit} name='form'>
                         <InputTextFields />
                         <div className={s.btn_container}>
                             {steps.first.start && steps.first.end ?
                                 <>
                                     <Button
                                         type='button'
-                                        variant='contained'
-                                        color='primary'
                                         onClick={() => handleEndConfirmation()}
                                     >
                                         修正する
                                     </Button>
                                     <Button
                                         type='button'
-                                        variant='contained'
-                                        color='primary'
                                         onClick={e => handleSubmit(e)}
                                     >
                                         送信
@@ -169,8 +172,6 @@ export default function Form({ formRef }) {
                                 :
                                 <Button
                                     type='button'
-                                    variant='contained'
-                                    color='primary'
                                     onClick={() => handleEndInput()}
                                 >
                                     入力内容の確認
@@ -181,25 +182,29 @@ export default function Form({ formRef }) {
                     :
                     <>
                         <div className={s.txt_container}>
-                            <Typography component='h2'>{sendMessage}</Typography>
-                            <Typography component='p'>{description}</Typography>
+                            <Typography component='h3' variant='h3'>{sendMessage}</Typography>
+                            <Typography component='p' variant='p'>{description}</Typography>
                             <br/>
                             {sendResult && (
                                 <>
-                                    <Typography component='p'>土日祝を除き、1～2日以内にご返信しています。</Typography>
-                                    <Typography component='p'>サーバートラブルなどにより、メールが正常に送付されないことがあります。</Typography>
-                                    <Typography component='p'>その際は junpei.oue@gmail.com に直接お問い合わせください。</Typography>
+                                    <Typography component='p' variant='p'>土日祝を除き、1～2日以内にご返信しています。</Typography>
+                                    <Typography component='p' variant='p'>サーバートラブルなどにより、メールが正常に送付されないことがあります。</Typography>
+                                    <Typography component='p' variant='p'>その際は junpei.oue@gmail.com に直接お問い合わせください。</Typography>
                                 </>
                             )}
                         </div>
                         <div className={s.btn_container}>
                             <Link href='/'>
-                                <Button type='button' variant='contained' color='primary'>Homeへ戻る</Button>
+                                <Button variant='contained' color='primary'>
+                                    <Typography variant='button'>
+                                        Homeへ戻る
+                                    </Typography>
+                                </Button>
                             </Link>
                         </div>
                     </>
                 }
-            </div>
+            </Typography>
         </div>
     )
 }
