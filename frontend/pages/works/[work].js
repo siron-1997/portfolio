@@ -7,7 +7,7 @@ import { ModelViewerLoading } from '@components/etc'
 import { Introduction, Controls } from '@/components/works/work/modelViewer'
 import { Categories, Description, Images, MainImage, Tags } from '@/components/works/work/normalViewer'
 import { Work } from '@/components/ui/canvas'
-import { fetcher, target } from '@/utils/strapi'
+import { fetcher } from '@/utils/strapi'
 import { normalViewerAnimation, modelViewerAnimation } from '@/animations/pages/works/work'
 import s from '@/styles/works/work/index.module.css'
 import g from '@/styles/global.module.css'
@@ -104,7 +104,7 @@ export default function WorkPage({ post }) {
                                         }}
                                     >
                                         <Work
-                                            modelUrl={`${target}${post?.attributes?.model?.data?.attributes?.url}`}
+                                            modelUrl={post?.attributes?.model?.data?.attributes?.url}
                                             setIsLoading={setIsLoading}
                                         />
                                     </WorkDataContext.Provider>
@@ -133,8 +133,8 @@ export default function WorkPage({ post }) {
                     <Typography component='section' className={normalViewerClassNames}>
                         <Typography component='h1' variant='h2' ref={titleRef}>{post?.attributes?.title}</Typography>
                         <MainImage
-                            url={`${target}${post?.attributes?.main?.data?.attributes?.url}`}
-                            alternativeText={`${target}${post?.attributes?.main?.data?.attributes?.alternativeText}`}
+                            url={post?.attributes?.main?.data?.attributes?.url}
+                            alternativeText={post?.attributes?.main?.data?.attributes?.alternativeText}
                             mainImageRef={mainImageRef}
                         />
                         <div className={s.normal} ref={normalRef}>

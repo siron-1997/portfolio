@@ -11,8 +11,8 @@ export default function MainImage({ url, alternativeText, mainImageRef }) {
         <Container>
             <div className={classNames} ref={mainImageRef}>
                 <Image
-                    src={url}
-                    alt={alternativeText}
+                    src={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${url}`}
+                    alt={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${alternativeText}`}
                     fill
                     quality={100}
                     priority={true}

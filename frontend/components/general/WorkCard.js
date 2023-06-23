@@ -76,11 +76,8 @@ export default function WorkCard({
                         width={pointWidth}
                         height={pointHeight}
                         quality={100}
-                        priority={
-                            width < BREAK_POINT_MB && index === 0 ? true :
-                            width >= BREAK_POINT_MB && width < BREAK_POINT_TB && index <= 1 ? true :
-                            width >= BREAK_POINT_TB && index <= 2 && true
-                        }
+                        placeholder='blur'
+                        blurDataURL={image}
                     />
                 </Link>
             </CardMedia>

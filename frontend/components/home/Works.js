@@ -5,7 +5,6 @@ import cn from 'classnames'
 import { WorkCard } from '@/components/general'
 import { Container } from '@/components/ui'
 import { truncateString } from '@/utils'
-import { target } from '@/utils/strapi/consts'
 import s from '@/styles/Home.module.css'
 import g from '@/styles/global.module.css'
 
@@ -26,8 +25,8 @@ export default function Works({ data, worksRef }) {
                         <WorkCard
                             key={i}
                             index={i}
-                            image={`${target}${item?.attributes?.main?.data?.attributes?.url}`}
-                            alternativeText={`${target}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
+                            image={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${item?.attributes?.main?.data?.attributes?.url}`}
+                            alternativeText={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
                             link={`${path}${item.attributes.link}`}
                             title={item?.attributes?.title}
                             description={truncateString(item?.attributes?.description, 50)}

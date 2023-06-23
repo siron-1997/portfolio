@@ -1,6 +1,5 @@
 import { WorkCard } from '@/components/general'
 import { truncateString } from '@/utils'
-import { target } from '@/utils/strapi'
 import s from '@/styles/works/Cards.module.css'
 
 export default function Cards({ data, selectTags, contentsRef }) {
@@ -21,8 +20,8 @@ export default function Cards({ data, selectTags, contentsRef }) {
                 <WorkCard
                     key={i}
                     index={i}
-                    image={`${target}${item?.attributes?.main?.data?.attributes?.url}`}
-                    alternativeText={`${target}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
+                    image={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${item?.attributes?.main?.data?.attributes?.url}`}
+                    alternativeText={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
                     link={`/works/${item.attributes.link}`}
                     title={item?.attributes?.title}
                     description={truncateString(item?.attributes?.description, 50)}
