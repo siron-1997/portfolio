@@ -50,6 +50,8 @@ export default function HomePage({ data }) {
 export async function getServerSideProps() {
   let data = {}
 
+  console.log('test', process.env.STRAPI_DOMAINS)
+
   try {
     const res = await fetcher('/api/works?populate=main')
     data = res.data.data
