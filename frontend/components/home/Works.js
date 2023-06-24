@@ -27,7 +27,7 @@ export default function Works({ data, worksRef }) {
                             index={i}
                             image={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.main?.data?.attributes?.url}`}
                             alternativeText={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
-                            link={`${path}${item.attributes.link}`}
+                            link={`${path}${item?.id?.toString()}`}
                             title={item?.attributes?.title}
                             description={truncateString(item?.attributes?.description, 50)}
                             tags={item?.attributes?.tags === 'three' ? '3D' : 'web'}

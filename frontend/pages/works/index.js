@@ -24,7 +24,12 @@ export default function WorksPage({ data }) {
     }, [])
 
     return (
-        <Layout metaProps={{ title: 'Junpei Oue | Works' }}>
+        <Layout metaProps={{
+            title: 'Junpei Oue | Works',
+            description: 'これまでの作品・実績集。',
+            image_path: '/images/siron/siron.webp',
+            type: 'website'
+        }}>
             <div className={g.global_root_container}>
                 <Container>
                     <div className={s.works_container} ref={worksRef}>

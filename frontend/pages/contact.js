@@ -103,7 +103,12 @@ export default function ContactPage() {
     }, [])
 
     return (
-        <Layout metaProps={{ title: 'Junpei Oue | Contact' }}>
+        <Layout metaProps={{
+            title: 'Junpei Oue | Contact',
+            description: '質問、依頼などのお問合せはこちら。',
+            image_path: '/images/siron/siron.webp',
+            type: 'website'
+        }}>
             <Sending isLoading={send.isLoading} />
             <div className={g.global_root_container}>
                 <Container>

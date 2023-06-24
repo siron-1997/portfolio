@@ -27,7 +27,7 @@ export default function HomePage({ data }) {
   return (
     <>
       <ModelViewerLoading isLoading={isLoading} />
-      <Layout>
+      <Layout metaProps={{ type: 'website' }}>
         <PageHeader
           pageHeaderRef={pageHeaderRef}
           Background={

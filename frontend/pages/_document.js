@@ -1,9 +1,31 @@
+import Script from 'next/script'
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
-    <Html lang="ja">
+    <Html lang='ja'>
       <Head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+          strategy='afterInteractive'
+        />
+        <Script
+          id='google-analytics'
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+    
+              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+                page_path: window.location.pathname,
+              });
+            `
+          }}
+          strategy='afterInteractive'
+        />
         <meta charSet='UTF-8' />
         <link rel='apple-touch-icon' sizes='180x180' href='/images/favicons/apple-touch-icon.png' />
         <link rel='icon' type='image/png' sizes='32x32' href='/images/favicons/favicon-32x32.png' />

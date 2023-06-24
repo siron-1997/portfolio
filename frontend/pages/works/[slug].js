@@ -78,76 +78,85 @@ export default function WorkPage({ post }) {
     return (
         <>
             <Layout
-                metaProps={{ title: `Junpei Oue | Works | ${post?.attributes?.title}` }}
+                metaProps={{
+                    title: `Junpei Oue | Works | ${post?.attributes?.title}`,
+                    description: post?.attributes?.description,
+                    image_path: process.env.NEXT_PUBLIC_STRAPI_URL.post?.attributes?.main?.data?.attributes?.url,
+                    type: 'article'
+                }}
                 isViewerActive={isViewerActive}
             >
                 {post?.attributes?.tags === 'three' ? (
                     <>
                         <ModelViewerLoading isLoading={isLoading} />
-                        <PageHeader
-                            id={'model-viewer'}
-                            pageHeaderRef={pageHeaderRef}
-                            figureClassName={s.figure}
-                            figcaptionClassName={s.figcaption}
-                            Background={
-                                <SectionsContext.Provider value={{ pageHeaderRef, introductionRef, controlsRef }}>
-                                    <WorkDataContext.Provider
-                                        value={{
-                                            isInitialControl, setIsInitialControl,
-                                            isStartControls, setIsStartControls,
-                                            currentIndex, setCurrentIndex,
-                                            setIsFingerVisible,
-                                            isViewerActive,
-                                            controlsData,
-                                            cameraConfigsData,
-                                            pointLightsData
-                                        }}
-                                    >
-                                        <Work
-                                            modelUrl={post?.attributes?.model?.data?.attributes?.url}
-                                            setIsLoading={setIsLoading}
-                                        />
-                                    </WorkDataContext.Provider>
-                                </SectionsContext.Provider>
-                            }
-                        >
-                            <Typography component='section'>
-                                <Typography component='h1' variant='h1'>{post?.attributes?.title}</Typography>
-                                <Typography component='p' variant='p'>{post?.attributes?.description}</Typography>
-                            </Typography>
-                        </PageHeader>
-                        <SectionsContext.Provider value={{ introductionRef, controlsRef }}>
-                            {/* Introduction */}
-                            <WorkDataContext.Provider value={{ isFingerVisible, setIsFingerVisible, isViewerActive, setIsViewerActive }}>
-                                <Introduction data={introductionData} />
-                            </WorkDataContext.Provider>
-                            {/* Controls */}
-                            <WorkDataContext.Provider
-                                value={{ setIsInitialControl, currentIndex, setCurrentIndex }}
+                        <article>
+                            <PageHeader
+                                id={'model-viewer'}
+                                pageHeaderRef={pageHeaderRef}
+                                figureClassName={s.figure}
+                                figcaptionClassName={s.figcaption}
+                                Background={
+                                    <SectionsContext.Provider value={{ pageHeaderRef, introductionRef, controlsRef }}>
+                                        <WorkDataContext.Provider
+                                            value={{
+                                                isInitialControl, setIsInitialControl,
+                                                isStartControls, setIsStartControls,
+                                                currentIndex, setCurrentIndex,
+                                                setIsFingerVisible,
+                                                isViewerActive,
+                                                controlsData,
+                                                cameraConfigsData,
+                                                pointLightsData
+                                            }}
+                                        >
+                                            <Work
+                                                modelUrl={post?.attributes?.model?.data?.attributes?.url}
+                                                setIsLoading={setIsLoading}
+                                            />
+                                        </WorkDataContext.Provider>
+                                    </SectionsContext.Provider>
+                                }
                             >
-                                <Controls data={controlsData} />
-                            </WorkDataContext.Provider>
-                        </SectionsContext.Provider>
+                                <Typography component='section'>
+                                    <Typography component='h1' variant='h1'>{post?.attributes?.title}</Typography>
+                                    <Typography component='p' variant='p'>{post?.attributes?.description}</Typography>
+                                </Typography>
+                            </PageHeader>
+                            <SectionsContext.Provider value={{ introductionRef, controlsRef }}>
+                                {/* Introduction */}
+                                <WorkDataContext.Provider value={{ isFingerVisible, setIsFingerVisible, isViewerActive, setIsViewerActive }}>
+                                    <Introduction data={introductionData} />
+                                </WorkDataContext.Provider>
+                                {/* Controls */}
+                                <WorkDataContext.Provider
+                                    value={{ setIsInitialControl, currentIndex, setCurrentIndex }}
+                                >
+                                    <Controls data={controlsData} />
+                                </WorkDataContext.Provider>
+                            </SectionsContext.Provider>
+                        </article>
                     </>
                 ) : (
-                    <Typography component='section' className={normalViewerClassNames}>
-                        <Typography component='h1' variant='h2' ref={titleRef}>{post?.attributes?.title}</Typography>
-                        <MainImage
-                            url={post?.attributes?.main?.data?.attributes?.url}
-                            alternativeText={post?.attributes?.main?.data?.attributes?.alternativeText}
-                            mainImageRef={mainImageRef}
-                        />
-                        <div className={s.normal} ref={normalRef}>
-                            <Categories categories={post?.attributes?.categories} />
-                            <Tags skillTags={post?.attributes?.skillTags} />
-                        </div>
-                        <Description
-                            url={post?.attributes?.url}
-                            description={post?.attributes?.description}
-                            descriptionRef={descriptionRef}
-                        />
-                        <Images thumbnail={post?.attributes?.thumbnail?.data} imagesRef={imagesRef} />
-                    </Typography>
+                    <article>
+                        <Typography component='section' className={normalViewerClassNames}>
+                            <Typography component='h1' variant='h2' ref={titleRef}>{post?.attributes?.title}</Typography>
+                            <MainImage
+                                url={post?.attributes?.main?.data?.attributes?.url}
+                                alternativeText={post?.attributes?.main?.data?.attributes?.alternativeText}
+                                mainImageRef={mainImageRef}
+                            />
+                            <div className={s.normal} ref={normalRef}>
+                                <Categories categories={post?.attributes?.categories} />
+                                <Tags skillTags={post?.attributes?.skillTags} />
+                            </div>
+                            <Description
+                                url={post?.attributes?.url}
+                                description={post?.attributes?.description}
+                                descriptionRef={descriptionRef}
+                            />
+                            <Images thumbnail={post?.attributes?.thumbnail?.data} imagesRef={imagesRef} />
+                        </Typography>
+                    </article>
                 )}
             </Layout>
         </>
