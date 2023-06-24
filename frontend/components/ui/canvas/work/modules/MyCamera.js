@@ -52,7 +52,7 @@ export default function MyCamera({ setIsNavigationVisible }) {
     
             return () => cleanup()
         }
-    }, [width])
+    }, [width, cameraConfigsData, controlsRef, introductionRef, pageHeaderRef, setIsNavigationVisible, setIsStartControls])
 
     /* ビュワーモード アニメーション（isViewerActive、widthの変更に応じてアニメーションを更新） */
     useEffect(() => {
@@ -73,7 +73,7 @@ export default function MyCamera({ setIsNavigationVisible }) {
 
             return () => cleanup()
         }
-    }, [isViewerActive, width])
+    }, [isViewerActive, width, cameraConfigsData, introductionRef])
 
     /* コントロール アニメーション（previousPosition、previousRotation、isStartControlsの変更に応じてアニメーションを更新） */
     useEffect(() => {
@@ -91,7 +91,7 @@ export default function MyCamera({ setIsNavigationVisible }) {
         })
 
         return () => cleanup()
-    }, [previousPositionRef.current, previousRotationRef.current, isStartControls, width])
+    }, [isStartControls, width, cameraConfigsData, currentIndex, isInitialControl])
 
     return (
         <PerspectiveCamera

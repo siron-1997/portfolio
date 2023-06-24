@@ -27,7 +27,7 @@ export default function HomePage({ data }) {
   return (
     <>
       <ModelViewerLoading isLoading={isLoading} />
-      <Layout>
+      <Layout metaProps={{ type: 'website' }}>
         <PageHeader
           pageHeaderRef={pageHeaderRef}
           Background={
@@ -53,7 +53,6 @@ export async function getServerSideProps() {
   try {
     const res = await fetcher('/api/works?populate=main')
     data = res.data.data
-    console.log('res', res)
   } catch (error) {
     console.log('error', error)
   }

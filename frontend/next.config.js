@@ -2,17 +2,15 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    remotePatterns: [
-      {
-        protocol: process.env.STRAPI_PROTOCOL,
-        hostname: process.env.STRAPI_HOSTNAME,
-        port: process.env.STRAPI_PORT,
-        pathname: '/uploads/**'
-      }
-    ]
+    domains: [
+      'junpei-oue-strapi-2g4m9.ondigitalocean.app',
+      '127.0.0.1'
+    ],
   },
   env: {
-    OPEN_WEATHER_API_KEY: process.env.OPEN_WEATHER_API_KEY
+    OPEN_WEATHER_API_KEY: process.env.OPEN_WEATHER_API_KEY,
+    NEXT_PUBLIC_STRAPI_URL: process.env.NEXT_PUBLIC_STRAPI_URL,
+    NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS
   }
 }
 

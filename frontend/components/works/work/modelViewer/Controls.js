@@ -110,7 +110,7 @@ const ControlListItem = ({ title, description, index, className, style, onClick 
             <Typography
                 component='h5'
                 variant='h5'
-                sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+                sx={{ display: 'flex', alignItems: 'center', gap: 1, mr: 'auto' }}
             >
                 <Typography
                     component='span'
@@ -129,7 +129,7 @@ const ControlListItem = ({ title, description, index, className, style, onClick 
                 </Typography>
                 {title}
             </Typography>
-            <Typography component='p' variant='p' sx={{ fontSize: 13 }}>{description}</Typography>
+            <Typography component='p' variant='p' sx={{ fontSize: 13, mr: 'auto' }}>{description}</Typography>
         </ListItem>
     )
 }

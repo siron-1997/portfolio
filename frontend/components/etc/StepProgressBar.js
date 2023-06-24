@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useReducer } from 'react'
+import { useState, useEffect, useContext, useReducer, useCallback } from 'react'
 import cn from 'classnames'
 import { ContactDataContext } from '@/pages/contact'
 import s from '@/styles/etc/StepProgressBar.module.css'
@@ -42,7 +42,7 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
           subtitleClassNames = cn(s.step_label_subtitle, subtitleClass),
           contentClassNames = cn(s.step_content, contentClass)
 
-    const handleNext = () => {
+    const handleNext = useCallback(() => {
         if (currentIndex === stepPoints.length - 1) {
             return
         }
@@ -55,9 +55,9 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
                 state: isStateValid && sendResult === null || sendResult ? StepStates.CURRENT : StepStates.ERROR
             }
         })
-    }
+    }, [currentIndex, sendResult, stepPoints.length, steps.first.end])
 
-    const handlePrev = () => {
+    const handlePrev = useCallback(() => {
         if (currentIndex === 0) {
             return
         } else if (!steps.first.end) {
@@ -70,7 +70,7 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
                 }
             })
         }
-    }
+    }, [currentIndex, steps.first.end])
 
     useEffect(() => {
         dispatch({
@@ -79,7 +79,7 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
         })
         steps.first.start && handleNext()
         !steps.first.start && !steps.first.end && handlePrev()
-    }, [steps.first.start, steps.first.end, steps.second.end, sendResult])
+    }, [steps.first.start, steps.first.end, steps.second.end, sendResult, currentIndex, handleNext, handlePrev])
 
     return (
         <div className={wrapperClassNames}>

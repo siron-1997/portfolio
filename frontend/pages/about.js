@@ -24,7 +24,12 @@ export default function AboutPage() {
     }, [])
 
     return (
-        <Layout metaProps={{ title: 'Junpei Oue | About' }}>
+        <Layout metaProps={{
+            title: 'Junpei Oue | About',
+            description: '自己紹介。',
+            image_path: '/images/siron/siron.webp',
+            type: 'website'
+        }}>
             <div className={g.global_root_container}>
                 <Container>
                     <Typography
