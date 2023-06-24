@@ -3,11 +3,6 @@ import { BREAK_POINT_MB, BREAK_POINT_TB, BREAK_POINT_LG, BREAK_POINT_XL, BREAK_P
 import { colors } from '@/assets/colors'
 
 export const theme = createTheme(({
-    root: {
-        '& .MuiAutocomplete-inputRoot[class*="MuiInput-root"]': {
-            backgroundColor: colors.bgColor.dark.main,
-        }
-    },
     breakpoints: {
         values: { xs: 0, sm: BREAK_POINT_MB, md: BREAK_POINT_TB, lg: BREAK_POINT_LG, xl: BREAK_POINT_XL, xxl: BREAK_POINT_XXL }
     },
