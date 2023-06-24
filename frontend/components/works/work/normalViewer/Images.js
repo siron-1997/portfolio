@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import cn from 'classnames'
 import { Container } from '@/components/ui'
-import { target } from '@/utils/strapi'
 import s from '@/styles/works/work/normalViewer/Images.module.css'
 import g from '@/styles/global.module.css'
 
@@ -14,8 +13,8 @@ export default function Images({ thumbnail, imagesRef }) {
                 {thumbnail?.map((item, i) => (
                     <div className={classNames} key={i}>
                         <Image
-                            src={`${target}${item?.attributes?.url}`}
-                            alt={`${target}${item?.attributes?.alternativeText}`}
+                            src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.url}`}
+                            alt={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.alternativeText}`}
                             fill
                             quality={100}
                         />

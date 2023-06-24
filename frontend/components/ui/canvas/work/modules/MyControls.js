@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { extend } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { MathUtils } from 'three'
-import { WorkDataContext } from '@/pages/works/[work]'
+import { WorkDataContext } from '@/pages/works/[slug]'
 
 extend({ OrbitControls })
 

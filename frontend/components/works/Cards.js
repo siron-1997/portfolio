@@ -20,9 +20,9 @@ export default function Cards({ data, selectTags, contentsRef }) {
                 <WorkCard
                     key={i}
                     index={i}
-                    image={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${item?.attributes?.main?.data?.attributes?.url}`}
-                    alternativeText={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
-                    link={`/works/${item.attributes.link}`}
+                    image={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.main?.data?.attributes?.url}`}
+                    alternativeText={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
+                    link={`/works/${item?.id?.toString()}`}
                     title={item?.attributes?.title}
                     description={truncateString(item?.attributes?.description, 50)}
                     tags={item?.attributes?.tags === 'three' ? '3D' : 'web'}
