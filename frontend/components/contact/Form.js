@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useCallback } from 'react'
 import { Button, Typography } from '@mui/material'
 import axios from 'axios'
 import cn from 'classnames'
@@ -35,23 +35,23 @@ export default function Form({ formRef }) {
         }
     }
     /* ブラウザバッグ */
-    const handlePopstate = () => {
+    const handlePopstate = useCallback(() => {
         const isDiscardedOK = window.confirm(confirmMessage)
         if (isDiscardedOK) { // e.type === 'popstate'
             window.history.back()
             setIsEdited(false)
         }
         history.pushState(null, '', null)
-    }
+    }, [setIsEdited])
     /* ブラウザ更新 */
-    const handleBeforeunload = e => {
+    const handleBeforeunload = useCallback(e => {
         e.preventDefault()
         const confirmationMessage = confirmMessage
         e.returnValue = ''
         e.returnValue = confirmationMessage
         setIsEdited(false)
         return confirmMessage
-    }
+    }, [setIsEdited])
     /* 入力内容の確認 */
     const handleEndInput = () => {
         // 全ての要件を満たす
@@ -126,7 +126,12 @@ export default function Form({ formRef }) {
                 total: { isComplete: errors.total }
             })
         }
-    }, [steps.first.start])
+    }, [steps.first.start,
+        contents.email.isError, contents.email.text,
+        contents.message.isError, contents.message.text,
+        contents.name.isError, contents.name.text,
+        contentsDispatch
+    ])
 
     /* 編集中の内容を破棄するかを確認 */
     useEffect(() => {
@@ -140,7 +145,7 @@ export default function Form({ formRef }) {
             window.removeEventListener('popstate', handlePopstate)
             window.removeEventListener('beforeunload', handleBeforeunload)
         }
-    }, [edited])
+    }, [edited, handleBeforeunload, handlePopstate])
 
     return (
         <div className={s.form_container}>

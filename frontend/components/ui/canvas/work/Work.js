@@ -42,7 +42,7 @@ const Work = ({ modelUrl, setIsLoading }) => {
                     far={width > BREAK_POINT_TB ? 90 : 110}
                 />
                 <MyModel
-                    modelUrl={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${modelUrl}`}
+                    modelUrl={`${process.env.NEXT_PUBLIC_STRAPI_URL}${modelUrl}`}
                     isNavigationVisible={isNavigationVisible}
                 />
                 <MyControls />

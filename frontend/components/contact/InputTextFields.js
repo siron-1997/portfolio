@@ -96,7 +96,7 @@ export default function InputTextFields() {
                     sx={textFieldStyles}
                 />
                 <FormHelperText
-                    error={contents.email.isError}
+                    error={contents.email.isError || contents.email.isError === null}
                     className={s.error}
                     sx={{ display: contents.email.isError || contents.email.isError === null ? 'block' : 'none' }}
                 >

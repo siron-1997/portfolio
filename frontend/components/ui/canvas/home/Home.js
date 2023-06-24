@@ -19,6 +19,8 @@ export default function Home({ pageHeaderRef, setIsLoading }) {
     const [currentWeathers, setCurrentWeathers] = useState(null)
     const [isViewerLoading, setIsViewerLoading] = useState(false)
 
+    const currentData = data !== null
+
     const getCurrentWeather = async (lat, lon) => {
         try {
             const res = await axios.post('/api/submit-form', {
@@ -48,7 +50,7 @@ export default function Home({ pageHeaderRef, setIsLoading }) {
                 }
             })
         }
-    }, [data !== null])
+    }, [currentData])
 
     useEffect(() => {
         if (data) {

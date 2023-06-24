@@ -45,7 +45,7 @@ export default function MyModel({ modelUrl, isNavigationVisible }) {
     
             return () => cleanup()
         }
-    }, [])
+    }, [pointLightsData, scene])
 
     return (
         <group name='import-model' scale={[scale, scale, scale]}>

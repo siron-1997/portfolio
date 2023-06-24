@@ -16,7 +16,7 @@ export default function Ocean({ visible }) {
     )
     waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping
 
-    const geom = useMemo(() => new PlaneGeometry(15, 15))
+    const geom = useMemo(() => new PlaneGeometry(15, 15), [])
     const config = useMemo(() => ({
         textureWidth: 512,
         textureHeight: 512,
@@ -27,7 +27,7 @@ export default function Ocean({ visible }) {
         distortionScale: 1.6,
         fog: true,
         format: gl.encoding,
-    }), [waterNormals])
+    }), [waterNormals, gl.encoding])
 
     useFrame((_, delta) => {
         waterRef.current.material.uniforms['time'].value += delta * 0.2

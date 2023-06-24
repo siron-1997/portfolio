@@ -8,7 +8,8 @@ const nextConfig = {
     ],
   },
   env: {
-    OPEN_WEATHER_API_KEY: process.env.OPEN_WEATHER_API_KEY
+    OPEN_WEATHER_API_KEY: process.env.OPEN_WEATHER_API_KEY,
+    NEXT_PUBLIC_STRAPI_URL: process.env.NEXT_PUBLIC_STRAPI_URL
   }
 }
 

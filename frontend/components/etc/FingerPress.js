@@ -15,6 +15,8 @@ export default function FingerPress() {
     const { width } = useWindowSize()
     const iconSize = useIconSize(75, 85, 95)
 
+    const breakPoint = width < BREAK_POINT_MB
+
     useEffect(() => {
         const image = imageRef.current
         const text = textRef.current
@@ -29,7 +31,7 @@ export default function FingerPress() {
         const cleanup = fingerPressAnimation(image, text, currentWidth, isFingerVisible)
 
         return () => cleanup()
-    }, [width < BREAK_POINT_MB, isFingerVisible, isViewerActive])
+    }, [width, breakPoint, isFingerVisible, isViewerActive])
 
     return (
         <div className={s.finger_press} id='finger-press'>

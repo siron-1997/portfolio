@@ -21,7 +21,7 @@ export default function RigCamera({ pageHeaderRef, doorRef }) {
         const cleanup = rigCameraAnimation(startPosition, endPosition, pageHeader, door, room, camera, width)
 
         return () => cleanup()
-    }, [width])
+    }, [width, camera, doorRef, height, pageHeaderRef, scene.children])
 
     return (
         <CameraShake
