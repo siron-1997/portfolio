@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 import cn from 'classnames'
 import { Container, ToggleButton } from '@/components/ui'
 import { FingerPress } from '@/components/etc'
-import { SectionsContext, WorkDataContext } from '@/pages/works/[work]'
+import { SectionsContext, WorkDataContext } from '@/pages/works/[slug]'
 import s from '@/styles/works/work/modelViewer/Introduction.module.css'
 import g from '@/styles/global.module.css'
 

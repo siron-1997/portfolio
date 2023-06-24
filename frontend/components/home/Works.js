@@ -25,8 +25,8 @@ export default function Works({ data, worksRef }) {
                         <WorkCard
                             key={i}
                             index={i}
-                            image={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${item?.attributes?.main?.data?.attributes?.url}`}
-                            alternativeText={`${process.env.NEXT_PUBLIC_STRAPI_DOMAIN}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
+                            image={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.main?.data?.attributes?.url}`}
+                            alternativeText={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
                             link={`${path}${item.attributes.link}`}
                             title={item?.attributes?.title}
                             description={truncateString(item?.attributes?.description, 50)}

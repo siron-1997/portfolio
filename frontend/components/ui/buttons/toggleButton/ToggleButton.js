@@ -1,7 +1,7 @@
 import { useEffect, useRef, useContext } from 'react'
 import { Typography } from '@mui/material'
 import cn from 'classnames'
-import { WorkDataContext } from '@/pages/works/[work]'
+import { WorkDataContext } from '@/pages/works/[slug]'
 import { toggleButtonAnimation } from '@/animations/components/ui/buttons'
 import s from '@/styles/ui/buttons/ToggleButton.module.css'
 

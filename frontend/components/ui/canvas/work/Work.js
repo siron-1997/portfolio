@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { ACESFilmicToneMapping } from 'three'
 import { MyCamera, MyControls } from './modules'
 import { useWindowSize } from '@/utils/hooks'
-import { WorkDataContext } from '@/pages/works/[work]'
+import { WorkDataContext } from '@/pages/works/[slug]'
 import { BREAK_POINT_TB } from '@/assets/break-points'
 import s from '@/styles/works/work/index.module.css'
 

@@ -161,7 +161,7 @@ export async function getStaticPaths() {
         const res = await fetcher('/api/works')
         const posts = await res.data.data
         paths = posts.map(post => ({
-            params: { work: post.id.toString() }
+            params: { slug: post.id.toString() }
         }))
     } catch (error) {
         console.log('paths', error)
@@ -173,21 +173,20 @@ export async function getStaticPaths() {
     }
 }
 
-export async function getStaticProps({ params: { work } }) {
+export async function getStaticProps({ params: { slug } }) {
     let post = {}
 
     try {
-        const res = await fetcher('/api/works?populate=*')
-        const posts = res.data.data
-        post = posts.filter(post => post.attributes.link === work)[0]
+        const res = await fetcher(`/api/works/${slug}?populate=*`)
+        post = res.data.data
     } catch (error) {
         console.log('post', error)
     }
 
     return {
         props: {
-          post: post || null,
-          work
-        }
+          post: post || null
+        },
+        revalidate: 60
     }
 }

@@ -48,8 +48,15 @@ export default function HomePage({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetcher(`/api/works?populate=main`)
-  const data = await res?.data?.data
+  let data = {}
+
+  try {
+    const res = await fetcher('/api/works?populate=main')
+    data = res.data.data
+    console.log('res', res)
+  } catch (error) {
+    console.log('error', error)
+  }
 
   return {
     props: { data }
