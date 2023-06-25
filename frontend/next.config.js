@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: false,
   images: {
     domains: [
-      'junpei-oue-strapi-2g4m9.ondigitalocean.app',
+      'junpei-oue-app-ts4rv.ondigitalocean.app',
       '127.0.0.1'
     ],
   },
