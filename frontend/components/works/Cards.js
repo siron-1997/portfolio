@@ -14,6 +14,8 @@ export default function Cards({ data, selectTags, contentsRef }) {
         return filteredData
     }, [])
 
+    const path = '/works/'
+
     return (
         <div className={s.contents} ref={contentsRef}>
             {filteredData.map((item, i) => (
@@ -22,7 +24,7 @@ export default function Cards({ data, selectTags, contentsRef }) {
                     index={i}
                     image={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.main?.data?.attributes?.url}`}
                     alternativeText={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.main?.data?.attributes?.alternativeText}`}
-                    link={`/works/${item?.id?.toString()}`}
+                    link={`${path}${item?.id?.toString()}`}
                     title={item?.attributes?.title}
                     description={truncateString(item?.attributes?.description, 50)}
                     tags={item?.attributes?.tags === 'three' ? '3D' : 'web'}

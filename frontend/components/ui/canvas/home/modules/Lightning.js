@@ -34,7 +34,7 @@ export default function Lightning({ currentWeathers }) {
 
     useEffect(() => {
         pointLightHelper.current.visible = false
-    }, [])
+    }, [pointLightHelper])
 
     return (
         <pointLight

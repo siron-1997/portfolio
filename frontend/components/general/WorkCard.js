@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import { gsap } from 'gsap'
 import cn from 'classnames'
@@ -32,34 +32,36 @@ export default function WorkCard({
           txtClassNames = cn({ [s.txt_container]: termsWorks, [h.card_txt_container]: termsHome })
 
     /* マウスホバー時 */
-    const handleMouseEnter = index => {
+    const handleMouseEnter = useCallback(index => {
         if (contentsRef.current) {
             const child = contentsRef.current.children[index]
             const animate = gsap.to(child, { scale: 1.05, duration: 0.2, })
 
             return () => animate.kill()
         }
-    }
+    }, [contentsRef])
     /* マウスホバー終了 */
-    const handleMouseLeave = index => {
+    const handleMouseLeave = useCallback(index => {
         if (contentsRef.current) {
             const child = contentsRef.current.children[index]
             const animate = gsap.to(child, { scale: 1, duration: 0.3, })
 
             return () => animate.kill()
         }
-    }
+    }, [contentsRef])
 
     useEffect(() => {
-        return () => {
-            if (contentsRef.current) {
-                for (let i = 0; i < contentsRef.current.children.length; i ++) {
+        const contents = contentsRef.current
+
+        if (contents) {
+            return () => {
+                for (let i = 0; i < contents.children.length; i ++) {
                     handleMouseEnter(i)?.()
                     handleMouseLeave(i)?.()
                 }
             }
         }
-    }, [])
+    }, [contentsRef, handleMouseEnter, handleMouseLeave])
 
     return (
         <Card

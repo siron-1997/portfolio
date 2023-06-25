@@ -19,7 +19,7 @@ export default function SunLight({ currentWeathers, timePoint }) {
 
     useEffect(() => {
         sunLightHelper.current.visible = false
-    }, [])
+    }, [sunLightHelper])
 
     return (
         <directionalLight
