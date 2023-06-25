@@ -104,7 +104,7 @@ export default function Form({ formRef }) {
                     handleResult(false, '送信エラー', '送信に失敗しました。時間をおいて再度お試し下さい。', 'END_LOADING', false)
                 }
             })
-        }, 4000)
+        }, 3000)
     }
 
     /* フォームのバリデーションを管理 */
