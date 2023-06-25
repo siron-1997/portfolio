@@ -27,7 +27,7 @@ export default function HomePage({ data }) {
   return (
     <>
       <ModelViewerLoading isLoading={isLoading} />
-      <Layout>
+      <Layout metaProps={{ type: 'website' }}>
         <PageHeader
           pageHeaderRef={pageHeaderRef}
           Background={
@@ -49,8 +49,6 @@ export default function HomePage({ data }) {
 
 export async function getServerSideProps() {
   let data = {}
-
-  console.log('test', process.env.STRAPI_DOMAINS)
 
   try {
     const res = await fetcher('/api/works?populate=main')
