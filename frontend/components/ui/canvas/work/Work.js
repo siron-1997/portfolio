@@ -27,6 +27,7 @@ const Work = ({ modelUrl, setIsLoading }) => {
                 className={s.canvas}
                 onCreated={() => setIsLoading(false)}
                 onMouseDown={() => setIsFingerVisible(false)}
+                onTouchStart={() => setIsFingerVisible(false)}
             >   
                 <MyCamera setIsNavigationVisible={setIsNavigationVisible} />
                 <ambientLight color={'#3F1F4E'} intensity={6} />

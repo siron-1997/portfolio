@@ -5,6 +5,8 @@
     align-items: center;
     flex-wrap: wrap;
     row-gap: 35px;
+    position: relative;
+    overflow: hidden;
 }
 
 @media screen and (min-width: 768px) {

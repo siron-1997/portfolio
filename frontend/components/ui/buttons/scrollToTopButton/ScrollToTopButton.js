@@ -25,6 +25,7 @@ export default function ScrollToTopButton({ isViewerActive }) {
         <StyledFab
             color='primary'
             onClick={handleClick}
+            aria-label='scroll to top'
             className={s.scroll_to_top}
             style={{ zIndex: isViewerActive ? 0 : 1000 }}
         >

@@ -1,3 +1,8 @@
+.introduction { 
+    position: relative;
+    overflow: hidden;
+}
+
 .profile_text {
     display: flex;
     flex-direction: column;

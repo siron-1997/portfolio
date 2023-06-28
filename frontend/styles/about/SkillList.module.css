@@ -3,7 +3,9 @@
     flex-direction: column;
     justify-content: center;
     gap: 30px;
+    position: relative;
     width: 100%;
+    overflow: hidden;
 }
 
 .skill_list_container {
