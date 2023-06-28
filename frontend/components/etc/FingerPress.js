@@ -49,6 +49,7 @@ export default function FingerPress() {
                     height={iconSize}
                     quality={1}
                     onMouseDown={() => setIsFingerVisible(false)}
+                    onTouchStart={() => setIsFingerVisible(false)}
                     style={{ display: !isFingerVisible ? 'none' : 'block' }}
                 />
             ) : (

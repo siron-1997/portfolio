@@ -32,7 +32,7 @@ export default function WorksPage({ data }) {
         }}>
             <div className={g.root_container}>
                 <Container className={g.top_container}>
-                    <div ref={worksRef}>
+                    <div ref={worksRef} style={{ position: 'relative', overflow: 'hidden' }}>
                         <Typography component='h1' variant='h1'>Works</Typography>
                         <LimitTags setSelectTags={setSelectTags} />
                         <Cards

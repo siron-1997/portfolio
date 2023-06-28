@@ -16,6 +16,7 @@ export default function ProfileImage({ profileImageRef }) {
                 style={{ border: `3px solid ${colors.navigation}` }}
                 fill
                 quality={100}
+                priority={true}
                 placeholder='blur'
                 blurDataURL='/images/siron/siron.webp'
                 sizes={'(max-width: 1024px) 90vw, (max-width: 768px) 50vw, 100vw'}
