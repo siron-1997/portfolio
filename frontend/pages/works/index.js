@@ -5,7 +5,6 @@ import { Typography } from '@mui/material'
 import { Cards, LimitTags } from '@/components/works'
 import { fetcher } from '@/utils/strapi'
 import { worksAnimation } from '@/animations/pages/works'
-import s from '@/styles/works/index.module.css'
 import g from '@/styles/global.module.css'
 
 export default function WorksPage({ data }) {
@@ -14,13 +13,14 @@ export default function WorksPage({ data }) {
     const [selectTags, setSelectTags] = useState([])
 
     useEffect(() => {
-        const works = worksRef.current,
-              title = works.children[0],
-              limitTags = works.children[1]
-            
-        const cleanup = worksAnimation(title, limitTags, contentsRef)
+        const ctx = worksAnimation({
+            title:worksRef.current.children[0],
+            limitTags: worksRef.current.children[1],
+            contents: contentsRef.current,
+            worksRef
+        })
 
-        return () => cleanup()
+        return () => ctx.revert()
     }, [])
 
     return (
@@ -30,9 +30,9 @@ export default function WorksPage({ data }) {
             image_path: '/images/siron/siron.webp',
             type: 'website'
         }}>
-            <div className={g.global_root_container}>
-                <Container>
-                    <div className={s.works_container} ref={worksRef}>
+            <div className={g.root_container}>
+                <Container className={g.top_container}>
+                    <div ref={worksRef}>
                         <Typography component='h1' variant='h1'>Works</Typography>
                         <LimitTags setSelectTags={setSelectTags} />
                         <Cards

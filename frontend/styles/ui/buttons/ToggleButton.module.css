@@ -2,7 +2,7 @@
     display: flex;
     position: relative;
     width: 260px;
-    z-index: 100;
+    z-index: 600;
 }
 
 .bg {

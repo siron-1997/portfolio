@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useCallback } from 'react'
 import { Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
-import { gsap } from 'gsap'
 import cn from 'classnames'
 import { useImageSize, useWindowSize } from '@/utils/hooks'
 import { BREAK_POINT_MB, BREAK_POINT_TB } from '@/assets/break-points'
@@ -12,7 +10,7 @@ import s from '@/styles/general/WorkCard.module.css'
 import g from '@/styles/global.module.css'
 
 export default function WorkCard({
-    index, image, link, title, description, tags, alternativeText, type, contentsRef
+    image, link, title, description, tags, alternativeText, type
 }) {
     const { pointWidth, pointHeight } = useImageSize({
         sm: { pointWidth: 320, pointHeight: 240 },
@@ -31,69 +29,37 @@ export default function WorkCard({
           cardMediaClassNames = cn({ [s.card_media]: termsWorks }),
           txtClassNames = cn({ [s.txt_container]: termsWorks, [h.card_txt_container]: termsHome })
 
-    /* マウスホバー時 */
-    const handleMouseEnter = useCallback(index => {
-        if (contentsRef.current) {
-            const child = contentsRef.current.children[index]
-            const animate = gsap.to(child, { scale: 1.05, duration: 0.2, })
-
-            return () => animate.kill()
-        }
-    }, [contentsRef])
-    /* マウスホバー終了 */
-    const handleMouseLeave = useCallback(index => {
-        if (contentsRef.current) {
-            const child = contentsRef.current.children[index]
-            const animate = gsap.to(child, { scale: 1, duration: 0.3, })
-
-            return () => animate.kill()
-        }
-    }, [contentsRef])
-
-    useEffect(() => {
-        const contents = contentsRef.current
-
-        if (contents) {
-            return () => {
-                for (let i = 0; i < contents.children.length; i ++) {
-                    handleMouseEnter(i)?.()
-                    handleMouseLeave(i)?.()
-                }
-            }
-        }
-    }, [contentsRef, handleMouseEnter, handleMouseLeave])
-
     return (
-        <Card
-            className={cardClassNames}
-            sx={{ bgcolor: colors.bgColor.dark.sub }}
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={() => handleMouseLeave(index)}
-        >
-            <CardMedia className={cardMediaClassNames}>
-                <Link href={link}>
-                    <Image
-                        src={image}
-                        alt={alternativeText}
-                        width={pointWidth}
-                        height={pointHeight}
-                        quality={100}
-                        placeholder='blur'
-                        blurDataURL={image}
-                    />
-                </Link>
-            </CardMedia>
-            <CardContent className={txtClassNames}>
-                <Link href={link}>
-                    <Typography component='h4' variant='h4'>{title}</Typography>
-                    <Typography component='p' variant='p' className={g.card_paragraph}>{description}</Typography>
-                </Link>
-            </CardContent>
-            {termsWorks && (
-                <CardActions className={s.tags}>
-                    <Typography variant='tag'>{tags}</Typography>
-                </CardActions>
-            )}
-        </Card>
+        <div>
+            <Card
+                className={cardClassNames}
+                sx={{ bgcolor: colors.bgColor.dark.sub }}
+            >
+                <CardMedia className={cardMediaClassNames}>
+                    <Link href={link}>
+                        <Image
+                            src={image}
+                            alt={alternativeText}
+                            width={pointWidth}
+                            height={pointHeight}
+                            quality={100}
+                            placeholder='blur'
+                            blurDataURL={image}
+                        />
+                    </Link>
+                </CardMedia>
+                <CardContent className={txtClassNames}>
+                    <Link href={link}>
+                        <Typography component='h4' variant='h4'>{title}</Typography>
+                        <Typography component='p' variant='p' className={g.card_paragraph}>{description}</Typography>
+                    </Link>
+                </CardContent>
+                {termsWorks && (
+                    <CardActions className={s.tags}>
+                        <Typography variant='tag'>{tags}</Typography>
+                    </CardActions>
+                )}
+            </Card>
+        </div>
     )
 }

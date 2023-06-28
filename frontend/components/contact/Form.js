@@ -21,7 +21,7 @@ export default function Form({ formRef }) {
     const [sendMessage, setSendMessage] = useState('')
     const [description, setDescription] = useState('')
 
-    const classNames = cn(s.form_custom_container, g.global_shadow_container, { [s.end_form]: steps.second.end })
+    const classNames = cn(s.form_custom_container, g.shadow_container, { [s.end_form]: steps.second.end })
 
     let edited
     const confirmMessage = '編集中の内容は削除されますが、よろしいですか？'
@@ -149,10 +149,9 @@ export default function Form({ formRef }) {
 
     return (
         <div className={s.form_container}>
-            <Typography
-                component='div'
+            <div
                 className={classNames}
-                sx={{ bgcolor: colors.bgColor.dark.sub }}
+                style={{ backgroundColor: colors.bgColor.dark.sub }}
                 ref={formRef}
             >
                 {!steps.second.end ?
@@ -209,7 +208,7 @@ export default function Form({ formRef }) {
                         </div>
                     </>
                 }
-            </Typography>
+            </div>
         </div>
     )
 }

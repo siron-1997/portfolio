@@ -14,8 +14,8 @@ export default function getLightningOccurrence(currentWeather) {
         case 'light thunderstorm':
         case 'thunderstorm with light drizzle':
             configs.power = value => {
-                currentPower = (Math.random() * 100000)  * value
-                return currentPower >= 500000 ? 500000 : currentPower
+                currentPower = (Math.random() * 1000)  * value
+                return currentPower >= 5000 ? 5000 : currentPower
             }
             configs.positionX = value => (Math.random() * (value * 3)) - (value / 2)
             configs.positionZ = value => (Math.random() * (value * 3)) - (value / 2)
@@ -26,8 +26,8 @@ export default function getLightningOccurrence(currentWeather) {
         case 'thunderstorm':
         case 'thunderstorm with drizzle':
             configs.power = value => {
-                currentPower = (Math.random() * 100000) * value
-                return currentPower >= 1000000 ? 1000000 : currentPower
+                currentPower = (Math.random() * 1000) * value
+                return currentPower >= 1000 ? 1000 : currentPower
             }
             configs.positionX = value => (Math.random() * (value * 2)) - (value / 2)
             configs.positionZ = value => (Math.random() * (value * 2)) - (value / 2)
@@ -38,7 +38,7 @@ export default function getLightningOccurrence(currentWeather) {
         case 'heavy thunderstorm':
         case 'thunderstorm with heavy drizzle':
             console.log('test')
-            configs.power = value => (Math.random() * 100000) * value
+            configs.power = value => (Math.random() * 1000) * value
             configs.positionX = value => (Math.random() * value) - (value / 2)
             configs.positionZ = value => (Math.random() * value) - (value / 2)
             configs.visible = true

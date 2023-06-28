@@ -22,17 +22,17 @@ const Work = ({ modelUrl, setIsLoading }) => {
                 gl={{
                     antialias: true,
                     toneMapping: ACESFilmicToneMapping,
-                    physicallyCorrectLights: true
+                    useLegacyLights: true
                 }}
                 className={s.canvas}
                 onCreated={() => setIsLoading(false)}
                 onMouseDown={() => setIsFingerVisible(false)}
             >   
                 <MyCamera setIsNavigationVisible={setIsNavigationVisible} />
-                <ambientLight color={'#3F1F4E'} intensity={8} />
+                <ambientLight color={'#3F1F4E'} intensity={6} />
                 <directionalLight
                     color={0xECE0F8}
-                    intensity={2.6}
+                    intensity={0.9}
                     position={[- 4, 15, - 8]}
                 />
                 <fog

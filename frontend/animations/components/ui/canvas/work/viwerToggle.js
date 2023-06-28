@@ -6,62 +6,52 @@ import { getViwerToggleCameraParams } from '@/utils/environment/getCameraParams'
     ビュワーモード切り替えアニメーション
 ===========================================================================================*/
 export default function viwerToggleAnimation({
-    element, isViewerActive, camera, offset, cameraConfigsData
+    introduction, cameraRef, offset, cameraConfigsData, toggleButton, width
 }) {
-    const width = window.innerWidth
-    const animation = gsap.timeline({ paused: true })
-    const duration = 0.6
-    const elementOffsetTop = element.getBoundingClientRect().top + window.scrollY - offset
-    const html = document.getElementsByTagName('html')[0],
-          body = document.body
-    /* デフォルト設定 */
-    const options = {
-        ease: 'power1.out',
-        duration: duration,
-        scrollTrigger: {
-            trigger: element,
-            markers: false,
-            start: '-15% top',
-            end: '40% top',
-        } 
-    }
-    /* ローカル編集の際は '@/assets/camera-params' を参照 */
-    const { cameraParams, zoom } = getViwerToggleCameraParams(cameraConfigsData, width)
+    const ctx = gsap.context(self => {
+        const duration = 0.6
+        const elementOffsetTop = introduction.getBoundingClientRect().top + window.scrollY - offset
+        const html = document.getElementsByTagName('html')[0],
+              body = document.body
+        /* ローカル編集の際は '@/assets/camera-params' を参照 */
+        const { cameraParams, zoom } = getViwerToggleCameraParams(cameraConfigsData, width)
 
-    if (isViewerActive) { // ビュワーモード開始時、ズームインおよびスクロールを固定
-        html.style.overflow = 'hidden'
-        body.style.overflow = 'hidden'
-        window.scrollTo({ top: elementOffsetTop, behavior: 'smooth' })
-        /* カメラ位置 */
-        animation.to(camera.position, {
-            x: cameraParams.position.x, y: cameraParams.position.y - zoom, z: cameraParams.position.z - zoom,
-            ...options
+        self.add('onStart', () => {
+            /* カメラ位置 */
+            gsap.to(cameraRef.current.position, {
+                x: cameraParams.position.x, y: cameraParams.position.y - zoom, z: cameraParams.position.z - zoom,
+                duration: duration
+            })
+            /* スクロール停止 & セクショントップに移動 */
+            window.scrollTo({ top: elementOffsetTop, behavior: 'smooth' })
+            html.style.overflow = 'hidden'
+            body.style.overflow = 'hidden'
         })
-    } else { // ビュワーモード終了時、ズームアウトおよびスクロール位置の固定解除
-        /* カメラ位置 */
-        animation.to(camera.position, {
-            x: cameraParams.position.x, y: cameraParams.position.y, z: cameraParams.position.z,
-            ...options,
-            onComplete: () => {
-                html.style.overflow = 'auto'
-                body.style.overflow = 'auto'
-            }
+        self.add('onEnd', () => {
+            /* カメラ位置 */
+            gsap.to(cameraRef.current.position, {
+                x: cameraParams.position.x, y: cameraParams.position.y, z: cameraParams.position.z,
+                duration: duration
+            })
+            /* カメラアングル */
+            gsap.to(cameraRef.current.rotation, {
+                x: MathUtils.degToRad(cameraParams.rotation.x),
+                y: MathUtils.degToRad(cameraParams.rotation.y),
+                z: MathUtils.degToRad(cameraParams.rotation.z),
+                duration: duration
+            }, `-=${duration}`)
+            /* スクロール停止終了 */
+            html.style.overflow = 'auto'
+            body.style.overflow = 'auto'
         })
-        /* カメラアングル */
-        animation.to(camera.rotation, {
-            x: MathUtils.degToRad(cameraParams.rotation.x),
-            y: MathUtils.degToRad(cameraParams.rotation.y),
-            z: MathUtils.degToRad(cameraParams.rotation.z),
-            ...options
-        }, `-=${duration}`)
-    }
+    }, cameraRef)
 
-    animation.play()
+    /* Start & End ボタン */
+    const startButton = toggleButton.children[1].children[0],
+          endButton = toggleButton.children[2].children[0]
 
-    /* クリーンアップ */
-    return () => {
-        animation.kill()
-        html.style.overflow = 'auto'
-        body.style.overflow = 'auto'
-    }
+    startButton.addEventListener('click', () => ctx.onStart())
+    endButton.addEventListener('click', () => ctx.onEnd())
+
+    return ctx
 }

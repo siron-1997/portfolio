@@ -14,7 +14,7 @@ export default function Controls({ data }) {
     const { controlsRef } = useContext(SectionsContext)
     const { width } = useWindowSize()
 
-    const rootClassNames = cn(g.global_root_container, s.controls)
+    const rootClassNames = cn(g.oot_container, s.controls)
 
     const handleClick = index => {
         setIsInitialControl(false)
@@ -24,7 +24,7 @@ export default function Controls({ data }) {
     return (
         <div className={rootClassNames} id='controls' ref={controlsRef}>
             <Container>
-                <Typography component='div'>
+                <div>
                     <SectionTitleDescription title={data?.title} description={data?.description} />
                     {/* PC */}
                     <div
@@ -78,7 +78,7 @@ export default function Controls({ data }) {
                                     component='span'
                                     sx={{
                                         width: width >= BREAK_POINT_MB ? 50 : 35,
-                                        height: width >= BREAK_POINT_MB ? 6 : 5.5,
+                                        height: width >= BREAK_POINT_MB ? 6 : 8,
                                         borderRadius: 0.2,
                                         bgcolor: currentIndex === i ? colors.navigation : colors.text.dark,
                                         opacity: currentIndex === i ? 1 : 0.35,
@@ -89,7 +89,7 @@ export default function Controls({ data }) {
                             ))}
                         </List>
                     </div>
-                </Typography>
+                </div>
             </Container>
         </div>
     )
@@ -97,10 +97,10 @@ export default function Controls({ data }) {
 
 const SectionTitleDescription = ({ title, description }) => {
     return (
-        <Typography component='section' className={s.work_shadow}>
+        <section className={s.work_shadow}>
             <Typography component='h2' variant='h2'>{title}</Typography>
             <Typography component='p' variant='p' sx={{ maxWidth: 650 }}>{description}</Typography>
-        </Typography>
+        </section>
     )
 }
 

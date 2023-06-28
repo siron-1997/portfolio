@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { useThree } from '@react-three/fiber'
 import { CameraShake } from '@react-three/drei'
 import { Group, Mesh } from 'three'
@@ -7,7 +7,8 @@ import { setCameraPositions } from '@/utils/environment'
 import { rigCameraAnimation } from '@/animations/components/ui/canvas/home'
 
 export default function RigCamera({ pageHeaderRef, doorRef }) {
-    const { camera, scene } = useThree()
+    const cameraContainerRef = useRef(null)
+    const { scene, camera } = useThree()
     const { width, height } = useWindowSize()
 
     useEffect(() => {
@@ -18,18 +19,29 @@ export default function RigCamera({ pageHeaderRef, doorRef }) {
         /* 開始位置と終了位置をセット */
         const { startPosition, endPosition } = setCameraPositions(camera, models, width, height)
         /* アニメーション作成 */
-        const cleanup = rigCameraAnimation(startPosition, endPosition, pageHeader, door, room, camera, width)
+        const ctx = rigCameraAnimation({
+            startPosition,
+            endPosition,
+            pageHeader,
+            door,
+            room,
+            cameraContainerRef,
+            camera,
+            width
+        })
 
-        return () => cleanup()
-    }, [width, camera, doorRef, height, pageHeaderRef, scene.children])
+        return () => ctx.revert()
+    }, [width, doorRef, camera, height, pageHeaderRef, scene.children])
 
     return (
-        <CameraShake
-            maxYaw={0.01}
-            maxPitch={0.01}
-            maxRoll={0.01}
-            yawFrequency={0.2}
-            pitchFrequency={0.2}
-        />
+        <group name='camera-container' ref={cameraContainerRef}>
+            <CameraShake
+                maxYaw={0.01}
+                maxPitch={0.01}
+                maxRoll={0.01}
+                yawFrequency={0.2}
+                pitchFrequency={0.2}
+            />
+        </group>
     )
 }

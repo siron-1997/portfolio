@@ -11,17 +11,21 @@ import { fetcher } from '@/utils/strapi'
 export default function HomePage({ data }) {
   const pageHeaderRef = useRef(null),
         worksRef = useRef(null),
-        topSectionRef = useRef(null)
+        portalSectionRef = useRef(null)
 
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const topSection = topSectionRef.current
-    const works = worksRef.current
+    const { pageHeaderCtx, worksCtx } = homeAnimation({
+      portalSection: portalSectionRef.current,
+      pageHeaderRef,
+      worksRef
+    })
 
-    const cleanup = homeAnimation(topSection, works)
-
-    return () => cleanup()
+    return () => {
+      pageHeaderCtx.revert()
+      worksCtx.revert()
+    }
   }, [])
 
   return (
@@ -37,9 +41,9 @@ export default function HomePage({ data }) {
             />
           }
         >
-          <Typography component='section' ref={topSectionRef}>
+          <section ref={portalSectionRef}>
             <Typography component='h1' variant='h1'>HOME Page</Typography>
-          </Typography>
+          </section>
         </PageHeader>
         <Works data={data} worksRef={worksRef} />
       </Layout>

@@ -20,7 +20,7 @@ export default function Rain({ currentWeathers, data }) {
                 currentWeather, lineWidth: 2.5, xSpeed: 2,  ySpeed: 20
             })
 
-            const rainFall = data.rain ? data.rain['1h'] * 3.3 : 0
+            const rainFall = data.rain ? data.rain['1h'] * 100 : 0
     
             if (canvas.getContext) {
                 const ctx = canvas.getContext('2d')
