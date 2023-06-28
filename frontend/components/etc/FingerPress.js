@@ -9,7 +9,8 @@ import { BREAK_POINT_MB } from '@/assets/break-points'
 import s from '@/styles/etc/FingerPress.module.css'
 
 export default function FingerPress() {
-    const imageRef = useRef(null),
+    const fingerPressRef = useRef(null),
+          imageRef = useRef(null),
           textRef = useRef(null)
     const { isFingerVisible, setIsFingerVisible, isViewerActive } = useContext(WorkDataContext)
     const { width } = useWindowSize()
@@ -18,8 +19,6 @@ export default function FingerPress() {
     const breakPoint = width < BREAK_POINT_MB
 
     useEffect(() => {
-        const image = imageRef.current
-        const text = textRef.current
         let currentWidth = 250
 
         if (width < BREAK_POINT_MB) {
@@ -28,13 +27,19 @@ export default function FingerPress() {
             currentWidth = 250
         }
         /* アニメーション作成 */
-        const cleanup = fingerPressAnimation(image, text, currentWidth, isFingerVisible)
+        const ctx = fingerPressAnimation({
+            image: imageRef.current,
+            text: textRef.current,
+            fingerPressRef,
+            currentWidth,
+            isFingerVisible
+        })
 
-        return () => cleanup()
+        return () => ctx.revert()
     }, [width, breakPoint, isFingerVisible, isViewerActive])
 
     return (
-        <div className={s.finger_press} id='finger-press'>
+        <div className={s.finger_press} id='finger-press' ref={fingerPressRef}>
             {isViewerActive ? (
                 <Image
                     ref={imageRef}

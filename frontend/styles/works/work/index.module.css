@@ -27,12 +27,12 @@
 /* PageHeader */
 .figure {
     position: relative;
-    z-index: 20;
+    z-index: 100;
 }
 
 .figcaption {
     align-items: end;
-    margin-bottom: 40px;
+    padding-bottom: 160px;
 }
 .figcaption section {
     display: flex;
@@ -85,7 +85,7 @@
 
     .figcaption {
         align-items: center;
-        margin-bottom: 0;
+        padding-bottom: 0;
     }
     .figcaption section {
         width: 40%;

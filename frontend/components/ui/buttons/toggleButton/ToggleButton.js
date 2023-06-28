@@ -1,12 +1,13 @@
 import { useEffect, useRef, useContext } from 'react'
 import { Typography } from '@mui/material'
 import cn from 'classnames'
-import { WorkDataContext } from '@/pages/works/[slug]'
+import { WorkDataContext, SectionsContext } from '@/pages/works/[slug]'
 import { toggleButtonAnimation } from '@/animations/components/ui/buttons'
 import s from '@/styles/ui/buttons/ToggleButton.module.css'
 
 export default function ToggleButton() {
     const bgRef = useRef(null)
+    const { toggleButtonRef } = useContext(SectionsContext)
     const { setIsFingerVisible, isViewerActive, setIsViewerActive } = useContext(WorkDataContext)
 
     const textStyle = {
@@ -30,32 +31,38 @@ export default function ToggleButton() {
     useEffect(() => {
         const bg = bgRef.current
         /* アニメーション作成 */
-        const cleanup = toggleButtonAnimation(bg, isViewerActive)
+        const ctx = toggleButtonAnimation(bg, toggleButtonRef, isViewerActive)
 
-        return () => cleanup()
-    }, [isViewerActive])
+        return () => ctx.revert()
+    }, [toggleButtonRef, isViewerActive])
 
     return (
-        <div className={s.toggle} style={{ marginTop: setIsViewerActive ? 'auto' : '0' }}>
+        <div
+            ref={toggleButtonRef}
+            className={s.toggle}
+            style={{ marginTop: setIsViewerActive ? 'auto' : '0' }}
+        >
             <div className={s.bg} ref={bgRef} />
-            <Typography component='div' className={leftButtonClassNames}>
+            <div className={leftButtonClassNames}>
                 <Typography
+                    id='start'
                     component='span'
                     sx={textStyle}
                     onClick={() => handleClick(true)}
                 >
                     Start
                 </Typography>
-            </Typography>
-            <Typography component='div' className={rightButtonClassNames}>
+            </div>
+            <div className={rightButtonClassNames}>
                 <Typography
+                    id='end'
                     component='span'
                     sx={textStyle}
                     onClick={() => handleClick(false)}
                 >
                     End
                 </Typography>
-            </Typography>   
+            </div>   
         </div>
     )
 }

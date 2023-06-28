@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { BakeShadows } from '@react-three/drei'
-import { ACESFilmicToneMapping } from 'three'
+import { ACESFilmicToneMapping, ReinhardToneMapping } from 'three'
 import { getBackgroundColor } from '@/utils/environment'
 import { Clouds, Fog, Rain, RigCamera, Star, SunLight, WeatherEnvironment } from './modules'
 import s from '@styles/Home.module.css'
@@ -102,8 +102,8 @@ export default function Home({ pageHeaderRef, setIsLoading }) {
                         dpr={[ 1, 2 ]}
                         gl={{
                             antialias: true,
-                            toneMapping: ACESFilmicToneMapping,
-                            physicallyCorrectLights: true,
+                            toneMapping: ReinhardToneMapping,
+                            useLegacyLights: true
                             
                         }}
                         camera={{

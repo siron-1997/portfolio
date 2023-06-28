@@ -80,7 +80,8 @@ const stepsReducer = (currentState, action) => {
 }
             
 export default function ContactPage() {
-    const contactStateRef = useRef(null),
+    const contactRef = useRef(null),
+          contactStateRef = useRef(null),
           formRef = useRef(null)
     /* name、email、message */
     const [contents, contentsDispatch] = useReducer(contentsReducer, contentsInitialState)
@@ -94,12 +95,14 @@ export default function ContactPage() {
     const [isEdited, setIsEdited] = useState(false)
 
     useEffect(() => {
-        const title = contactStateRef.current.children[0],
-              progress = contactStateRef.current.children[1]
         /* アニメーション作成 */
-        const cleanup = contactAnimation(title, progress)
+        const ctx = contactAnimation({
+            title: contactStateRef.current.children[0],
+            progress: contactStateRef.current.children[1],
+            contactRef
+        })
 
-        return () => cleanup()
+        return () => ctx.revert()
     }, [])
 
     return (
@@ -110,9 +113,9 @@ export default function ContactPage() {
             type: 'website'
         }}>
             <Sending isLoading={send.isLoading} />
-            <div className={g.global_root_container}>
-                <Container>
-                    <div className={g.global_container}>
+            <div className={g.root_container}>
+                <Container className={g.top_container}>
+                    <div className={g.container} ref={contactRef}>
                         <ContactDataContext.Provider
                             value={{
                                 contents, contentsDispatch,

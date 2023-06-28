@@ -10,15 +10,13 @@ const createAnimation = ({
 }) => {
     const currentPosition = previousPosition,
           currentRotation = previousRotation
-    const position = gsap.timeline({ paused: true }), // カメラ位置 アニメーション
-          rotation = gsap.timeline({ paused: true }) // カメラアングル アニメーション
-    const duration = 0.5
+    const position = gsap.timeline({ paused: true }), // カメラ位置
+          rotation = gsap.timeline({ paused: true }) // カメラアングル
+    const duration = 0.8
     const options = { ease: 'power4.out', duration: duration } // デフォルト設定
-
     /* カメラ位置 */
     position.from(camera.position, { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z })
     position.to(camera.position, { x: targetPosition.x, y: targetPosition.y, z: targetPosition.z, ...options })
-
     /* カメラアングル */
     rotation.from(camera.rotation, {
         x: currentRotation.x, y: currentRotation.y, z: currentRotation.z
@@ -43,9 +41,9 @@ export default function controlsAnimation({
     currentIndex,
     isStartControls,
     isInitialControl,
+    width,
     cameraConfigsData
 }) {
-    const width = window.innerWidth
     /* ローカル編集の際は '@/assets/camera-params' を参照 */
     /* 各コントロールアニメーションの作成および取得 */
     const controlsAnimations = cameraConfigsData?.controls.map(currentCameraParams => {

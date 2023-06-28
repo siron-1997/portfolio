@@ -18,8 +18,8 @@ export default function Lightning({ currentWeathers }) {
         state.scene.children.forEach(child => {
             if (child.name === 'lightning') {
                 /*  */
-                if (Math.random() > 0.93 || child.power > 80000) {
-                    if (child.power < 50000) {
+                if (Math.random() > 0.93 || child.power > 8000) {
+                    if (child.power < 5000) {
                         child.position.set(
                             configs.positionX && configs.positionX(350),
                             5,
@@ -39,9 +39,9 @@ export default function Lightning({ currentWeathers }) {
     return (
         <pointLight
             color={0x55A5EB}
-            intensity={8000000}
-            distance={10000}
-            decay={3}
+            intensity={800000}
+            distance={80}
+            decay={2}
             position={[- 20, 70, - 10]}
             name='lightning'
             visible={configs.visible}

@@ -14,7 +14,7 @@ export default function Works({ data, worksRef }) {
     const works = data?.slice(0, 3)
     const path = '/works/'
 
-    const rootClassNames = cn(g.global_root_container, s.works)
+    const rootClassNames = cn(g.root_container, s.works)
 
     return (
         <section className={rootClassNames} ref={worksRef}>

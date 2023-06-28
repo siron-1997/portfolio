@@ -54,6 +54,7 @@ export default function MyModel({ modelUrl, isNavigationVisible }) {
                     <Html
                         key={i}
                         position={[ item?.position.x, item?.position.y, item?.position.z ]}
+                        style={{ zIndex: 600 }}
                     >
                         <NumberedCircled
                             index={i}
@@ -102,7 +103,7 @@ export default function MyModel({ modelUrl, isNavigationVisible }) {
                                     name={light?.name}
                                     color={light?.color}
                                     intensity={0.2}
-                                    distance={13}
+                                    distance={5.3}
                                     // blenderのz軸はy軸に指定し、three.jsのz軸はy軸の値をプラスマイナスを反転
                                     position={[light?.position?.x, light?.position?.z, - light?.position?.y]}
                                 />

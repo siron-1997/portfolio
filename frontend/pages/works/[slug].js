@@ -17,11 +17,14 @@ export const WorkDataContext = React.createContext(),
 
 export default function WorkPage({ post }) {
     /* modelViewer */
-    const pageHeaderRef = useRef(null),
+    const modelViewerRef = useRef(null),
+          pageHeaderRef = useRef(null),
           introductionRef = useRef(null),
-          controlsRef = useRef(null)
+          controlsRef = useRef(null),
+          toggleButtonRef = useRef(null)
     /* normalViewer */
-    const titleRef = useRef(null),
+    const normalViewerRef = useRef(null),
+          titleRef = useRef(null),
           mainImageRef = useRef(null),
           normalRef = useRef(null),
           descriptionRef = useRef(null),
@@ -35,7 +38,7 @@ export default function WorkPage({ post }) {
     const [isViewerActive, setIsViewerActive] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
 
-    const normalViewerClassNames = cn(g.global_root_container, s.normal_viewer)
+    const normalViewerClassNames = cn(g.root_container, s.normal_viewer)
 
     const introductionData = post?.attributes?.sections?.filter(item => item?.__component.match(/.introduction$/))[0],
           controlsData = post?.attributes?.sections?.filter(item => item?.__component.match(/.controls$/))[0],
@@ -46,16 +49,19 @@ export default function WorkPage({ post }) {
     useEffect(() => {
         if (pageHeaderRef.current !== null && introductionRef.current !== null && controlsRef.current !== null) {
             if (!isLoading) {
-                const pageHeader = pageHeaderRef.current,
-                      introduction = introductionRef.current,
-                      controls = controlsRef.current
                 /* アニメーション作成 */
-                const cleanup = modelViewerAnimation(pageHeader, introduction, controls)
+                const ctx = modelViewerAnimation({
+                    modelViewerRef,
+                    pageHeader: pageHeaderRef.current,
+                    introduction: introductionRef.current,
+                    controls: controlsRef.current
+                })
         
-                return () => cleanup()
+                return () => ctx.revert()
             }
         }
     }, [isLoading])
+
     /* normalViewer */
     useEffect(() => {
         if (
@@ -63,7 +69,8 @@ export default function WorkPage({ post }) {
             descriptionRef.current !== null && imagesRef.current !== null
         ) {
             /* アニメーション作成 */
-            const cleanup = normalViewerAnimation({
+            const ctx = normalViewerAnimation({
+                normalViewerRef,
                 title: titleRef.current,
                 mainImage: mainImageRef.current,
                 normal: normalRef.current,
@@ -71,7 +78,7 @@ export default function WorkPage({ post }) {
                 images: imagesRef.current
             })
     
-            return () => cleanup()
+            return () => ctx.revert()
         }
     }, [])
 
@@ -89,14 +96,16 @@ export default function WorkPage({ post }) {
                 {post?.attributes?.tags === 'three' ? (
                     <>
                         <ModelViewerLoading isLoading={isLoading} />
-                        <article>
+                        <article ref={modelViewerRef}>
                             <PageHeader
                                 id={'model-viewer'}
                                 pageHeaderRef={pageHeaderRef}
                                 figureClassName={s.figure}
                                 figcaptionClassName={s.figcaption}
                                 Background={
-                                    <SectionsContext.Provider value={{ pageHeaderRef, introductionRef, controlsRef }}>
+                                    <SectionsContext.Provider
+                                        value={{pageHeaderRef, introductionRef, controlsRef, toggleButtonRef}}
+                                    >
                                         <WorkDataContext.Provider
                                             value={{
                                                 isInitialControl, setIsInitialControl,
@@ -117,19 +126,21 @@ export default function WorkPage({ post }) {
                                     </SectionsContext.Provider>
                                 }
                             >
-                                <Typography component='section'>
+                                <section>
                                     <Typography component='h1' variant='h1'>{post?.attributes?.title}</Typography>
                                     <Typography component='p' variant='p'>{post?.attributes?.description}</Typography>
-                                </Typography>
+                                </section>
                             </PageHeader>
-                            <SectionsContext.Provider value={{ introductionRef, controlsRef }}>
+                            <SectionsContext.Provider value={{introductionRef, controlsRef, toggleButtonRef}}>
                                 {/* Introduction */}
-                                <WorkDataContext.Provider value={{ isFingerVisible, setIsFingerVisible, isViewerActive, setIsViewerActive }}>
+                                <WorkDataContext.Provider
+                                    value={{isFingerVisible, setIsFingerVisible, isViewerActive, setIsViewerActive}}
+                                >
                                     <Introduction data={introductionData} />
                                 </WorkDataContext.Provider>
                                 {/* Controls */}
                                 <WorkDataContext.Provider
-                                    value={{ setIsInitialControl, currentIndex, setCurrentIndex }}
+                                    value={{setIsInitialControl, currentIndex, setCurrentIndex}}
                                 >
                                     <Controls data={controlsData} />
                                 </WorkDataContext.Provider>
@@ -137,9 +148,9 @@ export default function WorkPage({ post }) {
                         </article>
                     </>
                 ) : (
-                    <article>
-                        <Typography component='section' className={normalViewerClassNames}>
-                            <Typography component='h1' variant='h2' ref={titleRef}>{post?.attributes?.title}</Typography>
+                    <article ref={normalViewerRef}>
+                        <section className={normalViewerClassNames}>
+                            <Typography component='h1' variant='h1' ref={titleRef}>{post?.attributes?.title}</Typography>
                             <MainImage
                                 url={post?.attributes?.main?.data?.attributes?.url}
                                 alternativeText={post?.attributes?.main?.data?.attributes?.alternativeText}
@@ -155,7 +166,7 @@ export default function WorkPage({ post }) {
                                 descriptionRef={descriptionRef}
                             />
                             <Images thumbnail={post?.attributes?.thumbnail?.data} imagesRef={imagesRef} />
-                        </Typography>
+                        </section>
                     </article>
                 )}
             </Layout>

@@ -7,7 +7,7 @@ const setTimePointIntensity = (value, timePoint) => {
             intensity = value - 0.0
             break
         case 'night':
-            intensity = value + 1.5
+            intensity = value + 0.6 
             break
         case 'lunch':
             intensity = value - 0.8
@@ -45,21 +45,21 @@ export default function getSunIntensity(currentWeather, timePoint) {
         case 'ragged thunderstorm':
         case 'overcast clouds':
         case 'mist':
-            sunIntensity = setTimePointIntensity(3.2, timePoint)
+            sunIntensity = setTimePointIntensity(2.2, timePoint)
             break
         // 曇り
         case 'broken clouds':
-            sunIntensity = setTimePointIntensity(5.8, timePoint)
+            sunIntensity = setTimePointIntensity(2.6, timePoint)
             break
         case 'scattered clouds':
-            sunIntensity = setTimePointIntensity(5.2, timePoint)
+            sunIntensity = setTimePointIntensity(3.0, timePoint)
             break
         case 'few clouds':
-            sunIntensity = setTimePointIntensity(5.6, timePoint)
+            sunIntensity = setTimePointIntensity(3.4, timePoint)
             break
         // 快晴
         case 'clear sky':
-            sunIntensity = setTimePointIntensity(8.0, timePoint)
+            sunIntensity = setTimePointIntensity(3.6, timePoint)
             break
         default:
             break
