@@ -43,6 +43,7 @@
 .works {
   position: relative;
   margin-top: 800px;
+  overflow: hidden;
   z-index: 100;
 }
 

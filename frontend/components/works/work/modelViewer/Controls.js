@@ -14,7 +14,7 @@ export default function Controls({ data }) {
     const { controlsRef } = useContext(SectionsContext)
     const { width } = useWindowSize()
 
-    const rootClassNames = cn(g.oot_container, s.controls)
+    const rootClassNames = cn(g.root_container, s.controls)
 
     const handleClick = index => {
         setIsInitialControl(false)

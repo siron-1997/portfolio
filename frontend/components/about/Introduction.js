@@ -3,7 +3,7 @@ import s from '@/styles/about/Introduction.module.css'
 
 export default function Introduction({ introductionRef }) {
     return (
-        <div ref={introductionRef}>
+        <div ref={introductionRef} className={s.introduction}>
             <section className={s.profile_text}>
                 <Typography component='h1' variant='h1'>About</Typography>
                 <Typography component='p' variant='p'>現在はweb関連の業務をメインに2年半ほど前から活動しています。</Typography>
