@@ -43,7 +43,7 @@ export default function HomePage({ data }) {
           }
         >
           <section ref={portalSectionRef}>
-            <Typography component='h1' variant='h1'>HOME Page</Typography>
+            <Typography component='h1' variant='h1'>Symphony</Typography>
           </section>
         </PageHeader>
         <Works data={data} worksRef={worksRef} />
