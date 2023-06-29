@@ -8,7 +8,7 @@ export default function Images({ thumbnail, imagesRef }) {
     const classNames = cn(g.image_container, s.thumbnail)
 
     return (
-        <Container className={s.images_container}>
+        <Container>
             <div ref={imagesRef}>
                 {thumbnail?.map((item, i) => (
                     <div className={classNames} key={i}>

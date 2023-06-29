@@ -7,16 +7,18 @@ export default function normalViewerAnimation({
     const ctx = gsap.context(() => {
         const getOptions = (element, type) => {
             const options = {
-                delay: 0.5,
+                delay: 0.3,
                 scrollTrigger: {
                     trigger: element,
                     markers: false,
-                    start: type === 'top' ? '-120px bottom' : 'top bottom'
+                    start: type === 'top' ? '-120px bottom' : '-35px bottom'
                 }
             }
     
             return options
         }
+
+        const delay = '+=0.3'
 
         const titleAnimation = gsap.timeline(getOptions(title, 'top')),
               mainImageAnimation = gsap.timeline(getOptions(mainImage, 'top')),
@@ -24,9 +26,9 @@ export default function normalViewerAnimation({
               descriptionAnimation = gsap.timeline(getOptions(description, 'top'))
 
         titleAnimation.fromTo(title, power2_out_top.from, power2_out_top.to)
-        mainImageAnimation.fromTo(mainImage, power2_out_top.from, power2_out_top.to)
-        normalAnimation.fromTo(normal, power2_out_top.from, power2_out_top.to)
-        descriptionAnimation.fromTo(description, power2_out_top.from, power2_out_top.to)
+        mainImageAnimation.fromTo(mainImage, power2_out_top.from, power2_out_top.to, delay)
+        normalAnimation.fromTo(normal, power2_out_top.from, power2_out_top.to, delay)
+        descriptionAnimation.fromTo(description, power2_out_top.from, power2_out_top.to, delay)
 
         if (images.children.length > 0) {
             Array.from(images.children).forEach((child, i) => {
