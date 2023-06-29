@@ -52,7 +52,9 @@
     normalViewer
 ====================================================== */
 .normal_viewer {
+    position: relative;
     margin-top: 65px;
+    overflow: hidden;
 }
 
 .normal {

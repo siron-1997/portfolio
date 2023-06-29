@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { lazy, useState, useRef, useEffect } from 'react'
 import { Typography } from '@mui/material'
 import cn from 'classnames'
 import { Layout } from '@/components/layout'
@@ -6,11 +6,12 @@ import { PageHeader } from '@/components/general'
 import { ModelViewerLoading } from '@components/etc'
 import { Introduction, Controls } from '@/components/works/work/modelViewer'
 import { Categories, Description, Images, MainImage, Tags } from '@/components/works/work/normalViewer'
-import { Work } from '@/components/ui/canvas'
 import { fetcher } from '@/utils/strapi'
 import { normalViewerAnimation, modelViewerAnimation } from '@/animations/pages/works/work'
 import s from '@/styles/works/work/index.module.css'
 import g from '@/styles/global.module.css'
+
+const Work = lazy(() => import('@/components/ui/canvas/work/Work'))
 
 export const WorkDataContext = React.createContext(),
              SectionsContext = React.createContext()

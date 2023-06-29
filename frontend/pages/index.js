@@ -1,12 +1,13 @@
-import { useRef, useState, useEffect } from 'react'
+import { lazy, useRef, useState, useEffect } from 'react'
 import { Typography } from '@mui/material'
 import { Layout } from '@/components/layout'
 import { Works } from '@components/home'
 import { PageHeader } from '@components/general'
-import { Home } from 'components/ui/canvas'
 import { ModelViewerLoading } from '@components/etc'
 import { homeAnimation } from '@/animations/pages/home'
 import { fetcher } from '@/utils/strapi'
+
+const Home = lazy(() => import('@components/ui/canvas/home/Home'))
 
 export default function HomePage({ data }) {
   const pageHeaderRef = useRef(null),
