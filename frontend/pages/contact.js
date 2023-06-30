@@ -1,10 +1,11 @@
 import React, { useRef, useState, useReducer, useEffect } from 'react'
-import { Layout } from '@components/layout'
+import { Layout } from '@/components/layout'
 import { ContactState, Form } from '@/components/contact'
 import { Container } from '@/components/ui'
 import { Sending } from '@/components/etc'
 import { contactAnimation } from '@/animations/pages/contact'
-import { contentsInitialState, sendInitialState, stepsState } from '@/assets/initial-states'
+import { introduction } from '@/assets/contact-contents'
+import { contentsInitialState, sendInitialState, stepsState } from '@/assets/contact-initial-states'
 import g from '@/styles/global.module.css'
 
 export const ContactDataContext = React.createContext()
@@ -107,8 +108,8 @@ export default function ContactPage() {
 
     return (
         <Layout metaProps={{
-            title: 'Junpei Oue | Contact',
-            description: '質問、依頼などのお問合せはこちら。',
+            title: `Junpei Oue | ${introduction.title}`,
+            description: introduction.description,
             image_path: '/images/siron/siron.webp',
             type: 'website'
         }}>

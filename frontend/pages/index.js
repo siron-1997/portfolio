@@ -5,6 +5,7 @@ import { Works } from '@components/home'
 import { PageHeader } from '@components/general'
 import { ModelViewerLoading } from '@components/etc'
 import { homeAnimation } from '@/animations/pages/home'
+import { introduction } from '@/assets/about-contents'
 import { fetcher } from '@/utils/strapi'
 
 const Home = lazy(() => import('@components/ui/canvas/home/Home'))
@@ -32,7 +33,10 @@ export default function HomePage({ data }) {
   return (
     <>
       <ModelViewerLoading isLoading={isLoading} />
-      <Layout metaProps={{ type: 'website' }}>
+      <Layout metaProps={{
+        description: introduction.description,
+        type: 'website'
+      }}>
         <PageHeader
           pageHeaderRef={pageHeaderRef}
           Background={

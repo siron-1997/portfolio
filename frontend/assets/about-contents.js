@@ -1,6 +1,12 @@
-const path = '/icons/'
-const svg = '.svg',
-      webp = '.webp'
+export const introduction = {
+    title: 'About',
+    description:
+        '1997年生まれ大阪出身、現在は3DCGおよびwebフロントエンド開発をメインに仕事をしています。\n' +
+        '幼少期から物を作ることが好きで芸術、デザイン、web、飛行機、自然に興味関心があり、個人の活動ではコンセプトRC飛行機や気象情報を用いた作品を実験的に制作しています。\n' +
+        '2022年に京都精華大学を卒業し、学生時代は専攻していた芸術学部造形学科で人体をモチーフにした塑像をはじめ、ブロンズ鋳造や金属、彫刻、木彫、石彫など素材加工の基礎を学び、観察力や想像力を働かせ作品を表現する取組を行いました。\n' +
+        'また学外では休学中に東京のベンチャー企業でweb制作およびデスクトップアプリ開発、2次元図面からの3次元モデル作成を担当させていただきました。\n' +
+        'これからの展望としては気象情報と三次元的形状をAPI技術などを用いた作品制作、webサービスやデスクトップアプリ開発およびUI・UXデザインの設計をメインに仕事をしていきたいと考えています。'
+}
 
 export const profileSkills = [
     {
@@ -50,17 +56,17 @@ export const profileSkills = [
             }
         ]
     },
-    {
-        title: 'Cloud Service',
-        skills: [
-            {
-                image: path + 'aws_48x48' + svg,
-                alt: 'AWS',
-                title: 'AWS',
-                text: '2 month'
-            }
-        ]
-    },
+    // {
+    //     title: 'Cloud Service',
+    //     skills: [
+    //         {
+    //             image: path + 'aws_48x48' + svg,
+    //             alt: 'AWS',
+    //             title: 'AWS',
+    //             text: '2 month'
+    //         }
+    //     ]
+    // },
     {
         title: 'Development Tool',
         skills: [
