@@ -8,6 +8,7 @@ import { Introduction, Controls } from '@/components/works/work/modelViewer'
 import { Categories, Description, Images, MainImage, Tags } from '@/components/works/work/normalViewer'
 import { fetcher } from '@/utils/strapi'
 import { normalViewerAnimation, modelViewerAnimation } from '@/animations/pages/works/work'
+import { introduction } from '@/assets/works-contents'
 import s from '@/styles/works/work/index.module.css'
 import g from '@/styles/global.module.css'
 
@@ -87,7 +88,7 @@ export default function WorkPage({ post }) {
         <>
             <Layout
                 metaProps={{
-                    title: `Junpei Oue | Works | ${post?.attributes?.title}`,
+                    title: `Junpei Oue | ${introduction.title} | ${post?.attributes?.title}`,
                     description: post?.attributes?.description,
                     image_path: process.env.NEXT_PUBLIC_STRAPI_URL.post?.attributes?.main?.data?.attributes?.url,
                     type: 'article'

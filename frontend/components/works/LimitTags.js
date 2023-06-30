@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { TextField, InputLabel, Chip, Popper, styled, Autocomplete } from '@mui/material'
-import { filmsInitialState } from '@/assets/initial-states'
+import { filmsInitialState } from '@/assets/contact-initial-states'
 import { colors } from '@/assets/colors'
 import s from '@/styles/works/LimitTags.module.css'
 

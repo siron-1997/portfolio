@@ -5,6 +5,7 @@ import { Typography } from '@mui/material'
 import { Cards, LimitTags } from '@/components/works'
 import { fetcher } from '@/utils/strapi'
 import { worksAnimation } from '@/animations/pages/works'
+import { introduction } from '@/assets/works-contents'
 import g from '@/styles/global.module.css'
 
 export default function WorksPage({ data }) {
@@ -25,8 +26,8 @@ export default function WorksPage({ data }) {
 
     return (
         <Layout metaProps={{
-            title: 'Junpei Oue | Works',
-            description: 'これまでの作品・実績集。',
+            title: `Junpei Oue | ${introduction.title}`,
+            description: introduction.description,
             image_path: '/images/siron/siron.webp',
             type: 'website'
         }}>
