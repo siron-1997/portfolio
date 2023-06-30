@@ -3,6 +3,7 @@ import { Layout } from '@/components/layout'
 import { Container } from '@/components/ui'
 import { ProfileImage, Introduction, SkillList } from '@/components/about'
 import { aboutAnimation } from '@/animations/pages/about'
+import { introduction } from '@/assets/about-contents'
 import { colors } from '@/assets/colors'
 import s from '@/styles/about/index.module.css'
 import g from '@/styles/global.module.css'
@@ -26,8 +27,8 @@ export default function AboutPage() {
 
     return (
         <Layout metaProps={{
-            title: 'Junpei Oue | About',
-            description: '自己紹介。',
+            title: `Junpei Oue | ${introduction.title}`,
+            description: introduction.description,
             image_path: '/images/siron/siron.webp',
             type: 'website'
         }}>

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Typography, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
 import cn from 'classnames'
 import { useIconSize, useWindowSize } from '@/utils/hooks'
-import { profileSkills } from '@/assets/profile-skills'
+import { profileSkills } from '@/assets/about-contents'
 import { BREAK_POINT_MB, BREAK_POINT_TB } from '@/assets/break-points'
 import s from '@/styles/about/SkillList.module.css'
 
