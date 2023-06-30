@@ -1,3 +1,8 @@
+const path = '/icons/'
+const svg = '.svg',
+      webp = '.webp'
+
+
 export const introduction = {
     title: 'About',
     description:
