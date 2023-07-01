@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { BakeShadows } from '@react-three/drei'
-import { ACESFilmicToneMapping, ReinhardToneMapping } from 'three'
+import { ReinhardToneMapping } from 'three'
 import { getBackgroundColor } from '@/utils/environment'
 import { Clouds, Fog, Rain, RigCamera, Star, SunLight, WeatherEnvironment } from './modules'
 import s from '@styles/Home.module.css'
