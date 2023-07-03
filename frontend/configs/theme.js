@@ -262,7 +262,7 @@ export const theme = createTheme(({
                     },
                     '& .MuiAutocomplete-listbox li': {
                         '&:hover': {
-                            backgroundColor: colors.bgColor.dark.main
+                            backgroundColor: colors.main.default
                         }
                     }
                 }
