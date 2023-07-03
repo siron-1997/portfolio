@@ -3,12 +3,17 @@ const filmsInitialState = [
     {
         title: '3D',
         type: 'three',
-        visible: true
+        key: 0
     },
     {
         title: 'web',
         type: 'web',
-        visible: true
+        key: 1
+    },
+    {
+        title: 'app',
+        type: 'app',
+        key: 2
     }
 ]
 

@@ -26,10 +26,6 @@
     .card_media {
         height: 270px;
     }
-
-    .txt_container {
-        height: 152px;
-    }
 }
 
 @media screen and (min-width: 1024px) {
@@ -39,10 +35,6 @@
 
     .card_media {
         height: 225px;
-    }
-
-    .txt_container {
-        height: 155px;
     }
 }
 
@@ -56,7 +48,7 @@
     }
 
     .txt_container {
-        height: 163px;
+        height: 158px;
     }
 }
 
@@ -70,7 +62,7 @@
     }
 
     .txt_container {
-        height: 138px;
+        height: 133px;
     }
 }
 

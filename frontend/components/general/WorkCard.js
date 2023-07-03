@@ -50,7 +50,7 @@ export default function WorkCard({
                 </CardMedia>
                 <CardContent className={txtClassNames}>
                     <Link href={link}>
-                        <Typography component='h4' variant='h4'>{title}</Typography>
+                        <Typography component='h3' variant='h6'>{title}</Typography>
                         <Typography component='p' variant='p' className={g.card_paragraph}>{description}</Typography>
                     </Link>
                 </CardContent>
