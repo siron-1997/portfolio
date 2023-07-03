@@ -30,7 +30,8 @@
       "type": "enumeration",
       "enum": [
         "web",
-        "three"
+        "three",
+        "app"
       ],
       "default": "web",
       "required": true

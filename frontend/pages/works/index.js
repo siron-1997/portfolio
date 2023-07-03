@@ -33,8 +33,8 @@ export default function WorksPage({ data }) {
         }}>
             <div className={g.root_container}>
                 <Container className={g.top_container}>
-                    <div ref={worksRef} style={{ position: 'relative', overflow: 'hidden' }}>
-                        <Typography component='h1' variant='h1'>Works</Typography>
+                    <div ref={worksRef}>
+                        <Typography component='h1' variant='h1'>{introduction.title}</Typography>
                         <LimitTags setSelectTags={setSelectTags} />
                         <Cards
                             data={data}

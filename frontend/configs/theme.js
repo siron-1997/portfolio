@@ -122,6 +122,18 @@ export const theme = createTheme(({
                 marginBottom: 10
             }
         },
+        h6: {
+            fontSize: 20,
+            fontWeight: 700,
+            lineHeight: 1.5,
+            color: colors.text.dark,
+            opacity: 0.9,
+            marginBottom: 15,
+            [`@media screen and (min-width: ${BREAK_POINT_LG}px)`]: {
+                fontSize: 22,
+                marginBottom: 20
+            }
+        },
         p: {
             fontWeight: 400,
             opacity: 0.75,
@@ -131,7 +143,7 @@ export const theme = createTheme(({
         tag: {
             fontSize: 15,
             fontWeight: 600,
-            lineHeight: 1,
+            lineHeight: 1.2,
             backgroundColor: colors.main.default,
             borderRadius: 6,
             padding: '5px 10px'
@@ -221,6 +233,36 @@ export const theme = createTheme(({
                         backgroundColor: colors.main.hover,
                         '& .MuiChip-deleteIcon': {
                             color: colors.text.dark
+                        }
+                    }
+                }
+            }
+        },
+        MuiAutocomplete: {
+            styleOverrides: {
+                root: {
+                    '& .MuiAutocomplete-inputRoot': {
+                        gap: '3px',
+                        borderRadius: '5px 5px 0 0',
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                        padding: '5px 0 5px 5px',
+                        '&:hover': {
+                            backgroundColor: 'rgba(0, 0, 0, 0.15)'
+                        }
+                    }
+                }
+            }
+        },
+        MuiPopper: {
+            styleOverrides: {
+                root: {
+                    '& .MuiAutocomplete-listbox': {
+                        color: colors.text.dark,
+                        backgroundColor: colors.bgColor.dark.sub,
+                    },
+                    '& .MuiAutocomplete-listbox li': {
+                        '&:hover': {
+                            backgroundColor: colors.bgColor.dark.main
                         }
                     }
                 }

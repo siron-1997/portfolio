@@ -27,7 +27,7 @@ export default function Cards({ data, selectTags, contentsRef }) {
                     link={`${path}${item?.id?.toString()}`}
                     title={item?.attributes?.title}
                     description={truncateString(item?.attributes?.description, 50)}
-                    tags={item?.attributes?.tags === 'three' ? '3D' : 'web'}
+                    tags={item?.attributes?.tags === 'three' ? '3D' : item?.attributes?.tags}
                     type='works'
                     contentsRef={contentsRef}
                 />
