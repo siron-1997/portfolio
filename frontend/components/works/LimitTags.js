@@ -1,9 +1,13 @@
 import Image from 'next/image'
 import { TextField, InputLabel, Chip, Popper, Autocomplete } from '@mui/material'
+import { useWindowSize } from '@/utils/hooks'
 import { filmsInitialState } from '@/assets/contact-initial-states'
+import { BREAK_POINT_MB } from '@/assets/break-points'
 import s from '@/styles/works/LimitTags.module.css'
 
 export default function LimitTags({ setSelectTags }) {
+    const { width } = useWindowSize()
+
     const handleTagSelection = value => {
         setSelectTags(value)
     }
@@ -12,7 +16,7 @@ export default function LimitTags({ setSelectTags }) {
         <div className={s.limit_tags}>
             <Autocomplete
                 multiple
-                limitTags={4}
+                limitTags={width < BREAK_POINT_MB ? 2 : 4}
                 id='size-small-outlined-multi'
                 className={s.autocomplete}
                 size='small'
