@@ -17,11 +17,23 @@ export default function Form({ formRef }) {
         steps, stepsDispatch, // ステップを管理
         isEdited, setIsEdited // 編集中かを管理
     } = useContext(ContactDataContext)
-    /* 送信メッセージ */
-    const [sendMessage, setSendMessage] = useState('')
-    const [description, setDescription] = useState('')
+    /* 送信後のメッセージ */
+    const [sendMessage, setSendMessage] = useState({ title: '', description: '' })
 
-    const classNames = cn(s.form_custom_container, g.shadow_container, { [s.end_form]: steps.second.end })
+    const classNames = cn(
+        s.form_custom_container,
+        g.shadow_container,
+        { [s.end_form]: steps.second.end }
+    )
+
+    const errors = {
+        // name: 名前が未選択か未入力且つファーストステップ開始
+        name: contents.name.isError === undefined || contents.name.isError === true,
+        // Eメールが未選択か未入力または無効なアドレス且つファーストステップ開始
+        email: contents.email.isError === null ? null : contents.email.isError === undefined || contents.email.isError === true,
+        // メッセージが未選択か未入力且つファーストステップ開始
+        message: contents.message.isError === undefined || contents.message.isError === true
+    }
 
     let edited
     const confirmMessage = '編集中の内容は削除されますが、よろしいですか？'
@@ -34,6 +46,17 @@ export default function Form({ formRef }) {
             }
         }
     }
+
+    /* フォーム入力欄のエラーステータスを更新 */
+    const handleFirstStepStartError = useCallback(() => {
+        contentsDispatch({
+            type: 'END_INITIAL_STEP',
+            name: { isError: errors.name },
+            email: { isError: errors.email },
+            message: { isError: errors.message }
+        })
+    }, [contentsDispatch, errors.name, errors.email, errors.message])
+
     /* ブラウザバッグ */
     const handlePopstate = useCallback(() => {
         const isDiscardedOK = window.confirm(confirmMessage)
@@ -43,6 +66,7 @@ export default function Form({ formRef }) {
         }
         history.pushState(null, '', null)
     }, [setIsEdited])
+
     /* ブラウザ更新 */
     const handleBeforeunload = useCallback(e => {
         e.preventDefault()
@@ -52,6 +76,7 @@ export default function Form({ formRef }) {
         setIsEdited(false)
         return confirmMessage
     }, [setIsEdited])
+
     /* 入力内容の確認 */
     const handleEndInput = () => {
         // 全ての要件を満たす
@@ -65,43 +90,43 @@ export default function Form({ formRef }) {
         stepsDispatch({ type: 'FIRST_START', first: { start: true } })
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
+
     /* 修正する */
     const handleEndConfirmation = () => {
         stepsDispatch({ type: 'FIRST_START', first: { start: false } })
         stepsDispatch({ type: 'FIRST_END', first: { end: false } })
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
+
     /* 送信 */
     const handleSubmit = async e => {
         e.preventDefault()
-        const values = {
+        const values = { // 入力テキスト
             name: contents.name.text,
             email: contents.email.text,
             message: contents.message.text
         }
-        // ロード開始
-        sendDispatch({ type: 'START_LOADING', isLoading: true })
-        // 送信結果
-        const handleResult = (result, title, description, type, loading) => {
+        sendDispatch({ type: 'START_LOADING', isLoading: true }) // ロード開始
+        /* 送信結果 */
+        const handleResult = (result, title, description, type) => {
             setSendResult(() => result)
-            setSendMessage(() => title)
-            setDescription(() => description)
-            sendDispatch({ type: type, isLoading: loading })
+            setSendMessage({ title: title, description: description }) // 成功・失敗に応じてメッセージ文を差し替え
+            sendDispatch({ type: type, isLoading: false }) // 送信バーを非表示
             stepsDispatch({ type: 'SECOND_END', second: { end: true } })
         }
-        // 送信開始
+        // 送信開始（3秒待機）
         setTimeout(async () => {
             return await axios.post('/api/send-email', values, {
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(res => {
                 if (res.status === 200) {
-                    handleResult(true, '送信完了', 'お問い合わせは正常に送信されました。', 'END_LOADING', false)
+                    handleResult(true, '送信完了', 'お問い合わせは正常に送信されました。', 'END_LOADING')
                 }
             })
             .catch(error => {
                 if (error.response.status === 404 || error.response.status === 500) {
-                    handleResult(false, '送信エラー', '送信に失敗しました。時間をおいて再度お試し下さい。', 'END_LOADING', false)
+                    handleResult(false, '送信エラー', '送信に失敗しました。時間をおいて再度お試し下さい。', 'END_LOADING')
                 }
             })
         }, 3000)
@@ -109,29 +134,8 @@ export default function Form({ formRef }) {
 
     /* フォームのバリデーションを管理 */
     useEffect(() => {
-        const errors = {
-            // name: 名前が未選択か未入力且つファーストステップ開始
-            name: contents.name.isError === undefined || contents.name.text === '' && steps.first.start,
-            // Eメールが未選択か未入力または無効なアドレス且つファーストステップ開始
-            email: contents.email.isError === null ? null : contents.email.isError === undefined || contents.email.text === '' && steps.first.start,
-            // メッセージが未選択か未入力且つファーストステップ開始
-            message: contents.message.isError === undefined || contents.message.text === '' && steps.first.start
-        }
-        if (steps.first.start) {
-            contentsDispatch({
-                type: 'END_INITIAL_STEP',
-                name: { isError: errors.name },
-                email: { isError: errors.email },
-                message: { isError: errors.message },
-                total: { isComplete: errors.total }
-            })
-        }
-    }, [steps.first.start,
-        contents.email.isError, contents.email.text,
-        contents.message.isError, contents.message.text,
-        contents.name.isError, contents.name.text,
-        contentsDispatch
-    ])
+        steps.first.start && handleFirstStepStartError()
+    }, [steps.first.start, handleFirstStepStartError])
 
     /* 編集中の内容を破棄するかを確認 */
     useEffect(() => {
@@ -149,45 +153,30 @@ export default function Form({ formRef }) {
 
     return (
         <div className={s.form_container}>
-            <div
-                className={classNames}
-                style={{ backgroundColor: colors.bgColor.dark.sub }}
-                ref={formRef}
-            >
-                {!steps.second.end ?
+            <div className={classNames} style={{ backgroundColor: colors.bgColor.dark.sub }} ref={formRef}>
+                {!steps.second.end ? (
+                    /* 内容入力 & 入力確認時に表示 */
                     <form className={s.form} onSubmit={handleSubmit} name='form'>
                         <InputTextFields />
                         <div className={s.btn_container}>
-                            {steps.first.start && steps.first.end ?
+                            {steps.first.start && steps.first.end ? (
+                                /* ステップ2のとき表示 */
                                 <>
-                                    <Button
-                                        type='button'
-                                        onClick={() => handleEndConfirmation()}
-                                    >
-                                        修正する
-                                    </Button>
-                                    <Button
-                                        type='button'
-                                        onClick={e => handleSubmit(e)}
-                                    >
-                                        送信
-                                    </Button>
+                                    <Button type='button' onClick={() => handleEndConfirmation()}>修正する</Button>
+                                    <Button type='button' onClick={e => handleSubmit(e)}>送信</Button>
                                 </>
-                                :
-                                <Button
-                                    type='button'
-                                    onClick={() => handleEndInput()}
-                                >
-                                    入力内容の確認
-                                </Button>
-                            }
+                            ) : (
+                                /* ステップ1のとき表示 */
+                                <Button type='button' onClick={() => handleEndInput()}>入力内容の確認</Button>
+                            )}
                         </div>
                     </form>
-                    :
+                   ) : (
+                    /* 送信完了時に表示 */
                     <>
                         <div className={s.txt_container}>
-                            <Typography component='h3' variant='h3'>{sendMessage}</Typography>
-                            <Typography component='p' variant='p'>{description}</Typography>
+                            <Typography component='h3' variant='h3'>{sendMessage.title}</Typography>
+                            <Typography component='p' variant='p'>{sendMessage.description}</Typography>
                             <br/>
                             {sendResult && (
                                 <>
@@ -200,14 +189,12 @@ export default function Form({ formRef }) {
                         <div className={s.btn_container}>
                             <Link href='/'>
                                 <Button variant='contained' color='primary'>
-                                    <Typography variant='button'>
-                                        Homeへ戻る
-                                    </Typography>
+                                    <Typography variant='button'>Homeへ戻る</Typography>
                                 </Button>
                             </Link>
                         </div>
                     </>
-                }
+                )}
             </div>
         </div>
     )

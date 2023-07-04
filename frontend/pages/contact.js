@@ -1,4 +1,4 @@
-import React, { useRef, useState, useReducer, useEffect } from 'react'
+import React, { useRef, useState, useReducer, useLayoutEffect } from 'react'
 import { Layout } from '@/components/layout'
 import { ContactState, Form } from '@/components/contact'
 import { Container } from '@/components/ui'
@@ -95,8 +95,8 @@ export default function ContactPage() {
     /* 編集中を管理 */
     const [isEdited, setIsEdited] = useState(false)
 
-    useEffect(() => {
-        /* アニメーション作成 */
+    /* アニメーション作成 */
+    useLayoutEffect(() => {
         const ctx = contactAnimation({
             title: contactStateRef.current.children[0],
             progress: contactStateRef.current.children[1],

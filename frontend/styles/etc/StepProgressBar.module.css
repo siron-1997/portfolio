@@ -65,9 +65,6 @@
     left: 50%;
     transform: translateX(-50%);
 }
-.progress_step .step_label_subtitle {
-    display: block;
-}
 .progress_step.completed .step_icon {
     background-color: #4db193;
     color: white;
