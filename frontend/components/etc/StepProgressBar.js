@@ -1,5 +1,7 @@
+import Image from 'next/image'
 import { useState, useEffect, useContext, useReducer, useCallback } from 'react'
 import cn from 'classnames'
+import { useIconSize } from '@/utils/hooks'
 import { ContactDataContext } from '@/pages/contact'
 import s from '@/styles/etc/StepProgressBar.module.css'
 
@@ -13,13 +15,13 @@ const StepStates = {
 const stepsReducer = (stepPoints, action) => {
     return stepPoints.map((stepPoint, i) => {
         switch (true) {
-            case i < action.payload.index:
+            case i < action.payload.index: // ステップが現在のステップカウントより前の場合コンプリート
                 stepPoint.state = StepStates.COMPLETED
                 break
-            case i === action.payload.index:
+            case i === action.payload.index: // ステップが現在のステップカウントと同じ場合変更なし
                 stepPoint.state = action.payload.state
                 break
-            default:
+            default: // ステップが現在のステップカウントより後の場合未開始
                 stepPoint.state = StepStates.NOT_STARTED
                 break
         }
@@ -27,39 +29,41 @@ const stepsReducer = (stepPoints, action) => {
     })
 }
 
-export default function StepProgressBar({ stepPoints, wrapperClass, progressClass, stepClass, labelClass, subtitleClass, contentClass }) {
-    const [currentIndex, setCurrentIndex] = useState(0)
+export default function StepProgressBar({ stepPoints, wrapperClass, progressClass, labelClass, contentClass }) {
+    const [currentIndex, setCurrentIndex] = useState(0) // ステップカウント
     const [state, dispatch] = useReducer(stepsReducer, stepPoints)
-    const {
-        sendResult, // 送信結果を管理
-        steps // ステップを管理
-    } = useContext(ContactDataContext)
+    const { sendResult, steps } = useContext(ContactDataContext)
+    const iconSize = useIconSize(25, 25, 25)
 
     const wrapperClassNames = cn(s.progress_bar_wrapper, wrapperClass),
           progressClassNames = cn(s.step_progress_bar, progressClass),
-          stepClassNames = cn(s.progress_step, stepClass),
           labelClassNames = cn(s.step_label, labelClass),
-          subtitleClassNames = cn(s.step_label_subtitle, subtitleClass),
           contentClassNames = cn(s.step_content, contentClass)
 
+    /* ステップアップ */
     const handleNext = useCallback(() => {
+        /* 最終ステップの場合は終了 */
         if (currentIndex === stepPoints.length - 1) {
             return
+        /* ファーストステップが終了したときステップをカウントアップ */
+        } else {
+            steps.first.end && setCurrentIndex(currentIndex + 1)
+            dispatch({
+                type: 'next',
+                payload: {
+                    index: steps.first.end ? currentIndex + 1 : currentIndex,
+                    state: steps.first.end && sendResult === null || sendResult ? StepStates.CURRENT : StepStates.ERROR
+                }
+            })
         }
-        let isStateValid = steps.first.end
-        isStateValid && setCurrentIndex(currentIndex + 1)
-        dispatch({
-            type: 'next',
-            payload: {
-                index: isStateValid ? currentIndex + 1 : currentIndex,
-                state: isStateValid && sendResult === null || sendResult ? StepStates.CURRENT : StepStates.ERROR
-            }
-        })
     }, [currentIndex, sendResult, stepPoints.length, steps.first.end])
 
+    /* ステップアップ */
     const handlePrev = useCallback(() => {
+        /* ファーストステップの場合は終了 */
         if (currentIndex === 0) {
             return
+        /* ファーストステップが終了していない場合、ステップをカウントダウン */
         } else if (!steps.first.end) {
             setCurrentIndex(currentIndex - 1)
             dispatch({
@@ -72,14 +76,16 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
         }
     }, [currentIndex, steps.first.end])
 
+    /* ステップバーの初期化および進捗状況を管理 */
     useEffect(() => {
         dispatch({
-          type: 'init',
-          payload: { index: currentIndex, state: StepStates.CURRENT }
-        })
-        steps.first.start && handleNext()
-        !steps.first.start && !steps.first.end && handlePrev()
-    }, [steps.first.start, steps.first.end, steps.second.end, sendResult, currentIndex, handleNext, handlePrev])
+            type: 'init',
+            payload: { index: currentIndex, state: StepStates.CURRENT }
+          })
+        steps.first.start && handleNext() // ファーストステップ開始以降実行する
+        !steps.first.start && !steps.first.end && handlePrev() // ファーストステップ開始および終了ではない場合実行
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [steps.first.start, steps.first.end, steps.second.end])
 
     return (
         <div className={wrapperClassNames}>
@@ -87,29 +93,39 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
                 {state.map((step, i) => (
                     <li
                         key={i}
-                        className={`${stepClassNames}${step.state === StepStates.COMPLETED ? ` ${s.completed}` : ''}${step.state === StepStates.CURRENT ? ` ${s.current}` : ''}${step.state === StepStates.ERROR ? ` ${s.has_error}` : ''}`}
-                    >
-                        {step.state === StepStates.COMPLETED && (
-                            <span className={s.step_icon}>
-                                <svg
-                                    width='1.5rem'
-                                    viewBox='0 0 13 9'
-                                    fill='none'
-                                    xmlns='http://www.w3.org/2000/svg'
-                                >
-                                    <path d='M1 3.5L4.5 7.5L12 1' stroke='white' strokeWidth='1.5' />
-                                </svg>
-                            </span>
+                        className={cn( // 状態に応じてクラスを付与
+                            s.progress_step,
+                            {
+                                [s.completed]: step.state === StepStates.COMPLETED,
+                                [s.current]: step.state === StepStates.CURRENT,
+                                [s.has_error]: step.state === StepStates.ERROR
+                            }
                         )}
-                        {step.state === StepStates.ERROR && <span className={s.step_icon}>!</span>}
-                        {step.state !== StepStates.COMPLETED && step.state !== StepStates.ERROR && <span className={s.step_index}>{i + 1}</span>}
+                    >
+                        {step.state === StepStates.COMPLETED ? ( // コンプリート時のアイコン
+                            <span className={s.step_icon}>
+                                <Image
+                                    src='/icons/step_check.svg'
+                                    alt='check'
+                                    width={iconSize}
+                                    height={iconSize}
+                                    quality={1}
+                                    priority={true}
+                                />
+                            </span>
+                        ) : step.state === StepStates.ERROR ? ( // エラー時のアイコン
+                            <span className={s.step_icon}>!</span>
+                        ) : ( // デフォルトアイコン
+                            <span className={s.step_index}>{i + 1}</span>
+                        )}
+                        {/* 最終ステップの送信結果に応じてテキストを変更 */}
                         <div className={labelClassNames}>
                             {i === state.length - 1 && sendResult !== null && !sendResult ? '送信失敗' : step.label}
-                            {step.subtitle && <div className={subtitleClassNames}>{step.subtitle}</div>}
                         </div>
                     </li>
                 ))}
             </ul>
+            {/* モバイル用ステップテキスト */}
             <div className={contentClassNames}>{stepPoints[currentIndex].content}</div>
         </div>
     )

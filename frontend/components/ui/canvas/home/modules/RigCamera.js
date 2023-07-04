@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useLayoutEffect } from 'react'
 import { useThree } from '@react-three/fiber'
 import { CameraShake } from '@react-three/drei'
 import { Group, Mesh } from 'three'
@@ -11,7 +11,7 @@ export default function RigCamera({ pageHeaderRef, doorRef }) {
     const { scene, camera } = useThree()
     const { width, height } = useWindowSize()
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const pageHeader = pageHeaderRef.current
         const models = scene.children.filter(child => child instanceof Group && child.name === 'models')[0] // シーン内のメッシュを取得
         const door = doorRef.current.children.filter(child => child instanceof Group && child.name === 'door-container')[0], // 扉とドアノブ
@@ -31,7 +31,8 @@ export default function RigCamera({ pageHeaderRef, doorRef }) {
         })
 
         return () => ctx.revert()
-    }, [width, doorRef, camera, height, pageHeaderRef, scene.children])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [width, doorRef, camera, pageHeaderRef, scene.children])
 
     return (
         <group name='camera-container' ref={cameraContainerRef}>

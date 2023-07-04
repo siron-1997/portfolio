@@ -3,7 +3,10 @@ import { Container } from '@/components/ui'
 import { colors } from '@/assets/colors'
 import s from '@/styles/works/work/normalViewer/Description.module.css'
 
-export default function Description({ url, description, descriptionRef }) {
+export default function Description({ post, descriptionRef }) {
+    const url = post?.attributes?.url,
+          description = post?.attributes?.description
+
     return (
         <Container>
             <div className={s.description} ref={descriptionRef}>

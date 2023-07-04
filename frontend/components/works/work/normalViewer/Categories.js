@@ -2,7 +2,8 @@ import { Typography } from '@mui/material'
 import { Container } from '@/components/ui'
 import s from '@/styles/works/work/normalViewer/Categories.module.css'
 
-export default function Categories({ categories }) {
+export default function Categories({ post }) {
+    const categories = post?.attributes?.categories
     const categoriesArray = categories.split(',')
 
     return (

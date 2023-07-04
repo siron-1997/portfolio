@@ -95,8 +95,8 @@ export default function ContactPage() {
     /* 編集中を管理 */
     const [isEdited, setIsEdited] = useState(false)
 
+    /* アニメーション作成 */
     useEffect(() => {
-        /* アニメーション作成 */
         const ctx = contactAnimation({
             title: contactStateRef.current.children[0],
             progress: contactStateRef.current.children[1],

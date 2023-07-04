@@ -9,10 +9,12 @@ import s from '@/styles/works/work/index.module.css'
 
 const MyModel = lazy(() => import('./modules/MyModel'))
 
-const Work = ({ modelUrl, setIsLoading }) => {
+const Work = ({ post, setIsLoading }) => {
     const [isNavigationVisible, setIsNavigationVisible] = useState(false)
     const { setIsFingerVisible } = useContext(WorkDataContext)
     const { width } = useWindowSize()
+
+    const modelUrl = post?.attributes?.model?.data?.attributes?.url
 
     return (
         <div className={s.portal}>

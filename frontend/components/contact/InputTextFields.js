@@ -34,7 +34,8 @@ export default function InputTextFields() {
             }
         }
     })
-    /* blur name */
+
+    /* 名前のフォーカスが終了したときの処理 */
     const handleBlurName = value => {
         contentsDispatch({
             type: 'BLUR_NAME',
@@ -42,7 +43,8 @@ export default function InputTextFields() {
         })
         setIsEdited(() => ({ ...isEdited, name: value ? true : false }))
     }
-    /* blur email */
+
+    /* Eメールのフォーカスが終了したときの処理 */
     const handleBlurEmail = value => {
         contentsDispatch({
             type: 'BLUR_EMAIL',
@@ -50,7 +52,8 @@ export default function InputTextFields() {
         })
         setIsEdited(() => ({ ...isEdited, email: value ? true : false }))
     }
-    /* blur message */
+    
+    /* メッセージのフォーカスが終了したときの処理 */
     const handleBlurMessage = value => {
         contentsDispatch({
             type: 'BLUR_MESSAGE',
@@ -63,20 +66,20 @@ export default function InputTextFields() {
         <>
             {/* name */}
             <div className={s.input_container}>
-                <Label title={'name'} id={'input-name'} endSteps={endSteps} />
+                <Label title='name' id='input-name' endSteps={endSteps} />
                 <TextField
-                    id={'input-name'}
+                    id='input-name'
                     name='name'
                     type='text'
-                    onBlur={e => handleBlurName(e.target.value)}
                     fullWidth
                     error={contents.name.isError}
                     InputProps={getInputSettings()}
+                    onBlur={e => handleBlurName(e.target.value)}
                     sx={textFieldStyles}
                 />
                 <FormHelperText
-                    error={contents.name.isError}
                     className={s.error}
+                    error={contents.name.isError}
                     sx={{ display: contents.name.isError ? 'block' : 'none' }}
                 >
                     Nameは必須項目です。
@@ -84,20 +87,20 @@ export default function InputTextFields() {
             </div>
             {/* email */}
             <div className={s.input_container}>
-                <Label title={'E-mail'} id={'input-email'} endSteps={endSteps} />
+                <Label title='E-mail' id='input-email' endSteps={endSteps} />
                 <TextField
-                    id={'input-email'}
+                    id='input-email'
                     name='email'
                     type='email'
-                    onBlur={e => handleBlurEmail(e.target.value)}
                     fullWidth
                     error={contents.email.isError || contents.email.isError === null}
                     InputProps={getInputSettings()}
+                    onBlur={e => handleBlurEmail(e.target.value)}
                     sx={textFieldStyles}
                 />
                 <FormHelperText
-                    error={contents.email.isError || contents.email.isError === null}
                     className={s.error}
+                    error={contents.email.isError || contents.email.isError === null}
                     sx={{ display: contents.email.isError || contents.email.isError === null ? 'block' : 'none' }}
                 >
                     {contents.email.isError ? 'E-mailは必須項目です。' : contents.email.isError === null && '無効なE-mailです。'}
@@ -105,21 +108,21 @@ export default function InputTextFields() {
             </div>
             {/* message */}
             <div className={s.input_container}>
-                <Label title={'Message'} id={'input-textarea'} endSteps={endSteps} />
+                <Label title='Message' id='input-textarea' endSteps={endSteps} />
                 <TextField
-                    id={'input-textarea'}
+                    id='input-textarea'
                     name='message'
                     multiline
                     minRows={8}
-                    onBlur={e => handleBlurMessage(e.target.value)}
                     fullWidth
                     error={contents.message.isError}
                     InputProps={getInputSettings(200, '8px 10px')}
+                    onBlur={e => handleBlurMessage(e.target.value)}
                     sx={textFieldStyles}
                 />
                 <FormHelperText
-                    error={contents.message.isError}
                     className={s.error}
+                    error={contents.message.isError}
                     sx={{ display: contents.message.isError ? 'block' : 'none' }}
                 >
                     Messageは必須項目です。
@@ -129,19 +132,10 @@ export default function InputTextFields() {
     )
 }
 
-const Label = ({ title, id, endSteps}) => {
-    const indispensable = '※ 必須'
-
+const Label = ({ title, id, endSteps }) => {
     return (
-        <InputLabel
-            htmlFor={id}
-            disableAnimation
-        >
-            {!endSteps && (
-                <Typography component='span' variant='label'>
-                    {indispensable}
-                </Typography>
-            )}
+        <InputLabel htmlFor={id} disableAnimation>
+            {!endSteps && <Typography component='span' variant='label'>※ 必須</Typography>}
             <Typography component='span' variant='label_name'>{title}</Typography>
         </InputLabel>
     )

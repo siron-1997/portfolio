@@ -7,7 +7,7 @@ import { SectionsContext, WorkDataContext } from '@/pages/works/[slug]'
 import s from '@/styles/works/work/modelViewer/Introduction.module.css'
 import g from '@/styles/global.module.css'
 
-export default function Introduction({ data }) {
+export default function Introduction({ post }) {
     const { introductionRef } = useContext(SectionsContext)
     const { isViewerActive } = useContext(WorkDataContext)
 
@@ -16,6 +16,8 @@ export default function Introduction({ data }) {
         s.introduction,
         { [s.not_active]: !isViewerActive }
     )
+
+    const data = post?.attributes?.sections?.filter(item => item?.__component.match(/.introduction$/))[0]
 
     return (
         <div className={rootClassNames} id='introduction' ref={introductionRef}>

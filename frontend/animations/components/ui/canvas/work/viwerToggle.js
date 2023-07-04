@@ -10,7 +10,7 @@ export default function viwerToggleAnimation({
 }) {
     const ctx = gsap.context(self => {
         const duration = 0.6
-        const elementOffsetTop = introduction.getBoundingClientRect().top + window.scrollY - offset
+        const elementOffsetTop = introduction.getBoundingClientRect().top + window.scrollY + offset
         const html = document.getElementsByTagName('html')[0],
               body = document.body
         /* ローカル編集の際は '@/assets/camera-params' を参照 */

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from 'react'
+import React, { useRef, useLayoutEffect, useContext } from 'react'
 import { useLoader, useThree, useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import { PointLightHelper, AnimationMixer, LoopOnce } from 'three'
@@ -20,10 +20,12 @@ export default function MyModel({ modelUrl, isNavigationVisible }) {
         currentIndex,
         setCurrentIndex,
         controlsData,
-        pointLightsData
+        post
     } = useContext(WorkDataContext)
     const { width } = useWindowSize()
     const { scene } = useThree()
+
+    const pointLightsData = post?.attributes?.pointLights
 
     const scale = 1 / 60
 
@@ -32,18 +34,18 @@ export default function MyModel({ modelUrl, isNavigationVisible }) {
         setCurrentIndex(index)
     }
 
-    useEffect(() => {
+    /* アニメーション作成 */
+    useLayoutEffect(() => {
         const pointLights = pointLightsRef.current
         if (pointLights !== null) {
-            const cleanup = pointLightsAnimation(pointLights, pointLightsData)
-    
+            const ctx = pointLightsAnimation(pointLightsRef, pointLightsData)
             pointLights.children.forEach(light => {
                 const helper = new PointLightHelper(light, 10)
                 helper.visible = false
                 scene.add(helper)
             })
     
-            return () => cleanup()
+            return () => ctx.revert()
         }
     }, [pointLightsData, scene])
 
