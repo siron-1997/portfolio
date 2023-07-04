@@ -40,13 +40,6 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
           labelClassNames = cn(s.step_label, labelClass),
           contentClassNames = cn(s.step_content, contentClass)
 
-    const handleInitial = useCallback(() => {
-        dispatch({
-            type: 'init',
-            payload: { index: currentIndex, state: StepStates.CURRENT }
-          })
-    }, [currentIndex])
-
     /* ステップアップ */
     const handleNext = useCallback(() => {
         /* 最終ステップの場合は終了 */
@@ -85,11 +78,14 @@ export default function StepProgressBar({ stepPoints, wrapperClass, progressClas
 
     /* ステップバーの初期化および進捗状況を管理 */
     useEffect(() => {
-        handleInitial()
+        dispatch({
+            type: 'init',
+            payload: { index: currentIndex, state: StepStates.CURRENT }
+          })
         steps.first.start && handleNext() // ファーストステップ開始以降実行する
         !steps.first.start && !steps.first.end && handlePrev() // ファーストステップ開始および終了ではない場合実行
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [steps.first.start, steps.first.end])
+    }, [steps.first.start, steps.first.end, steps.second.end])
 
     return (
         <div className={wrapperClassNames}>

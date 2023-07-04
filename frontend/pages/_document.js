@@ -1,5 +1,6 @@
 import Script from 'next/script'
 import { Html, Head, Main, NextScript } from 'next/document'
+import { colors } from '@/assets/colors'
 
 export default function Document() {
   return (
@@ -38,7 +39,7 @@ export default function Document() {
         <meta name='msapplication-TileColor' content='#da532c' />
         <meta name='theme-color' content='#ffffff' />
       </Head>
-      <body>
+      <body style={{ backgroundColor: colors.bgColor.dark.main }}>
         <Main />
         <NextScript />
       </body>

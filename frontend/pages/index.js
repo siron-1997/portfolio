@@ -1,4 +1,5 @@
-import { lazy, useRef, useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
+import { useRef, useState, useEffect } from 'react'
 import { Typography } from '@mui/material'
 import { Layout } from '@/components/layout'
 import { Works } from '@components/home'
@@ -7,8 +8,9 @@ import { ModelViewerLoading } from '@components/etc'
 import { homeAnimation } from '@/animations/pages/home'
 import { introduction } from '@/assets/about-contents'
 import { fetcher } from '@/utils/strapi'
+import s from '@/styles/Home.module.css'
 
-const Home = lazy(() => import('@components/ui/canvas/home/Home'))
+const Home = dynamic(() => import('@/components/ui/canvas/home/Home'), { ssr: false })
 
 export default function HomePage({ data }) {
   const pageHeaderRef = useRef(null),
@@ -39,6 +41,7 @@ export default function HomePage({ data }) {
       }}>
         <PageHeader
           pageHeaderRef={pageHeaderRef}
+          figcaptionClassName={s.figcaption}
           Background={
             <Home
               pageHeaderRef={pageHeaderRef}

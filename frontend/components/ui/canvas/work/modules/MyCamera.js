@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext } from 'react'
+import { useRef, useEffect, useLayoutEffect, useContext } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera } from '@react-three/drei'
 import { MathUtils } from 'three'
@@ -11,7 +11,8 @@ import { BREAK_POINT_MB } from '@/assets/break-points'
 export default function MyCamera({ setIsNavigationVisible }) {
     const cameraRef = useRef(null),
           previousPositionRef = useRef(null), // カメラ位置を監視
-          previousRotationRef = useRef(null) // カメラアングルを監視
+          previousRotationRef = useRef(null), // カメラアングルを監視
+          isPageUnMountedRef = useRef(false)
     const { pageHeaderRef, introductionRef, controlsRef, toggleButtonRef } = useContext(SectionsContext)
     const {
         isInitialControl,
@@ -19,10 +20,12 @@ export default function MyCamera({ setIsNavigationVisible }) {
         isViewerActive,
         setIsStartControls,
         currentIndex,
-        cameraConfigsData
+        post
     } = useContext(WorkDataContext)
     const { gl } = useThree()
     const { width, height } = useWindowSize()
+
+    const cameraConfigsData = post?.attributes?.cameraConfigs
 
     const cameraParams = getSectionsCameraParams(cameraConfigsData, width)
 
@@ -33,13 +36,12 @@ export default function MyCamera({ setIsNavigationVisible }) {
                   previousRotation = cameraRef.current.rotation.clone()
             previousPositionRef.current = previousPosition
             previousRotationRef.current = previousRotation
-            // cameraRef.current.fov = width < BREAK_POINT_MB ? 45 : 55
             cameraRef.current.updateProjectionMatrix()
         }
     })
 
     /* セクション アニメーション */
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (pageHeaderRef.current !== null && introductionRef.current !== null && controlsRef.current !== null) {
             const { pageHeaderCtx, introductionCtx, controlsCtx } = sectionsAnimation({
                 pageHeader: pageHeaderRef.current,
@@ -60,20 +62,20 @@ export default function MyCamera({ setIsNavigationVisible }) {
     }, [width, cameraConfigsData, controlsRef, introductionRef, pageHeaderRef, setIsNavigationVisible, setIsStartControls])
 
     /* ビュワーモード アニメーション（isViewerActive、widthの変更に応じてアニメーションを更新） */
-    useEffect(() => {
+    useLayoutEffect(() => {
         let offset = 0
 
-        if (width > BREAK_POINT_MB) {
+        if (width < BREAK_POINT_MB) {
             offset = 20
         }
-    
+
         if (introductionRef.current !== null) {
             const ctx = viwerToggleAnimation({
                 introduction: introductionRef.current,
                 toggleButton: toggleButtonRef.current,
                 cameraRef,
-                width,
                 offset,
+                width,
                 cameraConfigsData
             })
 
@@ -81,24 +83,41 @@ export default function MyCamera({ setIsNavigationVisible }) {
         }
     }, [introductionRef, toggleButtonRef, width, cameraConfigsData])
 
+    /* ページアンマウント時に更新 */
+    useLayoutEffect(() => {
+        return () => {
+            isPageUnMountedRef.current = true
+        }
+    }, [])
+
     /* コントロール アニメーション（previousPosition、previousRotation、isStartControlsの変更に応じてアニメーションを更新） */
-    useEffect(() => {
+    useLayoutEffect(() => {
         previousPositionRef.current = cameraRef.current.position.clone() // カメラ初期位置
         previousRotationRef.current = cameraRef.current.rotation.clone() // カメラ初期アングル
 
-        const cleanup = controlsAnimation({
+        const ctx = controlsAnimation({
             previousPosition: previousPositionRef.current,
             previousRotation: previousRotationRef.current,
-            camera: cameraRef.current,
+            cameraRef,
             currentIndex,
-            isStartControls,
             isInitialControl,
+            isStartControls,
             width,
             cameraConfigsData
         })
 
-        return () => cleanup()
-    }, [currentIndex, isStartControls, isInitialControl, width, cameraConfigsData])
+        return () => {
+            if (isPageUnMountedRef.current) {
+                ctx.revert()
+            }
+        }
+    }, [
+        currentIndex,
+        isInitialControl,
+        isStartControls,
+        width,
+        cameraConfigsData
+    ])
 
     useEffect(() => {
         const canvas = gl.domElement

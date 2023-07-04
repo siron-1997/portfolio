@@ -37,42 +37,46 @@ const createAnimation = ({
 export default function controlsAnimation({
     previousPosition,
     previousRotation,
-    camera,
+    cameraRef,
     currentIndex,
-    isStartControls,
     isInitialControl,
+    isStartControls,
     width,
     cameraConfigsData
 }) {
     /* ローカル編集の際は '@/assets/camera-params' を参照 */
     /* 各コントロールアニメーションの作成および取得 */
-    const controlsAnimations = cameraConfigsData?.controls.map(currentCameraParams => {
-        const cameraParams = getControlsCameraParams(currentCameraParams, width)
-        const animation = createAnimation({
-            previousPosition,
-            previousRotation,
-            targetPosition: cameraParams.position,
-            targetRotation: cameraParams.rotation,
-            camera
+    const ctx = gsap.context(() => {
+        const controlsAnimations = cameraConfigsData?.controls.map(currentCameraParams => {
+            const cameraParams = getControlsCameraParams(currentCameraParams, width)
+            const animation = createAnimation({
+                previousPosition,
+                previousRotation,
+                targetPosition: cameraParams.position,
+                targetRotation: cameraParams.rotation,
+                camera: cameraRef.current
+            })
+    
+            return animation
         })
-
-        return animation
-    })
-    /* 選択されたコントロールに対応するアニメーションを再生 */
-    controlsAnimations.forEach((animation, i) => {
-        if (!isInitialControl && isStartControls) {
-            if (currentIndex === i) {
-                animation.position.play()
-                animation.rotation.play()
+        /* 選択されたコントロールに対応するアニメーションを再生 */
+        controlsAnimations.forEach((animation, i) => {
+            if (!isInitialControl && isStartControls) {
+                if (currentIndex === i) {
+                    animation.position.play()
+                    animation.rotation.play()
+                }
             }
-        }
-    })
+        })
+    }, cameraRef)
+
+    return ctx
 
     /* クリーンアップ */
-    return () => {
-        controlsAnimations.forEach(animation => {
-            animation.position.kill()
-            animation.rotation.kill()
-        })
-    }
+    // return () => {
+    //     controlsAnimations.forEach(animation => {
+    //         animation.position.kill()
+    //         animation.rotation.kill()
+    //     })
+    // }
 }

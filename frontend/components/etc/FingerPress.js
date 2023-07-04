@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useRef, useEffect, useContext } from 'react'
+import { useRef, useLayoutEffect, useContext } from 'react'
 import { Typography } from '@mui/material'
 import { KeyboardArrowDown } from '@mui/icons-material'
 import { WorkDataContext } from '@/pages/works/[slug]'
@@ -18,7 +18,7 @@ export default function FingerPress() {
 
     const breakPoint = width < BREAK_POINT_MB
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         let currentWidth = 250
 
         if (width < BREAK_POINT_MB) {

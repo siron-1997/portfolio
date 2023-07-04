@@ -2,7 +2,8 @@ import { Typography } from '@mui/material'
 import { Container } from '@/components/ui'
 import s from '@/styles/works/work/normalViewer/Tags.module.css'
 
-export default function Tags({ skillTags }) {
+export default function Tags({ post }) {
+    const skillTags = post?.attributes?.skillTags
     const tags = skillTags.split(/,| /)
 
     return (

@@ -104,7 +104,6 @@ export default function Home({ pageHeaderRef, setIsLoading }) {
                             antialias: true,
                             toneMapping: ReinhardToneMapping,
                             useLegacyLights: true
-                            
                         }}
                         camera={{
                             fov: 45,
