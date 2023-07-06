@@ -1,47 +1,42 @@
 import { gsap } from 'gsap'
-import { power2_out_top } from '@/assets/animation-options'
+import { power2_out_opacity_top_move } from '@/assets/animation-options'
 
-export default function normalViewerAnimation({ normalViewerRef, title, normal, description }) {
+export default function normalViewerAnimation({
+    normalViewerRef, title, categories, tags, description
+}) {
     const ctx = gsap.context(() => {
-        const delay = '+=0.3'
+        const delay = 0.4
 
-        gsap.fromTo(title,
-            power2_out_top.from,
-            {
-                ...power2_out_top.to,
+        const getOptions = element => {
+            return {
+                delay: delay,
                 scrollTrigger: {
-                    trigger: title,
+                    trigger: element,
                     markers: false,
                     start: 'start 85%'
                 }
             }
-        )
+        }
 
-        gsap.fromTo(normal,
-            power2_out_top.from,
-            {
-                ...power2_out_top.to,
-                delay: 0.3,
-                scrollTrigger: {
-                    trigger: normal,
-                    markers: false,
-                    start: 'start 85%'
-                }
-            },
-            delay
+        /* Work見出し */
+        gsap.fromTo(title,
+            power2_out_opacity_top_move.from,
+            { ...power2_out_opacity_top_move.to, delay: delay }
         )
-        gsap.fromTo(description,
-            power2_out_top.from,
-            {
-                ...power2_out_top.to,
-                delay: 0.3,
-                scrollTrigger: {
-                    trigger: description,
-                    markers: false,
-                    start: 'start 85%'
-                }
-            },
-            delay
+        /* Categories */
+        gsap.fromTo(categories.children[0],
+            power2_out_opacity_top_move.from,
+            { ...power2_out_opacity_top_move.to, ...getOptions(categories) }
+        )
+        /* Tags */
+        gsap.fromTo(tags.children[0],
+            power2_out_opacity_top_move.from,
+            { ...power2_out_opacity_top_move.to, ...getOptions(tags) }
+        )
+        /* 説明文 */
+        gsap.fromTo(description.children[0],
+            power2_out_opacity_top_move.from,
+            { ...power2_out_opacity_top_move.to, ...getOptions(description) }
         )
 
     }, normalViewerRef)

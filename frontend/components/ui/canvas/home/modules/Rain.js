@@ -1,9 +1,12 @@
 import { useRef, useEffect } from 'react'
+import { useWindowSize } from '@/utils/hooks'
 import { getRainState } from '@/utils/environment'
-import s from '@styles/Home.module.css'
+import { BREAK_POINT_MB } from '@/assets/break-points'
+import s from '@/styles/Home.module.css'
 
 export default function Rain({ currentWeathers, data }) {
     const canvasRef = useRef(null)
+    const { width, height } = useWindowSize()
     const windSpeed = data?.wind?.speed
 
     const currentWeather = currentWeathers.filter(w => 
@@ -13,14 +16,17 @@ export default function Rain({ currentWeathers, data }) {
     useEffect(() => {
         if (data) {
             const canvas = canvasRef.current
-            canvas.width = window.innerWidth
-            canvas.height = window.innerHeight
+            canvas.width = window.outerWidth
+            canvas.height = window.outerHeight
     
             const { color, lineWidth, xSpeed, ySpeed } = getRainState({
-                currentWeather, lineWidth: 2.5, xSpeed: 2,  ySpeed: 20
+                currentWeather,
+                lineWidth: 2.5,
+                xSpeed: width < BREAK_POINT_MB ? 1.5 : 2,
+                ySpeed: width < BREAK_POINT_MB ? 15 : 20
             })
 
-            const rainFall = data.rain ? data.rain['1h'] * 100 : 0
+            const rainFall = data.rain ? data.rain['1h'] * (width < BREAK_POINT_MB ? 180 : 250) : 0
     
             if (canvas.getContext) {
                 const ctx = canvas.getContext('2d')
@@ -80,7 +86,7 @@ export default function Rain({ currentWeathers, data }) {
                 draw()
             }
         }
-    }, [currentWeather, data])
+    }, [currentWeather, data, width, height])
 
     return (
         <div className={s.rain_container}>

@@ -1,109 +1,84 @@
 import { gsap } from 'gsap'
-import { power2_out_bottom, power2_out_left, power2_out_right, power2_out_top } from '@/assets/animation-options'
+import {
+    power2_out_opacity_top_move,
+    power2_out_opacity_bottom_move,
+    power2_out_opacity_left_move,
+    power2_out_opacity_right_move
+} from '@/assets/animation-options'
 
-export default function modelViewerAnimation({ modelViewerRef, pageHeader, introduction, controls }) {
-    const ctx = gsap.context(() => {
-        const pageHeaderSection = pageHeader.children[1].children[0].children[0],
-              introductionSection = introduction.children[0].children[0],
-              controlsSection = controls.children[0].children[0].children[0],
-              controlsListPc = controls.children[0].children[0].children[1],
-              controlsListMb = controls.children[0].children[0].children[2]
+export default function modelViewerAnimation({
+    pageHeaderRef,
+    introductionRef,
+    controlsRef,
+    pageHeaderSection,
+    introductionSection,
+    controlsSection,
+    controlsListPC,
+    controlsListMB
+}) {
+    const delay = 0.4
 
-        const duration = 1.5,
-              delay = 0.6
-
-        /* PageHeader セクション */
-        gsap.fromTo(
-            pageHeaderSection, power2_out_right.from, { ...power2_out_right.to, delay: 1 }
-        )
-
-        /* Introduction セクション */
-        const introductionAnimation = gsap.timeline({
-            delay: 0.5,
-            scrollTrigger: {
-                trigger: introductionSection,
-                markers: false
-            }
-        })
-        introductionAnimation.fromTo( // タイトル
-            introductionSection.children[0],
-            { y: 120, opacity: 0 }, { y: 0, opacity: 0.9, duration: duration, ease: 'power2.out' }
-        )
-        introductionAnimation.fromTo( // 説明文
-            introductionSection.children[1],
-            { y: 120, opacity: 0 }, { y: 0, opacity: 0.75, duration: duration, ease: 'power2.out' },
-            `-=${duration}`
-        )
-
-        /* Introduction ボタン */ 
-        const introductionButtonAnimation = gsap.timeline({
-            delay: 0.5,
-            scrollTrigger: {
-                trigger: introductionSection.children[3],
-                markers: false
-            }
-        })
-        introductionButtonAnimation.fromTo(
-            introductionSection.children[3], power2_out_bottom.from, power2_out_bottom.to
-        )
-
-        /* Controls セクション */
-        const controlsSectionAnimation = gsap.timeline({
+    const getOptions = element => {
+        return {
             delay: delay,
             scrollTrigger: {
-                trigger: controlsSection,
+                trigger: element,
                 markers: false
             }
-        })
-        controlsSectionAnimation.fromTo( // 見出し
-            controlsSection.children[0],
-            { y: 120, opacity: 0 }, { y: 0, opacity: 0.9, duration: duration, ease: 'power2.out' }
-        )
-        controlsSectionAnimation.fromTo( // 段落
-            controlsSection.children[1],
-            { y: 120, opacity: 0 }, { y: 0, opacity: 0.75, duration: duration, ease: 'power2.out' }, `-=${duration}`
-        )
+        }
+    }
 
-        /* Controls リスト PC */
-        const controlsListPcAnimation = gsap.timeline({
-            delay: delay,
-            scrollTrigger: {
-                trigger: controlsListPc,
-                markers: false
-            }
-        })
-        if (controlsListPc.style.display !== 'none') { // 非表示じゃない場合再生
-            controlsListPcAnimation.fromTo(
-                controlsListPc.children[0], power2_out_left.from, power2_out_left.to, '+=0.3'
+    const pageHeaderCtx = gsap.context(() => {
+        gsap.fromTo(pageHeaderSection,
+            power2_out_opacity_right_move.from,
+            { ...power2_out_opacity_right_move.to, delay: 1.5 }
+        )
+    }, pageHeaderRef)
+
+    const introductionCtx = gsap.context(() => {
+        /* 見出し */
+        gsap.fromTo(introductionSection.children[0],
+            power2_out_opacity_top_move.from,
+            { ...power2_out_opacity_top_move.to, ...getOptions(introductionSection) }
+        )
+        /* 説明文 */
+        gsap.fromTo(introductionSection.children[1],
+            power2_out_opacity_top_move.from,
+            { ...power2_out_opacity_top_move.to, ...getOptions(introductionSection) }, '-=1.8'
+        )
+        /* トグルボタン */
+        gsap.fromTo(introductionSection.children[3],
+            power2_out_opacity_bottom_move.from,
+            { ...power2_out_opacity_bottom_move.to, ...getOptions(introductionSection.children[3]) }
+        )
+    }, introductionRef)
+
+    const controlsCtx = gsap.context(() => {
+        /* セクション */
+        gsap.fromTo(controlsSection,
+            power2_out_opacity_top_move.from,
+            { ...power2_out_opacity_top_move.to, ...getOptions(controlsRef.current.children[0].children[0]) }
+        )
+        /* コントロールリスト PC */
+        if (controlsListPC.style.display !== 'none') {
+            gsap.fromTo(controlsListPC.children[0],
+                power2_out_opacity_left_move.from,
+                { ...power2_out_opacity_left_move.to, ...getOptions(controlsListPC.children[0]) }, '+=0.4'
             )
         }
-
-        /* Controls リスト MB */
-        const controlsListMbTextAnimation = gsap.timeline({
-            delay: delay,
-            scrollTrigger: {
-                trigger: controlsListMb,
-                markers: false
-            }
-        })
-        const controlsListMbIconAnimation = gsap.timeline({
-            delay: delay,
-            scrollTrigger: {
-                trigger: controlsListMb,
-                markers: false,
-                start: '85% bottom'
-            }
-        })
-        if (controlsListMb.style.display !== 'none') { // 非表示じゃない場合再生
-            controlsListMbTextAnimation.fromTo(
-                controlsListMb.children[0], power2_out_right.from, power2_out_right.to
+        /* コントロールリスト MB */
+        if (controlsListMB.style.display !== 'none') {
+            gsap.fromTo(controlsListMB.children[0],
+                power2_out_opacity_right_move.from,
+                { ...power2_out_opacity_right_move.to, ...getOptions(controlsListMB.children[0]) }
             )
-            controlsListMbIconAnimation.from(
-                controlsListMb.children[1], power2_out_top.from, power2_out_top.to
+            /* コントロールバー */
+            gsap.fromTo(controlsListMB.children[1],
+                power2_out_opacity_top_move.from,
+                { ...power2_out_opacity_top_move.to, ...getOptions(controlsListMB) }
             )
         }
+    }, controlsRef)
 
-    }, modelViewerRef)
-
-    return ctx
+    return { pageHeaderCtx, introductionCtx, controlsCtx }
 }

@@ -1,45 +1,49 @@
 import { gsap } from 'gsap'
-import { power2_out_left, power2_out_right, power2_out_left_title } from '@/assets/animation-options'
+import {
+    power2_out_opacity_left_move,
+    power2_out_opacity_right_move
+} from '@/assets/animation-options'
 
 export const aboutAnimation = ({ profileImage, introduction, skillList, aboutRef }) => {
     const ctx = gsap.context(() => {
+        const delay = 0.4
+
+        const getOptions = (element, index) => {
+            return {
+                delay: delay,
+                scrollTrigger: {
+                    trigger: element,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    markers: false,
+                    id: index
+                }
+            }
+        }
+
         /* ProfileImage */
-        gsap.fromTo(
-            profileImage, power2_out_right.from, {...power2_out_right.to}
+        gsap.fromTo(profileImage,
+            power2_out_opacity_right_move.from,
+            { ...power2_out_opacity_right_move.to }
         )
         /* Introduction */
-        gsap.fromTo(
-            introduction, power2_out_left.from, {...power2_out_left.to, delay: 0.5}
+        gsap.fromTo(introduction,
+            power2_out_opacity_left_move.from,
+            { ...power2_out_opacity_left_move.to, delay: delay }
         )
          /* SkillList */
         Array.from(skillList.children).forEach((skill, i) => {
             /* title animation */
-            const title = gsap.timeline({
-                delay: 0.3,
-                scrollTrigger: {
-                    trigger: skill.children[0], // title
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    markers: false,
-                    id: i
-                }
-            })
-            title.fromTo(
-                skill.children[0], power2_out_left_title.from, power2_out_left_title.to
+            const title = gsap.timeline({ ...getOptions(skill.children[0], i) })
+            title.fromTo(skill.children[0],
+                power2_out_opacity_left_move.from,
+                power2_out_opacity_left_move.to
             )
             /* list animation */
-            const list = gsap.timeline({
-                delay: 0.5,
-                scrollTrigger: {
-                    trigger: skill.children[1], // list
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    markers: false,
-                    id: i
-                }
-            })
-            list.fromTo(
-                skill.children[1], power2_out_left.from, power2_out_left.to
+            const list = gsap.timeline({ ...getOptions(skill.children[1], i) })
+            list.fromTo(skill.children[1],
+                power2_out_opacity_left_move.from,
+                power2_out_opacity_left_move.to
             )
         })
     }, aboutRef)

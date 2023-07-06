@@ -5,6 +5,7 @@ import cn from 'classnames'
 import { WorkCard } from '@/components/general'
 import { Container } from '@/components/ui'
 import { truncateString } from '@/utils'
+import { introduction } from '@/assets/works-contents'
 import s from '@/styles/Home.module.css'
 import g from '@/styles/global.module.css'
 
@@ -18,8 +19,8 @@ export default function Works({ data, worksRef }) {
 
     return (
         <section className={rootClassNames} ref={worksRef}>
-            <Typography component='h1' variant='h1'>Works</Typography>
-            <Container>
+            <Typography component='h1' variant='h1'>{introduction.title}</Typography>
+                <Container>
                 <div className={s.contents} ref={contentsRef}>
                     {works?.map((item, i) => (
                         <WorkCard

@@ -1,16 +1,3 @@
-/* ViewerLoading */
-.loading {
-    width: 100%;
-    height: 100%;
-}
-
-.image_container {
-    position: relative;
-    width: 40%;
-}
-
-
-/* PageLoading */
 .page_loading {
     width: 100vw;
     height: 100vh;
@@ -31,8 +18,6 @@
     margin-bottom: 12px;
 }
 
-
-.loading,
 .page_loading {
     display: flex;
     justify-content: center;

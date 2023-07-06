@@ -71,12 +71,4 @@ export default function controlsAnimation({
     }, cameraRef)
 
     return ctx
-
-    /* クリーンアップ */
-    // return () => {
-    //     controlsAnimations.forEach(animation => {
-    //         animation.position.kill()
-    //         animation.rotation.kill()
-    //     })
-    // }
 }

@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Typography } from '@mui/material'
 import { Layout } from '@/components/layout'
 import { Works } from '@components/home'
@@ -12,44 +12,51 @@ import s from '@/styles/Home.module.css'
 
 const Home = dynamic(() => import('@/components/ui/canvas/home/Home'), { ssr: false })
 
+export const HomeElementContext = React.createContext()
+
 export default function HomePage({ data }) {
   const pageHeaderRef = useRef(null),
-        worksRef = useRef(null),
-        portalSectionRef = useRef(null)
-
+        pageHeaderSectionRef = useRef(null),
+        worksRef = useRef(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  /* アニメーション作成 */
   useEffect(() => {
-    const { pageHeaderCtx, worksCtx } = homeAnimation({
-      portalSection: portalSectionRef.current,
-      pageHeaderRef,
-      worksRef
-    })
-
-    return () => {
-      pageHeaderCtx.revert()
-      worksCtx.revert()
+    if (!isLoading) {
+      const { pageHeaderCtx, worksCtx } = homeAnimation({
+        pageHeaderTitle: pageHeaderSectionRef.current.children[0],
+        worksTitle: worksRef.current.children[0],
+        worksCard: worksRef.current.children[1],
+        pageHeaderSectionRef,
+        worksRef
+      })
+  
+      return () => {
+        pageHeaderCtx.revert()
+        worksCtx.revert()
+      }
+    } else {
+      window.scrollTo(0, 0)
     }
-  }, [])
+  }, [isLoading])
 
   return (
     <>
-      <ModelViewerLoading isLoading={isLoading} />
       <Layout metaProps={{
         description: introduction.description,
         type: 'website'
       }}>
+        <ModelViewerLoading isLoading={isLoading} />
         <PageHeader
           pageHeaderRef={pageHeaderRef}
           figcaptionClassName={s.figcaption}
           Background={
-            <Home
-              pageHeaderRef={pageHeaderRef}
-              setIsLoading={setIsLoading}
-            />
+            <HomeElementContext.Provider value={{ pageHeaderRef }}>
+              <Home setIsLoading={setIsLoading} />
+            </HomeElementContext.Provider>
           }
         >
-          <section ref={portalSectionRef}>
+          <section ref={pageHeaderSectionRef}>
             <Typography component='h1' variant='h1'>Symphony</Typography>
           </section>
         </PageHeader>

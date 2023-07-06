@@ -1,37 +1,43 @@
 import { gsap } from 'gsap'
-import { power2_out_top, power2_out_left } from '@/assets/animation-options'
+import {
+    power2_out_opacity_top_move,
+    power2_out_opacity_left_move
+} from '@/assets/animation-options'
 
-export const homeAnimation = ({ portalSection, pageHeaderRef, worksRef }) => {
+export const homeAnimation = ({
+    pageHeaderTitle, worksTitle, worksCard, pageHeaderSectionRef, worksRef
+}) => {
+    const delay = 0.4
+
+    const getOptions = (element, start) => {
+        return {
+            delay: delay,
+            scrollTrigger: {
+                trigger: element,
+                markers: false,
+                start: start
+            }
+        }
+    }
+
+    /* ファーストビュー見出し */
     const pageHeaderCtx = gsap.context(() => {
-            gsap.fromTo(portalSection, power2_out_top.from, { ...power2_out_top.to, delay: 2 })
-    }, pageHeaderRef)
+        gsap.fromTo(pageHeaderTitle,
+            power2_out_opacity_top_move.from,
+            { ...power2_out_opacity_top_move.to, delay: 1.5 }
+        )
+    }, pageHeaderSectionRef)
 
     const worksCtx = gsap.context(() => {
-        gsap.fromTo( // 見出し
-            worksRef.current.children[0],
-            power2_out_top.from,
-            {
-                ...power2_out_top.to,
-                delay: 0.3,
-                scrollTrigger: {
-                    trigger: worksRef.current,
-                    markers: false
-                }
-            }
+        /* Works見出し */
+        gsap.fromTo(worksTitle,
+            power2_out_opacity_top_move.from,
+            { ...power2_out_opacity_top_move.to, ...getOptions(worksRef.current, 'start bottom') }
         )
-
-        gsap.fromTo( // カードリスト
-            worksRef.current.children[1],
-            power2_out_left.from,
-            {
-                ...power2_out_left.to,
-                delay: 0.6,
-                scrollTrigger: {
-                    trigger: worksRef.current,
-                    markers: false,
-                    start: '20% bottom'
-                }
-            }
+        /* Works カード */
+        gsap.fromTo(worksCard,
+            power2_out_opacity_left_move.from,
+            { ...power2_out_opacity_left_move.to, ...getOptions(worksCard, '20% bottom') }, '+=0.8'
         )
     }, worksRef)
 
