@@ -1,32 +1,34 @@
 import { gsap } from 'gsap'
-import { power2_out_left, power2_out_right } from '@/assets/animation-options'
+import {
+    power2_out_opacity_left_move,
+    power2_out_opacity_right_move
+} from '@/assets/animation-options'
 
 export default function imagesAnimation(imagesRef) {
+    const delay = 0.4
+
+    const getOptions = element => {
+        return {
+            delay: delay,
+            scrollTrigger: {
+                trigger: element,
+                markers: false,
+                start: 'start 85%'
+            }
+        }
+    }
+
     const ctx = gsap.context(() => {
         Array.from(imagesRef.current.children).forEach((child, i) => {
             if ((i + 1) % 2 === 0) {
-                gsap.fromTo(child,
-                    {
-                        ...power2_out_right.from,
-                        scrollTrigger: {
-                            trigger: child,
-                            markers: false,
-                            start: 'start 75%'
-                        }
-                    },
-                    power2_out_right.to
+                gsap.fromTo(child, // Imageラップ要素
+                    power2_out_opacity_right_move.from,
+                    { ...power2_out_opacity_right_move.to, ...getOptions(child) }
                 )
             } else {
-                gsap.fromTo(child,
-                    {
-                        ...power2_out_left.from,
-                        scrollTrigger: {
-                            trigger: child,
-                            markers: false,
-                            start: 'start 75%'
-                        }
-                    },
-                    power2_out_left.to
+                gsap.fromTo(child, // Imageラップ要素
+                    power2_out_opacity_left_move.from,
+                    { ...power2_out_opacity_left_move.to, ...getOptions(child) }
                 )
             }
         })

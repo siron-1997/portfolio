@@ -12,12 +12,12 @@ export default function fingerPressAnimation ({
     
         if (image !== null) {
             imageAnimation.fromTo(image,
-                { opacity: opacities.point1 },
-                { opacity: opacities.point2, scale: 1.2, duration: 0.3, ease: 'power1.out' }
+                { opacity: 0 },
+                { opacity: 0.85, scale: 1.2, duration: 0.3, ease: 'power1.out' }
             )
             imageAnimation.fromTo(image,
-                { opacity: opacities.point2 },
-                { opacity: opacities.point3, scale: 1.0, duration: 0.3, ease: 'power1.out' }
+                { opacity: 0.85 },
+                { opacity: 0.4, scale: 1.0, duration: 0.3, ease: 'power1.out' }
             )
             imageAnimation.fromTo(image,
                 { x: - currentWidth },
@@ -51,10 +51,4 @@ export default function fingerPressAnimation ({
     }, fingerPressRef)
 
     return ctx
-
-
-    return () => {
-        imageAnimation.kill()
-        textAnimation.kill()
-    }
 }
