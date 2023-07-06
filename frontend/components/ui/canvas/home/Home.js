@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { BakeShadows } from '@react-three/drei'
 import { ReinhardToneMapping } from 'three'
+import { ModelViewerLoading } from '@components/etc'
 import { getBackgroundColor } from '@/utils/environment'
 import { Clouds, Fog, Rain, RigCamera, Star, SunLight, WeatherEnvironment } from './modules'
 import s from '@styles/Home.module.css'
@@ -12,7 +13,7 @@ const Model = lazy(() => import('./modules/Model')),
       Ocean = lazy(() => import('./modules/Ocean')),
       Lightning = lazy(() => import('./modules/Lightning'))
 
-export default function Home({ pageHeaderRef, setIsLoading }) {
+export default function Home({ setIsLoading }) {
     const doorRef = useRef(null)
     const [data, setData] = useState(null)
     const [timePoint, setTimePoint] = useState('')
@@ -46,7 +47,7 @@ export default function Home({ pageHeaderRef, setIsLoading }) {
                         })
                     }
                 } else { // 位置情報の取得がブロック
-                    await getCurrentWeather(35.06472449733225, 135.8277975469669) // 比叡山頂駅
+                    await getCurrentWeather(35.06472449733225, 135.8277975469669)
                 }
             })
         }
@@ -95,8 +96,8 @@ export default function Home({ pageHeaderRef, setIsLoading }) {
 
     if (isViewerLoading) {
         return (
-            <div className={s.portal}>
-                <Suspense fallback={null}>
+            <Suspense fallback={<ModelViewerLoading isLoading={true} />}>
+                <div className={s.portal}>
                     <Canvas
                         shadows
                         dpr={[ 1, 2 ]}
@@ -110,9 +111,9 @@ export default function Home({ pageHeaderRef, setIsLoading }) {
                             near: 0.01,
                             far: 200
                         }}
-                        onCreated={() =>  setIsLoading(() => false)}
                         className={s.canvas}
                         style={{ background: getBackgroundColor(timePoint)}}
+                        onCreated={() =>  setIsLoading(() => false)}
                     >
                         {/* 薄曇、散在雲、切雲、厚雲のとき追加。曇り度によって透明度を制御 */}
                         <WeatherEnvironment timePoint={timePoint} />
@@ -135,13 +136,13 @@ export default function Home({ pageHeaderRef, setIsLoading }) {
                         {/* 雷 */}
                         <Lightning currentWeathers={currentWeathers} />
                         {/* カメラ */}
-                        <RigCamera pageHeaderRef={pageHeaderRef} doorRef={doorRef} />
+                        <RigCamera doorRef={doorRef} />
                         {/* シャドウベイク */}
                         <BakeShadows bias={- 0.3} />
                     </Canvas>
                     <Rain data={data} currentWeathers={currentWeathers} />
-                </Suspense>
-            </div>
+                </div>
+            </Suspense>
         )
     }
 }

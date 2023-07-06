@@ -7,10 +7,12 @@ import g from '@/styles/global.module.css'
 export default function ProfileImage({ profileImageRef }) {
     const imageClassNames = cn(s.profile_image_container, g.image_container)
 
+    const image = '/images/siron/siron.webp'
+
     return (
         <div className={imageClassNames} ref={profileImageRef}>
             <Image
-                src='/images/siron/siron.webp'
+                src={image}
                 alt='profile image'
                 className={s.profile_image}
                 style={{ border: `3px solid ${colors.navigation}` }}
@@ -18,7 +20,7 @@ export default function ProfileImage({ profileImageRef }) {
                 quality={100}
                 priority={true}
                 placeholder='blur'
-                blurDataURL='/images/siron/siron.webp'
+                blurDataURL={image}
                 sizes={'(max-width: 1024px) 90vw, (max-width: 768px) 50vw, 100vw'}
             />
         </div>

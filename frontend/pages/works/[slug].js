@@ -1,9 +1,11 @@
 import dynamic from 'next/dynamic'
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useRef, useEffect, Suspense } from 'react'
 import { Typography } from '@mui/material'
 import cn from 'classnames'
 import { Layout } from '@/components/layout'
+import { PageHeader } from '@/components/general'
 import { ModelViewerLoading } from '@components/etc'
+import { Introduction, Controls } from '@/components/works/work/modelViewer'
 import { Categories, Description, Images, MainImage, Tags } from '@/components/works/work/normalViewer'
 import { fetcher } from '@/utils/strapi'
 import { normalViewerAnimation, modelViewerAnimation } from '@/animations/pages/works/work'
@@ -11,10 +13,7 @@ import { introduction } from '@/assets/works-contents'
 import s from '@/styles/works/work/index.module.css'
 import g from '@/styles/global.module.css'
 
-const PageHeader = dynamic(() => import('@/components/general/PageHeader'), { ssr: false }),
-      Introduction = dynamic(() => import('@/components/works/work/modelViewer/Introduction', { ssr: false })),
-      Controls = dynamic(() => import('@/components/works/work/modelViewer/Controls', { ssr: false })),
-      Work = dynamic(() => import('@/components/ui/canvas/work/Work'), { ssr: false })
+const Work = dynamic(() => import('@/components/ui/canvas/work/Work'), { ssr: false })
 
 export const WorkDataContext = React.createContext(),
              SectionsContext = React.createContext()
@@ -29,9 +28,8 @@ export default function WorkPage({ post }) {
     /* normalViewer */
     const normalViewerRef = useRef(null),
           titleRef = useRef(null),
-          normalRef = useRef(null),
+          categoryAndTagContainerRef = useRef(null),
           descriptionRef = useRef(null)
-
     /* modelViewer */
     const [isInitialControl, setIsInitialControl] = useState(true)
     const [isStartControls, setIsStartControls] = useState(false)
@@ -39,46 +37,52 @@ export default function WorkPage({ post }) {
     const [isFingerVisible, setIsFingerVisible] = useState(true)
     const [isViewerActive, setIsViewerActive] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
-    /* normalViewer */
-    const [isLoadImage, setIsLoadImage] = useState(false)
 
     const normalViewerClassNames = cn(g.root_container, s.normal_viewer)
 
     const controlsData = post?.attributes?.sections?.filter(item => item?.__component.match(/.controls$/))[0]
 
     /* modelViewer */
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (pageHeaderRef.current !== null && introductionRef.current !== null && controlsRef.current !== null) {
             if (!isLoading) {
                 /* アニメーション作成 */
-                const ctx = modelViewerAnimation({
+                const { pageHeaderCtx, introductionCtx, controlsCtx } = modelViewerAnimation({
                     modelViewerRef,
-                    pageHeader: pageHeaderRef.current,
-                    introduction: introductionRef.current,
-                    controls: controlsRef.current
+                    pageHeaderRef,
+                    introductionRef,
+                    controlsRef,
+                    pageHeaderSection: pageHeaderRef.current.children[1].children[0].children[0],
+                    introductionSection: introductionRef.current.children[0].children[0],
+                    controlsSection: controlsRef.current.children[0].children[0].children[0],
+                    controlsListPC: controlsRef.current.children[0].children[0].children[1],
+                    controlsListMB: controlsRef.current.children[0].children[0].children[2]
                 })
         
-                return () => ctx.revert()
+                return () => {
+                    pageHeaderCtx.revert()
+                    introductionCtx.revert()
+                    controlsCtx.revert()
+                }
             }
         }
     }, [isLoading])
 
     /* normalViewer */
-    // useEffect(() => {
-    //     if (titleRef.current !== null  && normalRef.current !== null && descriptionRef.current !== null) {
-    //         if (isLoadImage) {
-    //             /* アニメーション作成 */
-    //             const ctx = normalViewerAnimation({
-    //                 normalViewerRef,
-    //                 title: titleRef.current,
-    //                 normal: normalRef.current,
-    //                 description: descriptionRef.current
-    //             })
-        
-    //             return () => ctx.revert()
-    //         }
-    //     }
-    // }, [isLoadImage])
+    useEffect(() => {
+        if (titleRef.current !== null  && categoryAndTagContainerRef.current !== null && descriptionRef.current !== null) {
+            /* アニメーション作成 */
+            const ctx = normalViewerAnimation({
+                normalViewerRef,
+                title: titleRef.current,
+                categories: categoryAndTagContainerRef.current.children[0],
+                tags: categoryAndTagContainerRef.current.children[1],
+                description: descriptionRef.current
+            })
+    
+            return () => ctx.revert()
+        }
+    }, [])
 
     return (
         <>
@@ -115,7 +119,9 @@ export default function WorkPage({ post }) {
                                                 post
                                             }}
                                         >
-                                            <Work post={post} setIsLoading={setIsLoading} />
+                                            <Suspense fallback={<ModelViewerLoading isLoading={true} />}>
+                                                <Work post={post} setIsLoading={setIsLoading} />
+                                            </Suspense>
                                         </WorkDataContext.Provider>
                                     </SectionsContext.Provider>
                                 }
@@ -152,8 +158,8 @@ export default function WorkPage({ post }) {
                                 <Typography component='h1' variant='h2' ref={titleRef}>
                                     {post?.attributes?.title}
                                 </Typography>
-                                <MainImage post={post} isLoadImage={isLoadImage} setIsLoadImage={setIsLoadImage} />
-                                <div className={s.normal} ref={normalRef}>
+                                <MainImage post={post} />
+                                <div className={s.normal} ref={categoryAndTagContainerRef}>
                                     <Categories post={post} />
                                     <Tags post={post} />
                                 </div>

@@ -1,13 +1,15 @@
-import { useRef, useLayoutEffect } from 'react'
+import { useRef, useContext, useLayoutEffect } from 'react'
 import { useThree } from '@react-three/fiber'
 import { CameraShake } from '@react-three/drei'
 import { Group, Mesh } from 'three'
+import { HomeElementContext } from '@/pages/index'
 import { useWindowSize } from '@/utils/hooks'
 import { setCameraPositions } from '@/utils/environment'
 import { rigCameraAnimation } from '@/animations/components/ui/canvas/home'
 
-export default function RigCamera({ pageHeaderRef, doorRef }) {
+export default function RigCamera({ doorRef }) {
     const cameraContainerRef = useRef(null)
+    const { pageHeaderRef } = useContext(HomeElementContext)
     const { scene, camera } = useThree()
     const { width, height } = useWindowSize()
 

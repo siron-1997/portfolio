@@ -9,20 +9,22 @@ export default function Description({ post, descriptionRef }) {
 
     return (
         <Container>
-            <div className={s.description} ref={descriptionRef}>
-                {url !== null && (
-                    <Typography component='p' variant='p' className={s.link_text}>
-                        <span>Link:</span>
-                        <a
-                            href={url}
-                            className={s.link}
-                            style={{ color: colors.navigation, opacity: 1 }}
-                        >
-                            {url}
-                        </a>
-                    </Typography>
-                )}
-                <Typography component='p' variant='p'>{description}</Typography>
+            <div ref={descriptionRef}>
+                <div className={s.description}>
+                    {url !== null && (
+                        <Typography component='p' variant='p' className={s.link_text}>
+                            <span>Link:</span>
+                            <a
+                                href={url}
+                                className={s.link}
+                                style={{ color: colors.navigation, opacity: 1 }}
+                            >
+                                {url}
+                            </a>
+                        </Typography>
+                    )}
+                    <Typography component='p' variant='p'>{description}</Typography>
+                </div>
             </div>
         </Container>
     )

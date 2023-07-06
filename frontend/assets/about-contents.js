@@ -4,7 +4,7 @@ const svg = '.svg',
 
 
 export const introduction = {
-    title: 'About',　
+    title: 'About',
     description:
     '1997年生まれ大阪出身。現在は3DCGおよびwebフロントエンド開発をメインに活動をしています。\n' +
     '幼少期から物を作ることが好きで芸術、デザイン、インターネット、デジタル技術、航空機、自然に興味関心があり、個人の活動ではコンセプトRC飛行機や気象情報を用いた作品を実験的に制作しています。\n' +
