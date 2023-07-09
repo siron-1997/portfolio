@@ -1,0 +1,7 @@
+const BREAK_POINT_MB: number = 768
+const BREAK_POINT_TB: number = 1024
+const BREAK_POINT_LG: number = 1280
+const BREAK_POINT_XL: number = 1536
+const BREAK_POINT_XXL: number = 1920
+
+export { BREAK_POINT_MB, BREAK_POINT_TB, BREAK_POINT_LG, BREAK_POINT_XL, BREAK_POINT_XXL }

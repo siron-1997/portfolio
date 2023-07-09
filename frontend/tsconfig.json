@@ -14,18 +14,19 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "noImplicitAny": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@animations/*": ["animations/*"],
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@configs/*": ["configs/*"],
-      "@utils/*": ["utils/*"],
-      "@styles/*": ["styles/*"]
+      "@/animations/*": ["animations/*"],
+      "@/assets/*": ["assets/*"],
+      "@/components/*": ["components/*"],
+      "@/configs/*": ["configs/*"],
+      "@/utils/*": ["utils/*"],
+      "@/styles/*": ["styles/*"]
     }
   },
   "include": [
