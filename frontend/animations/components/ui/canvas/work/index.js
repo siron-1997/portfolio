@@ -1,5 +1,0 @@
-export { default as controlsAnimation } from './controls'
-export { default as modelAnimation } from './model'
-export { default as pointLightsAnimation } from './pointLights'
-export { default as sectionsAnimation } from './sections'
-export { default as viwerToggleAnimation } from './viwerToggle'
