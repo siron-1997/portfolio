@@ -1,12 +1,15 @@
 import React, { useRef, useMemo } from 'react'
 import { extend, useThree, useLoader, useFrame, Object3DNode } from '@react-three/fiber'
-import { Texture } from 'three/src/textures/Texture'
-import { TextureLoader } from 'three/src/loaders/TextureLoader'
-import { PlaneGeometry } from 'three/src/geometries/PlaneGeometry'
-import { RepeatWrapping } from 'three/src/constants'
-import { Vector3 } from 'three/src/math/Vector3'
-import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer'
-import MathUtils from 'three/src/math/MathUtils'
+
+import {
+    Texture,
+    TextureLoader,
+    PlaneGeometry,
+    RepeatWrapping,
+    Vector3,
+    WebGLRenderer,
+    MathUtils
+} from 'three'
 import { Water } from 'three/examples/jsm/objects/Water'
 
 extend({ Water })

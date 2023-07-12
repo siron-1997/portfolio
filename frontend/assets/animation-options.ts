@@ -1,7 +1,7 @@
 type From = {
     readonly x?: number,
     readonly y?: number,
-    readonly opacity?: number
+    readonly opacity: number
 }
 type To = {
     readonly x?: number,
@@ -42,12 +42,12 @@ const power4_out_opacity_top_move: AnimationConfig = {
 
 const back_out_opacity_left_move: AnimationConfig = {
     from : { x: 100, opacity: 0 },
-    to: { x: 0, opacity: 1, duration: duration, delay: .2, ease: 'back.out' }
+    to: { x: 0, opacity: 1, duration: duration, delay: 0.2, ease: 'back.out' }
 }
 
 const back_out_opacity_right_move: AnimationConfig = {
     from : { x: - 100, opacity: 0 },
-    to: { x: 0, opacity: 1, duration: duration, delay: .2, ease: 'back.out' }
+    to: { x: 0, opacity: 1, duration: duration, delay: 0.2, ease: 'back.out' }
 }
 
 

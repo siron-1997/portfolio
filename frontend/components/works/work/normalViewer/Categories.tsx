@@ -14,10 +14,10 @@ const Categories: React.FC<CustomProps> = ({ post }) => {
     return (
         <Container>
             <div className={s.categories}>
-                <Typography component='div' variant='body1'>Category: </Typography>
+                <Typography component='div' variant='p'>Category: </Typography>
                 <div className={s.category_tags}>
                     {categoriesArray.map((category: any, i: number) => (
-                        <Typography component='span' variant='button' key={i}>{category}</Typography>
+                        <Typography component='span' variant='tag' key={i}>{category}</Typography>
                     ))}
                 </div>
             </div>

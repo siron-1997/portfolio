@@ -1,6 +1,6 @@
 import React, { lazy, useState, useContext} from 'react'
 import { Canvas } from '@react-three/fiber'
-import { ACESFilmicToneMapping } from 'three/src/constants'
+import { ACESFilmicToneMapping } from 'three'
 import { MyCamera, MyControls } from './modules'
 import { useWindowSize } from '@/utils/hooks'
 import { WorkDataContext } from '@/pages/works/[slug]'

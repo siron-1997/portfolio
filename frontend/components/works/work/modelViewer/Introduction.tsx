@@ -28,7 +28,7 @@ const Introduction: React.FC<CustomProps> = ({ post }) => {
             <Container style={{ position: 'relative', height: '100%' }}>
                 <section>
                     <Typography component='h2' variant='h2'>{data?.title}</Typography>
-                    <Typography component='p' variant='body1' sx={{ maxWidth: 650 }}>{data?.description}</Typography>
+                    <Typography component='p' variant='p' sx={{ maxWidth: 650 }}>{data?.description}</Typography>
                     <FingerPress />
                     <ToggleButton />
                 </section>

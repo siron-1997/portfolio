@@ -12,7 +12,7 @@ const Introduction: React.FC<CustomProps> = ({ introductionRef }) => {
         <div ref={introductionRef} className={s.introduction}>
             <section className={s.profile_text}>
                 <Typography component='h1' variant='h1'>{introduction.title}</Typography>
-                <Typography component='p' variant='body1'>{introduction.description}</Typography>
+                <Typography component='p' variant='p'>{introduction.description}</Typography>
             </section>
         </div>
     )

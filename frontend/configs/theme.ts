@@ -1,10 +1,64 @@
+import React from 'react'
 import { createTheme } from '@mui/material/styles'
 import { BREAK_POINT_MB, BREAK_POINT_TB, BREAK_POINT_LG, BREAK_POINT_XL, BREAK_POINT_XXL } from '@/assets/break-points'
 import { colors } from '@/assets/colors'
 
+declare module '@mui/material/styles' {
+    interface TypographyVariants {
+        logo: React.CSSProperties
+        p: React.CSSProperties
+        tag: React.CSSProperties
+        label: React.CSSProperties
+        label_name: React.CSSProperties
+        navigation: React.CSSProperties & {
+            '&::after'?: React.CSSProperties
+            '&:hover::after'?: React.CSSProperties
+        }
+        model_navigation: React.CSSProperties & {
+            '&:hover'?: React.CSSProperties
+        }
+        card_title: React.CSSProperties
+        card_paragraph: React.CSSProperties & {
+            '&:hover'?: React.CSSProperties
+        }
+    }
+    // allow configuration using `createTheme`
+    interface TypographyVariantsOptions {
+        logo: React.CSSProperties
+        p: React.CSSProperties
+        tag: React.CSSProperties
+        label: React.CSSProperties
+        label_name: React.CSSProperties
+        navigation: React.CSSProperties & {
+            '&::after'?: React.CSSProperties
+            '&:hover::after'?: React.CSSProperties
+        }
+        model_navigation: React.CSSProperties & {
+            '&:hover'?: React.CSSProperties
+        }
+        card_title: React.CSSProperties
+        card_paragraph: React.CSSProperties & {
+            '&:hover'?: React.CSSProperties
+        }
+    }
+}
+declare module '@mui/material/Typography' {
+    interface TypographyPropsVariantOverrides {
+        logo: true
+        p: true
+        tag: true
+        label: true
+        label_name: true
+        navigation: true
+        model_navigation: true
+        card_title: true
+        card_paragraph: true
+    }
+}
+
 export const theme = createTheme(({
     breakpoints: {
-        values: { xs: 0, sm: BREAK_POINT_MB, md: BREAK_POINT_TB, lg: BREAK_POINT_LG, xl: BREAK_POINT_XL, xxl: BREAK_POINT_XXL }
+        values: { xs: 0, sm: BREAK_POINT_MB, md: BREAK_POINT_TB, lg: BREAK_POINT_LG, xl: BREAK_POINT_XL }
     },
     palette: {
         mode: 'dark',
@@ -249,13 +303,7 @@ export const theme = createTheme(({
                         '&:hover': {
                             backgroundColor: 'rgba(0, 0, 0, 0.15)'
                         }
-                    }
-                }
-            }
-        },
-        MuiPopper: {
-            styleOverrides: {
-                root: {
+                    },
                     '& .MuiAutocomplete-listbox': {
                         color: colors.text.dark,
                         backgroundColor: colors.bgColor.dark.sub,
@@ -267,6 +315,21 @@ export const theme = createTheme(({
                     }
                 }
             }
-        }
+        },
+        // MuiPopper: {
+        //     root: {
+        //         root: {
+        //             '& .MuiAutocomplete-listbox': {
+        //                 color: colors.text.dark,
+        //                 backgroundColor: colors.bgColor.dark.sub,
+        //             },
+        //             '& .MuiAutocomplete-listbox li': {
+        //                 '&:hover': {
+        //                     backgroundColor: colors.main.default
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 }))

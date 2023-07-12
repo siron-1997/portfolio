@@ -34,49 +34,49 @@ export const introduction: Introduction = {
 
 export const profileSkills: ProfileSkills = [
     {
-        title: 'Language & Framework',
+        title: 'Languages & Frameworks',
         skills: [
             {
                 image: path + 'html5_48x48' + svg,
                 alt: 'HTML5',
                 title: 'HTML5',
-                text: '3 year'
+                text: '3 years'
             },
             {
                 image: path + 'css3_48x48' + svg,
                 alt: 'CSS3',
                 title: 'CSS3',
-                text: '3 year'
+                text: '3 years'
             },
             {
                 image: path + 'javascript_48x48' + svg,
                 alt: 'JavaScript',
                 title: 'JavaScript',
-                text: '2 ~ 3 year'
+                text: '2 ~ 3 years'
             },
             {
                 image: path + 'react' + svg,
                 alt: 'React',
                 title: 'React',
-                text: '2 ~ 3 year'
+                text: '2 ~ 3 years'
             },
             {
                 image: path + 'next_js_100x100' + svg,
                 alt: 'Next.js',
                 title: 'Next.js',
-                text: '2 ~ 3 year'
+                text: '2 ~ 3 years'
             },
             {
                 image: path + 'three_js' + webp,
                 alt: 'Three.js',
                 title: 'Three.js',
-                text: '2 ~ 3 year'
+                text: '2 ~ 3 years'
             },
             {
                 image: path + 'node_js_48x48' + svg,
                 alt: 'Node.js',
                 title: 'Node.js',
-                text: '3 month'
+                text: '3 months'
             }
         ]
     },
@@ -87,30 +87,30 @@ export const profileSkills: ProfileSkills = [
     //             image: path + 'aws_48x48' + svg,
     //             alt: 'AWS',
     //             title: 'AWS',
-    //             text: '2 month'
+    //             text: '2 months'
     //         }
     //     ]
     // },
     {
-        title: 'Development Tool',
+        title: 'Development Tools',
         skills: [
             {
                 image: path + 'visual_studio_code_48x48' + svg,
                 alt: 'VSCode',
                 title: 'VSCode',
-                text: '3 year'
+                text: '3 years'
             },
             {
                 image: path + 'github_48x48' + svg,
                 alt: 'GitHub',
                 title: 'GitHub',
-                text: '2 ~ 3 year'
+                text: '2 ~ 3 years'
             },
             {
                 image: path + 'git_48x48' + svg,
                 alt: 'Git',
                 title: 'Git',
-                text: '2 ~ 3 year'
+                text: '2 ~ 3 years'
             },
             {
                 image: path + 'blender_48x48' + svg,
@@ -122,7 +122,7 @@ export const profileSkills: ProfileSkills = [
                 image: path + 'autodesk_fusion360' + svg,
                 alt: 'Fusion360',
                 title: 'Fusion360',
-                text: '4 year'
+                text: '4 years'
             },
         ]
     }

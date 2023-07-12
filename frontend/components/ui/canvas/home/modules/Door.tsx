@@ -1,24 +1,30 @@
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import { MathUtils, BackSide } from 'three'
+import { PointLight, MathUtils, BackSide } from 'three'
 import { getEnvMapIntensity } from '@/utils/environment'
 
-export default function Door({ currentWeathers, timePoint, doorRef }) {
-    const pointLightRef = useRef(null)
-    const { nodes } = useGLTF('/models/gltf/door.glb') // glbファイル読込み
+type CustomProps = {
+    currentWeathers: any,
+    timePoint: 'evening' | 'night' | 'lunch'
+    doorRef: any
+}
+
+const Door: React.FC<CustomProps> = ({ currentWeathers, timePoint, doorRef }) => {
+    const pointLightRef = useRef<PointLight | null>(null)
+    const { nodes }: any = useGLTF('/models/gltf/door.glb') // glbファイル読込み
     const { scene } = useThree()
     
-    const currentWeather = currentWeathers.filter(w =>
+    const currentWeather = currentWeathers.filter((w: any) =>
         w.main === 'Clear' || w.main === 'Clouds' || w.main === 'Rain' || w.main === 'Drizzle' || w.main === 'Thunderstorm'
     )[0]
     
     const environment = scene.environment // 環境マップ
     const envMapIntensity = getEnvMapIntensity(currentWeather, timePoint, 'model') // 環境光の輝度を取得
 
-    const groupScale = 0.02,
-          meshScale = 0.1
-    const meshAngle = 90
+    const groupScale: number = 0.02,
+          meshScale: number = 0.1
+    const meshAngle: number = 90
 
     return (
         <group
@@ -95,3 +101,5 @@ export default function Door({ currentWeathers, timePoint, doorRef }) {
         </group>
     )
 }
+
+export default Door

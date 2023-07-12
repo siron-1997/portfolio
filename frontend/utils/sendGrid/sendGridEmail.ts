@@ -23,7 +23,7 @@ export default async function sendGridEmail(contents: any) {
             <p>
                 ${contents?.name && `お名前： ${contents.name}<br/>`}
                 ${contents?.email && `メール： ${contents.email}<br/>`}
-                ${contents?.message && `お名前： ${contents.message}<br/>`}
+                ${contents?.message && `メッセージ： ${contents.message}<br/>`}
             </p>
             <br/>
             <p>サーバートラブルなどにより、メールが正常に送付されないことがあります。</p>

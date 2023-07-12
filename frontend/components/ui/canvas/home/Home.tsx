@@ -1,12 +1,11 @@
 import React, { lazy, Suspense, useEffect, useState, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { BakeShadows } from '@react-three/drei'
-import { Group } from 'three/src/objects/Group'
-import { ReinhardToneMapping } from 'three/src/constants'
+import { Group, ReinhardToneMapping } from 'three'
 import { ModelViewerLoading } from '@/components/etc'
 import { getBackgroundColor } from '@/utils/environment'
 import { Clouds, Fog, Rain, RigCamera, Star, SunLight, WeatherEnvironment } from './modules'
-import s from '@styles/Home.module.css'
+import s from '@/styles/Home.module.css'
 import axios from 'axios'
 
 const Model = lazy(() => import('./modules/Model')),

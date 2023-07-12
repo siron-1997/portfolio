@@ -2,17 +2,26 @@ import { gsap } from 'gsap'
 import { MathUtils } from 'three'
 import { getViwerToggleCameraParams } from '@/utils/environment/getCameraParams'
 
+type CustomProps = {
+    introduction: HTMLElement | null,
+    cameraRef: any,
+    offset: number,
+    cameraConfigsData: any,
+    toggleButton: any,
+    width: number
+}
+
 /* ==========================================================================================
     ビュワーモード切り替えアニメーション
 ===========================================================================================*/
-export default function viwerToggleAnimation({
+const viewerToggleAnimation = ({
     introduction, cameraRef, offset, cameraConfigsData, toggleButton, width
-}) {
+}: CustomProps) => {
     const ctx = gsap.context(self => {
         const duration = 0.6
-        const elementOffsetTop = introduction.getBoundingClientRect().top + window.scrollY + offset
-        const html = document.getElementsByTagName('html')[0],
-              body = document.body
+        const elementOffsetTop: number = introduction.getBoundingClientRect().top + window.scrollY + offset
+        const html: HTMLElement = document.getElementsByTagName('html')[0],
+              body: HTMLElement = document.body
         /* ローカル編集の際は '@/assets/camera-params' を参照 */
         const { cameraParams, zoom } = getViwerToggleCameraParams(cameraConfigsData, width)
 
@@ -38,8 +47,9 @@ export default function viwerToggleAnimation({
                 x: MathUtils.degToRad(cameraParams.rotation.x),
                 y: MathUtils.degToRad(cameraParams.rotation.y),
                 z: MathUtils.degToRad(cameraParams.rotation.z),
-                duration: duration
-            }, `-=${duration}`)
+                duration: duration,
+                delay: duration
+            })
             /* スクロール停止終了 */
             html.style.overflow = 'auto'
             body.style.overflow = 'auto'
@@ -55,3 +65,5 @@ export default function viwerToggleAnimation({
 
     return ctx
 }
+
+export default viewerToggleAnimation

@@ -1,10 +1,7 @@
 import React from 'react'
 import { useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import { Mesh } from 'three/src/objects/Mesh'
-import { Color } from 'three/src/Three'
-import { Texture } from 'three/src/textures/Texture'
-import { MeshStandardMaterial } from 'three/src/materials/MeshStandardMaterial'
+import { Mesh, Color, Texture, MeshStandardMaterial } from 'three'
 import { materials } from '@/assets/mountain-materials'
 import { getEnvMapIntensity } from '@/utils/environment'
 

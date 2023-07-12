@@ -42,10 +42,12 @@ const Works: React.FC<CustomProps> = ({ data, worksRef }) => {
                 </div>
                 <CardActions className={s.move}>
                     <Link href={path}>
-                        <Typography variant='body2' sx={{ fontSize: { xs: 18, sm: 20, fontWeight: 700 } }}>Lean more &gt;</Typography>
+                        <Typography variant='p' sx={{ fontSize: { xs: 18, sm: 20, fontWeight: 700 } }}>Learn More &gt;</Typography>
                     </Link>
                 </CardActions>
             </Container>
         </section>
     )
 }
+
+export default Works

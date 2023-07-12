@@ -6,7 +6,7 @@ import cn from 'classnames'
 import { useImageSize, useWindowSize } from '@/utils/hooks'
 import { BREAK_POINT_MB, BREAK_POINT_TB } from '@/assets/break-points'
 import { colors } from '@/assets/colors'
-import h from '@styles/Home.module.css'
+import h from '@/styles/Home.module.css'
 import s from '@/styles/general/WorkCard.module.css'
 import g from '@/styles/global.module.css'
 
@@ -62,12 +62,12 @@ const WorkCard: React.FC<CustomProps> = ({
                 <CardContent className={txtClassNames}>
                     <Link href={link}>
                         <Typography component='h3' variant='h6'>{title}</Typography>
-                        <Typography component='p' variant='body1' className={g.card_paragraph}>{description}</Typography>
+                        <Typography component='p' variant='p' className={g.card_paragraph}>{description}</Typography>
                     </Link>
                 </CardContent>
                 {termsWorks && (
                     <CardActions className={s.tags}>
-                        <Typography variant='button'>{tags}</Typography>
+                        <Typography variant='tag'>{tags}</Typography>
                     </CardActions>
                 )}
             </Card>

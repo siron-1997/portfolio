@@ -3,7 +3,7 @@ import React from 'react'
 import { Typography } from '@mui/material'
 import cn from 'classnames'
 import { siteMap } from '@/assets/site-map'
-import s from '@styles/layout/Navigation.module.css'
+import s from '@/styles/layout/Navigation.module.css'
 
 type CustomProps = {
     className?: any
@@ -18,7 +18,7 @@ const Navigation: React.FC<CustomProps> = ({ className }) => {
                 {siteMap.map((item, i) => (
                     <li key={i}>
                         <Link href={item.link}>
-                            <Typography variant='body2'>
+                            <Typography component='p' variant='navigation'>
                                 {item.text}
                             </Typography>
                         </Link>

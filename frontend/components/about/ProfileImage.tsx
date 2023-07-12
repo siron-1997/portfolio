@@ -31,3 +31,5 @@ const ProfileImage: React.FC<CustomProps> = ({ profileImageRef }) => {
         </div>
     )
 }
+
+export default ProfileImage

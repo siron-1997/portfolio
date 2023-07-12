@@ -1,8 +1,5 @@
 import React from 'react'
-import { BufferGeometry } from 'three/src/core/BufferGeometry'
-import { BufferAttribute } from 'three/src/core/BufferAttribute'
-import { PointsMaterial } from 'three/src/materials/PointsMaterial'
-import { Points } from 'three/src/objects/Points'
+import { BufferGeometry, BufferAttribute, PointsMaterial, Points } from 'three'
 import { useIsIos } from '@/utils/hooks'
 
 type CustomProps = {

@@ -1,8 +1,5 @@
 import { gsap } from 'gsap'
-import MathUtils from 'three/src/math/MathUtils'
-import { Group } from 'three/src/objects/Group'
-import { Mesh } from 'three/src/objects/Mesh'
-import { Material } from 'three/src/materials/Material'
+import { MathUtils, Group, Mesh, Material } from 'three'
 import { BREAK_POINT_MB } from '@/assets/break-points'
 
 type CustomProps = {

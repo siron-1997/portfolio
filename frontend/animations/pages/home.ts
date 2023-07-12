@@ -4,12 +4,20 @@ import {
     power2_out_opacity_left_move
 } from '@/assets/animation-options'
 
+type CustomProps = {
+    pageHeaderTitle: HTMLElement | null,
+    worksTitle: HTMLElement | null,
+    worksCard: HTMLElement | null,
+    pageHeaderSectionRef: any,
+    worksRef: any
+}
+
 export const homeAnimation = ({
     pageHeaderTitle, worksTitle, worksCard, pageHeaderSectionRef, worksRef
-}) => {
-    const delay = 0.4
+}: CustomProps) => {
+    const delay: number = 0.4
 
-    const getOptions = (element, start) => {
+    const getOptions = (element: HTMLElement, start: string) => {
         return {
             delay: delay,
             scrollTrigger: {
@@ -37,7 +45,7 @@ export const homeAnimation = ({
         /* Works カード */
         gsap.fromTo(worksCard,
             power2_out_opacity_left_move.from,
-            { ...power2_out_opacity_left_move.to, ...getOptions(worksCard, '20% bottom') }, '+=0.8'
+            { ...power2_out_opacity_left_move.to, delay: 0.8, ...getOptions(worksCard, '20% bottom') }
         )
     }, worksRef)
 

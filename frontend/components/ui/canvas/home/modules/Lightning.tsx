@@ -1,8 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useHelper } from '@react-three/drei'
-import { PointLight } from 'three/src/lights/PointLight'
-import { PointLightHelper } from 'three/src/helpers/PointLightHelper'
+import { PointLight, PointLightHelper } from 'three'
 import { getLightningOccurrence } from '@/utils/environment'
 
 type CustomProps = {

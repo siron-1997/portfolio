@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 import cn from 'classnames'
 import { disableScroll } from '@/utils'
 import { useIconSize, useWindowSize } from '@/utils/hooks'
-import s from '@styles/etc/ModelViewerLoading.module.css'
-import g from '@styles/global.module.css'
+import s from '@/styles/etc/ModelViewerLoading.module.css'
+import g from '@/styles/global.module.css'
 
 type CustomProps = {
     readonly isLoading: boolean

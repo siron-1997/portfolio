@@ -1,6 +1,5 @@
 import { gsap } from 'gsap'
-import { Vector3 } from 'three/src/math/Vector3'
-import MathUtils from 'three/src/math/MathUtils'
+import { Vector3, MathUtils } from 'three'
 import { getControlsCameraParams } from '@/utils/environment/getCameraParams'
 
 type CreateAnimationProps = {
@@ -14,7 +13,7 @@ type ControlsAnimation = {
     previousPosition: Vector3 | null,
     previousRotation: Vector3 | null,
     cameraRef: any,
-    currentIndex: null,
+    currentIndex: number | null,
     isInitialControl: boolean,
     isStartControls: boolean,
     width: number,
@@ -31,7 +30,7 @@ const createAnimation = ({
           currentRotation = previousRotation
     const position = gsap.timeline({ paused: true }), // カメラ位置
           rotation = gsap.timeline({ paused: true }) // カメラアングル
-    const duration = 0.8
+    const duration: number = 0.8
     const options = { ease: 'power4.out', duration: duration } // デフォルト設定
     /* カメラ位置 */
     position.from(camera.position, { x: currentPosition.x, y: currentPosition.y, z: currentPosition.z })

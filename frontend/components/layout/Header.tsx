@@ -46,7 +46,7 @@ const Header: React.FC = () => {
                     <div className={s.logo}>
                         <Link href='/'>
                             <Typography component='h1'>
-                                <Typography component='strong' variant='subtitle1'>Junpei Oue</Typography>
+                                <Typography component='strong' variant='logo'>Junpei Oue</Typography>
                             </Typography>
                         </Link>
                     </div>

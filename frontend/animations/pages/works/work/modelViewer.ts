@@ -55,7 +55,7 @@ const modelViewerAnimation = ({
         /* 説明文 */
         gsap.fromTo(introductionSection.children[1],
             power2_out_opacity_top_move.from,
-            { ...power2_out_opacity_top_move.to, ...getOptions(introductionSection) }, '-=1.8'
+            { ...power2_out_opacity_top_move.to, delay: -1.8, ...getOptions(introductionSection) }
         )
         /* トグルボタン */
         gsap.fromTo(introductionSection.children[3],
@@ -74,7 +74,7 @@ const modelViewerAnimation = ({
         if (controlsListPC.style.display !== 'none') {
             gsap.fromTo(controlsListPC.children[0],
                 power2_out_opacity_left_move.from,
-                { ...power2_out_opacity_left_move.to, ...getOptions(controlsListPC.children[0]) }, '+=0.4'
+                { ...power2_out_opacity_left_move.to, delay: 0.4, ...getOptions(controlsListPC.children[0]) }
             )
         }
         /* コントロールリスト MB */

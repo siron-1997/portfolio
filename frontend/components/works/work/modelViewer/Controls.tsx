@@ -115,7 +115,7 @@ const SectionTitleDescription: React.FC<SectionTitleDescriptionProps> = ({ title
     return (
         <section className={s.work_shadow}>
             <Typography component='h2' variant='h2'>{title}</Typography>
-            <Typography component='p' variant='body1' sx={{ maxWidth: 650 }}>{description}</Typography>
+            <Typography component='p' variant='p' sx={{ maxWidth: 650 }}>{description}</Typography>
         </section>
     )
 }
@@ -145,7 +145,7 @@ const ControlListItem: React.FC<ControlListItemProps> = ({ title, description, i
                 </Typography>
                 {title}
             </Typography>
-            <Typography component='p' variant='body1' sx={{ fontSize: 13, mr: 'auto' }}>{description}</Typography>
+            <Typography component='p' variant='p' sx={{ fontSize: 13, mr: 'auto' }}>{description}</Typography>
         </ListItem>
     )
 }

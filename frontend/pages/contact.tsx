@@ -8,7 +8,20 @@ import { introduction } from '@/assets/contact-contents'
 import { contentsInitialState, sendInitialState, stepsState } from '@/assets/contact-initial-states'
 import g from '@/styles/global.module.css'
 
-export const ContactDataContext: any = React.createContext(null)
+type ContactDataContextProps = {
+    contents: any,
+    contentsDispatch: any,
+    send: any,
+    sendDispatch: any,
+    sendResult: any,
+    setSendResult: any,
+    steps: any,
+    stepsDispatch: any,
+    isEdited: any,
+    setIsEdited: any
+}
+
+export const ContactDataContext = React.createContext<ContactDataContextProps | null>(null)
 
 /* contents reducer */
 const contentsReducer = (currentState: any, action: any) => {

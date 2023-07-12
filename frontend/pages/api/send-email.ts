@@ -1,6 +1,6 @@
 import { sendGridEmail } from '@/utils/sendGrid'
 
-export default async function sendEmail (req, res) {
+export default async function sendEmail (req: any, res: any) {
     if (req.method === 'POST') {
         console.log('sent mail')
         const contents = req.body

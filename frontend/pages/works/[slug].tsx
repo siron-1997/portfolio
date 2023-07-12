@@ -19,9 +19,29 @@ const Work = dynamic(() => import('@/components/ui/canvas/work/Work'), { ssr: fa
 type CustomProps = {
     post: any
 }
+type WorkDataContextProps = {
+    isInitialControl?: boolean,
+    setIsInitialControl?: React.Dispatch<React.SetStateAction<boolean>>,
+    isStartControls?: boolean,
+    setIsStartControls?: React.Dispatch<React.SetStateAction<boolean>>,
+    currentIndex?: number,
+    setCurrentIndex?: React.Dispatch<React.SetStateAction<number>>,
+    isFingerVisible?: boolean,
+    setIsFingerVisible?: React.Dispatch<React.SetStateAction<boolean>>,
+    isViewerActive?: boolean,
+    setIsViewerActive?: React.Dispatch<React.SetStateAction<boolean>>
+    controlsData?: any,
+    post?: any
+}
+type SectionsContextProps = {
+    pageHeaderRef?: any,
+    introductionRef?: any,
+    controlsRef?: any,
+    toggleButtonRef?: any
+}
 
-export const WorkDataContext: any = React.createContext(null),
-             SectionsContext: any = React.createContext(null)
+export const WorkDataContext = React.createContext<WorkDataContextProps | null>(null),
+             SectionsContext = React.createContext<SectionsContextProps | null>(null)
 
 export default function WorkPage({ post }: CustomProps) {
     /* modelViewer */

@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { useHelper } from '@react-three/drei'
-import { DirectionalLightHelper } from 'three/src/helpers/DirectionalLightHelper'
-import { DirectionalLight } from 'three/src/lights/DirectionalLight'
+import { DirectionalLightHelper, DirectionalLight } from 'three'
 import { getSunIntensity, getSunColor } from '@/utils/environment'
 
 type CustomProps = {

@@ -1,8 +1,7 @@
 import React, { useRef, useLayoutEffect, useContext } from 'react'
 import { useLoader, useThree, useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
-import { Group } from 'three/src/objects/Group'
-import { LoopOnce, PointLight, PointLightHelper, AnimationMixer } from 'three'
+import { LoopOnce, PointLight, PointLightHelper, AnimationMixer, Group } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { WorkDataContext } from '@/pages/works/[slug]'
@@ -172,7 +171,9 @@ const Model: React.FC<ModelCustomProps> = React.memo(({
     }
 
     useFrame((_, delta) => {
-        if (actions !== null) actions.update(delta)
+        if (actions !== null && actions !== undefined) {
+            actions.update(delta)
+        }
     })
 
     return (

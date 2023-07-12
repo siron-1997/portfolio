@@ -1,4 +1,4 @@
-import { MeshStandardMaterial } from 'three/src/materials/MeshStandardMaterial'
+import { MeshStandardMaterial } from 'three'
 
 type Materials = {
     [key: string]: MeshStandardMaterial

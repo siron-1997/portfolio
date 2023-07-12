@@ -14,10 +14,10 @@ const Tags: React.FC<CustomProps> = ({ post }) => {
     return (
         <Container>
             <div className={s.tags}>
-                <Typography component='div' variant='body1'>Tags: </Typography>
+                <Typography component='div' variant='p'>Tags: </Typography>
                 <div className={s.tags_skill}>
                     {tags?.map((tag: any, i: number) => (
-                        <Typography component='span' variant='button' key={i}>{tag}</Typography>
+                        <Typography component='span' variant='tag' key={i}>{tag}</Typography>
                     ))}
                 </div>
             </div>

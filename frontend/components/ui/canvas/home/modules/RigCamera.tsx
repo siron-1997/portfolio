@@ -1,4 +1,4 @@
-import { useRef, useContext, useLayoutEffect } from 'react'
+import React, { useRef, useContext, useLayoutEffect } from 'react'
 import { useThree } from '@react-three/fiber'
 import { CameraShake } from '@react-three/drei'
 import { Group, Mesh } from 'three'
@@ -7,8 +7,12 @@ import { useWindowSize } from '@/utils/hooks'
 import { setCameraPositions } from '@/utils/environment'
 import { rigCameraAnimation } from '@/animations/components/ui/canvas/home'
 
-export default function RigCamera({ doorRef }) {
-    const cameraContainerRef = useRef(null)
+type CustomProps = {
+    doorRef: React.RefObject<Group | null>
+}
+
+const RigCamera: React.FC<CustomProps> = ({ doorRef }) => {
+    const cameraContainerRef = useRef<Group | null>(null)
     const { pageHeaderRef } = useContext(HomeElementContext)
     const { scene, camera } = useThree()
     const { width, height } = useWindowSize()
@@ -21,18 +25,20 @@ export default function RigCamera({ doorRef }) {
         /* 開始位置と終了位置をセット */
         const { startPosition, endPosition } = setCameraPositions(camera, models, width, height)
         /* アニメーション作成 */
-        const ctx = rigCameraAnimation({
-            startPosition,
-            endPosition,
-            pageHeader,
-            door,
-            room,
-            cameraContainerRef,
-            camera,
-            width
-        })
-
-        return () => ctx.revert()
+        if (door instanceof Group && room instanceof Mesh) {
+            const ctx = rigCameraAnimation({
+                startPosition,
+                endPosition,
+                pageHeader,
+                door,
+                room,
+                cameraContainerRef,
+                camera,
+                width
+            })
+    
+            return () => ctx.revert()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [width, doorRef, camera, pageHeaderRef, scene.children])
 
@@ -48,3 +54,5 @@ export default function RigCamera({ doorRef }) {
         </group>
     )
 }
+
+export default RigCamera

@@ -1,10 +1,9 @@
-import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera'
 import { Group } from 'three/src/objects/Group'
 import { Vector3 } from 'three/src/math/Vector3'
 import { cameraPositions } from '@/assets/break-points-camera'
 import { BREAK_POINT_XXL, BREAK_POINT_XL, BREAK_POINT_LG, BREAK_POINT_TB, BREAK_POINT_MB } from '@/assets/break-points'
 
-const setCameraPositions = (camera: PerspectiveCamera, models: Group, width: number, height: number) => {
+const setCameraPositions = (camera: any, models: Group | any, width: number, height: number) => {
     let startPosition: Vector3, // 開始位置
         endPosition: Vector3 // 到着位置
 

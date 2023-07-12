@@ -180,13 +180,13 @@ const Form: React.FC<CustomProps> = ({ formRef }) => {
                     <>
                         <div className={s.txt_container}>
                             <Typography component='h3' variant='h3'>{sendMessage.title}</Typography>
-                            <Typography component='p' variant='body1'>{sendMessage.description}</Typography>
+                            <Typography component='p' variant='p'>{sendMessage.description}</Typography>
                             <br/>
                             {sendResult && (
                                 <>
-                                    <Typography component='p' variant='body1'>土日祝を除き、1～2日以内にご返信しています。</Typography>
-                                    <Typography component='p' variant='body1'>サーバートラブルなどにより、メールが正常に送付されないことがあります。</Typography>
-                                    <Typography component='p' variant='body1'>その際は junpei.oue@gmail.com に直接お問い合わせください。</Typography>
+                                    <Typography component='p' variant='p'>土日祝を除き、1～2日以内にご返信しています。</Typography>
+                                    <Typography component='p' variant='p'>サーバートラブルなどにより、メールが正常に送付されないことがあります。</Typography>
+                                    <Typography component='p' variant='p'>その際は junpei.oue@gmail.com に直接お問い合わせください。</Typography>
                                 </>
                             )}
                         </div>

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React, { useEffect } from 'react'
 import { disableScroll } from '@/utils'
 import { useIconSize, useWindowSize } from '@/utils/hooks'
-import s from '@styles/etc/PageLoading.module.css'
+import s from '@/styles/etc/PageLoading.module.css'
 
 type CustomProps = {
     readonly isLoading: boolean

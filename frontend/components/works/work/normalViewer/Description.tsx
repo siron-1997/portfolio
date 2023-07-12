@@ -18,7 +18,7 @@ const Description: React.FC<CustomProps> = ({ post, descriptionRef }) => {
             <div ref={descriptionRef}>
                 <div className={s.description}>
                     {url !== null && (
-                        <Typography component='p' variant='body1' className={s.link_text}>
+                        <Typography component='p' variant='p' className={s.link_text}>
                             <span>Link:</span>
                             <a
                                 href={url}
@@ -29,7 +29,7 @@ const Description: React.FC<CustomProps> = ({ post, descriptionRef }) => {
                             </a>
                         </Typography>
                     )}
-                    <Typography component='p' variant='body1'>{description}</Typography>
+                    <Typography component='p' variant='p'>{description}</Typography>
                 </div>
             </div>
         </Container>

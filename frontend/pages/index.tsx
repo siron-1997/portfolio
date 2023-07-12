@@ -16,8 +16,11 @@ const Home = dynamic(() => import('@/components/ui/canvas/home/Home'), { ssr: fa
 type CustomProps = {
   data: any
 }
+type HomeElementContextProps = {
+  pageHeaderRef: React.MutableRefObject<HTMLElement | null>
+}
 
-export const HomeElementContext: any = React.createContext(null)
+export const HomeElementContext = React.createContext<HomeElementContextProps | null>(null)
 
 export default function HomePage({ data }: CustomProps) {
   const pageHeaderRef = useRef(null),
@@ -56,7 +59,7 @@ export default function HomePage({ data }: CustomProps) {
           pageHeaderRef={pageHeaderRef}
           figcaptionClassName={s.figcaption}
           Background={
-            <HomeElementContext.Provider value={{ pageHeaderRef }}>
+            <HomeElementContext.Provider value={{ pageHeaderRef: pageHeaderRef }}>
               <Home setIsLoading={setIsLoading} />
             </HomeElementContext.Provider>
           }

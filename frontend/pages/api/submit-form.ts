@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-export default async function submitForm(req, res) {
+export default async function submitForm(req: any, res: any) {
     const API_KEY = process.env.OPEN_WEATHER_API_KEY
 
     if (req.method === 'POST') {

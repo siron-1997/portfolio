@@ -1,6 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
-import s from '@styles/ui/container/Container.module.css'
+import s from '@/styles/ui/container/Container.module.css'
 
 type CustomProps = {
     children?: any,

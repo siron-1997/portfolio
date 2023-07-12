@@ -16,7 +16,7 @@ type CustomProps = {
 export default function WorksPage({ data }: CustomProps) {
     const worksRef = useRef(null),
           contentsRef = useRef(null)
-    const [selectTags, setSelectTags] = useState([])
+    const [selectTags, setSelectTags] = useState<Array<any>>([])
 
     useEffect(() => {
         const ctx = worksAnimation({

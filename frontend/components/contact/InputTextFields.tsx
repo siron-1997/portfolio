@@ -141,8 +141,8 @@ const InputTextFields: React.FC = () => {
 const Label: React.FC<LabelProps> = ({ title, id, endSteps }) => {
     return (
         <InputLabel htmlFor={id} disableAnimation>
-            {!endSteps && <Typography component='span' variant='caption'>※ 必須</Typography>}
-            <Typography component='span' variant='subtitle2'>{title}</Typography>
+            {!endSteps && <Typography component='span' variant='label'>※ 必須</Typography>}
+            <Typography component='span' variant='label_name'>{title}</Typography>
         </InputLabel>
     )
 }

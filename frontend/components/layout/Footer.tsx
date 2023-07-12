@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
                         ))}
                     </div>
                     <div className={s.copyright}>
-                        <Typography component='p' variant='body1'>{'\u00A9'} {copyright}</Typography>
+                        <Typography component='p' variant='p'>{'\u00A9'} {copyright}</Typography>
                     </div>
                 </div>
             </Container>

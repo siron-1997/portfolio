@@ -1,7 +1,7 @@
 import React from 'react'
 import cn from 'classnames'
 import { Container } from '@/components/ui'
-import s from '@styles/general/PageHeader.module.css'
+import s from '@/styles/general/PageHeader.module.css'
 
 type CustomProps = {
     id?: string,

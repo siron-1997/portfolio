@@ -1,6 +1,6 @@
 import React from 'react'
 import { Environment } from '@react-three/drei'
-import { BackSide } from 'three/src/Three'
+import { BackSide } from 'three'
 import { getEnvironmentColor } from '@/utils/environment'
 
 type CustomProps = {
