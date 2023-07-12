@@ -11,13 +11,13 @@ import s from '@/styles/general/WorkCard.module.css'
 import g from '@/styles/global.module.css'
 
 type CustomProps = {
-    image: any,
-    link: string,
-    title: string,
-    description: string,
-    tags: string,
-    alternativeText: string,
-    type: string
+    image?: string,
+    link?: string,
+    title?: string,
+    description?: string,
+    tags?: string,
+    alternativeText?: string,
+    type?: string
 }
 
 const WorkCard: React.FC<CustomProps> = ({

@@ -1,6 +1,9 @@
+import React from 'react'
 import { gsap } from 'gsap'
 
-const toggleButtonAnimation = (bg: HTMLDivElement | null, toggleButtonRef: any, isViewerActive: boolean) => {
+const toggleButtonAnimation = (
+    bg: HTMLDivElement | null, toggleButtonRef: React.RefObject<HTMLDivElement | null>, isViewerActive: boolean
+) => {
     const ctx = gsap.context(() => {
         let positionX: number = 0
 

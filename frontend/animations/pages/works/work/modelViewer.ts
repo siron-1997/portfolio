@@ -1,3 +1,4 @@
+import React from 'react'
 import { gsap } from 'gsap'
 import {
     power2_out_opacity_top_move,
@@ -7,14 +8,14 @@ import {
 } from '@/assets/animation-options'
 
 type CustomProps = {
-    pageHeaderRef: any,
-    introductionRef: any,
-    controlsRef: any,
+    pageHeaderRef: React.RefObject<HTMLElement | null>,
+    introductionRef: React.RefObject<HTMLDivElement | null>,
+    controlsRef: React.RefObject<HTMLDivElement | null>,
     pageHeaderSection: HTMLElement | null,
-    introductionSection: HTMLElement | any,
-    controlsSection: HTMLElement | any,
-    controlsListPC: HTMLElement | any,
-    controlsListMB: HTMLElement | any
+    introductionSection: HTMLElement | null,
+    controlsSection: HTMLElement | null,
+    controlsListPC: HTMLElement | null,
+    controlsListMB: HTMLElement | null
 }
 
 const modelViewerAnimation = ({
@@ -47,20 +48,21 @@ const modelViewerAnimation = ({
     }, pageHeaderRef)
 
     const introductionCtx = gsap.context(() => {
+        const toggleButton: HTMLDivElement = introductionSection.querySelector('#toggle-button')
         /* 見出し */
-        gsap.fromTo(introductionSection.children[0],
+        gsap.fromTo(introductionSection.querySelector('h2'),
             power2_out_opacity_top_move.from,
             { ...power2_out_opacity_top_move.to, ...getOptions(introductionSection) }
         )
         /* 説明文 */
-        gsap.fromTo(introductionSection.children[1],
+        gsap.fromTo(introductionSection.querySelector('p'),
             power2_out_opacity_top_move.from,
             { ...power2_out_opacity_top_move.to, delay: -1.8, ...getOptions(introductionSection) }
         )
         /* トグルボタン */
-        gsap.fromTo(introductionSection.children[3],
+        gsap.fromTo(toggleButton,
             power2_out_opacity_bottom_move.from,
-            { ...power2_out_opacity_bottom_move.to, ...getOptions(introductionSection.children[3]) }
+            { ...power2_out_opacity_bottom_move.to, ...getOptions(toggleButton) }
         )
     }, introductionRef)
 
@@ -68,23 +70,25 @@ const modelViewerAnimation = ({
         /* セクション */
         gsap.fromTo(controlsSection,
             power2_out_opacity_top_move.from,
-            { ...power2_out_opacity_top_move.to, ...getOptions(controlsRef.current.children[0].children[0]) }
+            { ...power2_out_opacity_top_move.to, ...getOptions(controlsRef.current.querySelector('div').querySelector('div')) }
         )
         /* コントロールリスト PC */
         if (controlsListPC.style.display !== 'none') {
-            gsap.fromTo(controlsListPC.children[0],
+            const list: HTMLUListElement = controlsListPC.querySelector('ul')
+            gsap.fromTo(list,
                 power2_out_opacity_left_move.from,
-                { ...power2_out_opacity_left_move.to, delay: 0.4, ...getOptions(controlsListPC.children[0]) }
+                { ...power2_out_opacity_left_move.to, delay: 0.4, ...getOptions(list) }
             )
         }
         /* コントロールリスト MB */
         if (controlsListMB.style.display !== 'none') {
-            gsap.fromTo(controlsListMB.children[0],
+            const list: HTMLUListElement = controlsListMB.querySelector('#controls-mb-text')
+            gsap.fromTo(list,
                 power2_out_opacity_right_move.from,
-                { ...power2_out_opacity_right_move.to, ...getOptions(controlsListMB.children[0]) }
+                { ...power2_out_opacity_right_move.to, ...getOptions(list) }
             )
             /* コントロールバー */
-            gsap.fromTo(controlsListMB.children[1],
+            gsap.fromTo(controlsListMB.querySelector('#controls-mb-carousel'),
                 power2_out_opacity_top_move.from,
                 { ...power2_out_opacity_top_move.to, ...getOptions(controlsListMB) }
             )

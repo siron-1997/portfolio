@@ -12,8 +12,8 @@ const Tags: React.FC<CustomProps> = ({ post }) => {
     const tags = skillTags.split(/,| /)
 
     return (
-        <Container>
-            <div className={s.tags}>
+        <Container id='tags-container'>
+            <div className={s.tags} id='tags'>
                 <Typography component='div' variant='p'>Tags: </Typography>
                 <div className={s.tags_skill}>
                     {tags?.map((tag: any, i: number) => (

@@ -5,7 +5,7 @@ import { useIconSize } from '@/utils/hooks'
 import s from '@/styles/ui/buttons/Hamburger.module.css'
 
 type CustomProps = {
-    className?: any,
+    className?: string,
     onOpen: any
 }
 

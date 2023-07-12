@@ -1,3 +1,4 @@
+import React from 'react'
 import { gsap } from 'gsap'
 import {
     power2_out_opacity_left_move,
@@ -5,10 +6,10 @@ import {
 } from '@/assets/animation-options'
 
 type CustomProps = {
-    profileImage: HTMLElement | null,
+    profileImage: HTMLImageElement | null,
     introduction: HTMLElement | null,
-    skillList: HTMLElement | null,
-    aboutRef: any
+    skillList: HTMLDivElement | null,
+    aboutRef: React.RefObject<HTMLDivElement | null>
 }
 
 export const aboutAnimation = ({ profileImage, introduction, skillList, aboutRef }: CustomProps) => {

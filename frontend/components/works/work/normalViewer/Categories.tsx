@@ -12,8 +12,8 @@ const Categories: React.FC<CustomProps> = ({ post }) => {
     const categoriesArray = categories.split(',')
 
     return (
-        <Container>
-            <div className={s.categories}>
+        <Container id='categories-container'>
+            <div className={s.categories} id='categories'>
                 <Typography component='div' variant='p'>Category: </Typography>
                 <div className={s.category_tags}>
                     {categoriesArray.map((category: any, i: number) => (

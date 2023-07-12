@@ -18,7 +18,7 @@ const LimitTags: React.FC<CustomProps> = ({ setSelectTags }) => {
     }
 
     return (
-        <div className={s.limit_tags}>
+        <div className={s.limit_tags} id='limit-tags'>
             <Autocomplete
                 multiple
                 limitTags={width < BREAK_POINT_MB ? 2 : 4}

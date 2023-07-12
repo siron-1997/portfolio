@@ -16,7 +16,7 @@ const Description: React.FC<CustomProps> = ({ post, descriptionRef }) => {
     return (
         <Container>
             <div ref={descriptionRef}>
-                <div className={s.description}>
+                <div className={s.description} id='description'>
                     {url !== null && (
                         <Typography component='p' variant='p' className={s.link_text}>
                             <span>Link:</span>

@@ -12,7 +12,7 @@ const Header: React.FC = () => {
     const [open, setOpen] = useState<boolean>(false)
     const { width } = useWindowSize()
 
-    const toggleDrawer = (open: boolean) => (e: any) => {
+    const toggleDrawer = (open: boolean) => (e: any): void => {
         if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
             return
         }

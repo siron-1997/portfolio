@@ -4,9 +4,9 @@ import { truncateString } from '@/utils'
 import s from '@/styles/works/Cards.module.css'
 
 type CustomProps = {
-    data: any,
+    data?: any,
     selectTags: any,
-    contentsRef: any
+    contentsRef: React.RefObject<HTMLDivElement | null>
 }
 
 const Cards: React.FC<CustomProps> = ({ data, selectTags, contentsRef }) => {
