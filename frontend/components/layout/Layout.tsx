@@ -7,7 +7,7 @@ import { ScrollToTopButton } from '@/components/ui'
 type CustomProps = {
     children: any,
     metaProps?: any,
-    isViewerActive?: any
+    isViewerActive?: boolean
 }
 
 const Layout: React.FC<CustomProps> = ({ children, metaProps, isViewerActive }) => {

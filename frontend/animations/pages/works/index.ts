@@ -1,3 +1,4 @@
+import React from 'react'
 import { gsap } from 'gsap'
 import { BREAK_POINT_MB, BREAK_POINT_TB } from '@/assets/break-points'
 import {
@@ -7,10 +8,10 @@ import {
 } from '@/assets/animation-options'
 
 type CustomProps = {
-    title: HTMLElement | null,
-    limitTags: HTMLElement | null,
-    contents: HTMLElement | null,
-    worksRef: any
+    title: HTMLHeadingElement | null,
+    limitTags: HTMLDivElement | null,
+    contents: HTMLDivElement | null,
+    worksRef: React.RefObject<HTMLDivElement | null>
 }
 
 export const worksAnimation = ({ title, limitTags, contents, worksRef }: CustomProps) => {

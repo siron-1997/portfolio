@@ -17,7 +17,7 @@ import g from '@/styles/global.module.css'
 const Work = dynamic(() => import('@/components/ui/canvas/work/Work'), { ssr: false })
 
 type CustomProps = {
-    post: any
+    post?: any
 }
 type WorkDataContextProps = {
     isInitialControl?: boolean,
@@ -34,10 +34,10 @@ type WorkDataContextProps = {
     post?: any
 }
 type SectionsContextProps = {
-    pageHeaderRef?: any,
-    introductionRef?: any,
-    controlsRef?: any,
-    toggleButtonRef?: any
+    pageHeaderRef?: React.RefObject<HTMLElement | null>,
+    introductionRef?: React.RefObject<HTMLDivElement | null>,
+    controlsRef?: React.RefObject<HTMLDivElement | null>,
+    toggleButtonRef?: React.RefObject<HTMLDivElement | null>
 }
 
 export const WorkDataContext = React.createContext<WorkDataContextProps | null>(null),
@@ -45,15 +45,15 @@ export const WorkDataContext = React.createContext<WorkDataContextProps | null>(
 
 export default function WorkPage({ post }: CustomProps) {
     /* modelViewer */
-    const pageHeaderRef = useRef(null),
-          introductionRef = useRef(null),
-          controlsRef = useRef(null),
-          toggleButtonRef = useRef(null)
+    const pageHeaderRef = useRef<HTMLElement | null>(null),
+          introductionRef = useRef<HTMLDivElement | null>(null),
+          controlsRef = useRef<HTMLDivElement | null>(null),
+          toggleButtonRef = useRef<HTMLDivElement | null>(null)
     /* normalViewer */
-    const normalViewerRef = useRef(null),
-          titleRef = useRef(null),
-          categoryAndTagContainerRef = useRef(null),
-          descriptionRef = useRef(null)
+    const normalViewerRef = useRef<HTMLElement | null>(null),
+          titleRef = useRef<HTMLHeadingElement | null>(null),
+          normalContentsRef = useRef<HTMLDivElement | null>(null),
+          descriptionRef = useRef<HTMLDivElement | null>(null)
     /* modelViewer */
     const [isInitialControl, setIsInitialControl] = useState<boolean>(true)
     const [isStartControls, setIsStartControls] = useState<boolean>(false)
@@ -75,11 +75,11 @@ export default function WorkPage({ post }: CustomProps) {
                     pageHeaderRef,
                     introductionRef,
                     controlsRef,
-                    pageHeaderSection: pageHeaderRef.current.children[1].children[0].children[0],
-                    introductionSection: introductionRef.current.children[0].children[0],
-                    controlsSection: controlsRef.current.children[0].children[0].children[0],
-                    controlsListPC: controlsRef.current.children[0].children[0].children[1],
-                    controlsListMB: controlsRef.current.children[0].children[0].children[2]
+                    pageHeaderSection: pageHeaderRef.current.querySelector('section'),
+                    introductionSection: introductionRef.current.querySelector('section'),
+                    controlsSection: controlsRef.current.querySelector('section'),
+                    controlsListPC: controlsRef.current.querySelector('#contents-pc'),
+                    controlsListMB: controlsRef.current.querySelector('#contents-mb')
                 })
         
                 return () => {
@@ -93,13 +93,13 @@ export default function WorkPage({ post }: CustomProps) {
 
     /* normalViewer */
     useEffect(() => {
-        if (titleRef.current !== null  && categoryAndTagContainerRef.current !== null && descriptionRef.current !== null) {
+        if (titleRef.current !== null  && normalContentsRef.current !== null && descriptionRef.current !== null) {
             /* アニメーション作成 */
             const ctx = normalViewerAnimation({
                 normalViewerRef,
                 title: titleRef.current,
-                categories: categoryAndTagContainerRef.current.children[0],
-                tags: categoryAndTagContainerRef.current.children[1],
+                categories: normalContentsRef.current.querySelector('#categories-container'),
+                tags: normalContentsRef.current.querySelector('#tags-container'),
                 description: descriptionRef.current
             })
     
@@ -123,7 +123,7 @@ export default function WorkPage({ post }: CustomProps) {
                         <ModelViewerLoading isLoading={isLoading} />
                         <article>
                             <PageHeader
-                                id={'model-viewer'}
+                                id='model-viewer'
                                 pageHeaderRef={pageHeaderRef}
                                 figureClassName={s.figure}
                                 figcaptionClassName={s.figcaption}
@@ -153,7 +153,7 @@ export default function WorkPage({ post }: CustomProps) {
                                     <Typography component='h1' variant='h2'>
                                         {post?.attributes?.title}
                                     </Typography>
-                                    <Typography component='p' variant='body1'>
+                                    <Typography component='p' variant='p'>
                                         {post?.attributes?.description}
                                     </Typography>
                                 </section>
@@ -182,7 +182,7 @@ export default function WorkPage({ post }: CustomProps) {
                                     {post?.attributes?.title}
                                 </Typography>
                                 <MainImage post={post} />
-                                <div className={s.normal} ref={categoryAndTagContainerRef}>
+                                <div className={s.normal} ref={normalContentsRef}>
                                     <Categories post={post} />
                                     <Tags post={post} />
                                 </div>

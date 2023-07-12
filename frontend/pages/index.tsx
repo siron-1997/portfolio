@@ -23,18 +23,18 @@ type HomeElementContextProps = {
 export const HomeElementContext = React.createContext<HomeElementContextProps | null>(null)
 
 export default function HomePage({ data }: CustomProps) {
-  const pageHeaderRef = useRef(null),
-        pageHeaderSectionRef = useRef(null),
-        worksRef = useRef(null)
+  const pageHeaderRef = useRef<HTMLElement | null>(null),
+        pageHeaderSectionRef = useRef<HTMLElement | null>(null),
+        worksRef = useRef<HTMLElement | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   /* アニメーション作成 */
   useEffect(() => {
     if (!isLoading) {
       const { pageHeaderCtx, worksCtx } = homeAnimation({
-        pageHeaderTitle: pageHeaderSectionRef.current.children[0],
-        worksTitle: worksRef.current.children[0],
-        worksCard: worksRef.current.children[1],
+        pageHeaderTitle: pageHeaderSectionRef.current.querySelector('h1'),
+        worksTitle: worksRef.current.querySelector('h1'),
+        worksCard: worksRef.current.querySelector('div'),
         pageHeaderSectionRef,
         worksRef
       })

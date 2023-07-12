@@ -1,9 +1,10 @@
+import React from 'react'
 import { gsap } from 'gsap'
 
 type CustomProps = {
-    image: any,
-    text: any,
-    fingerPressRef: any,
+    image: HTMLImageElement | null,
+    text: HTMLParagraphElement | null,
+    fingerPressRef: React.RefObject<HTMLDivElement | null>,
     currentWidth: number,
     isFingerVisible: boolean
 }

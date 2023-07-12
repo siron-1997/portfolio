@@ -9,15 +9,15 @@ import s from '@/styles/about/index.module.css'
 import g from '@/styles/global.module.css'
 
 export default function AboutPage() {
-    const aboutRef = useRef(null),
-          profileImageRef = useRef(null),
-          introductionRef = useRef(null),
-          skillListRef = useRef(null)
+    const aboutRef = useRef<HTMLDivElement | null>(null),
+          profileImageRef = useRef<HTMLDivElement | null>(null),
+          introductionRef = useRef<HTMLDivElement | null>(null),
+          skillListRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
         const ctx = aboutAnimation({
-            profileImage: profileImageRef.current.children[0],
-            introduction: introductionRef.current.children[0],
+            profileImage: profileImageRef.current.querySelector('img'),
+            introduction: introductionRef.current.querySelector('section'),
             skillList: skillListRef.current,
             aboutRef
         })

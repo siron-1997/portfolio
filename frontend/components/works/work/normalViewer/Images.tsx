@@ -7,7 +7,7 @@ import s from '@/styles/works/work/normalViewer/Images.module.css'
 import g from '@/styles/global.module.css'
 
 type CustomProps = {
-    post: any
+    post?: any
 }
 
 const Images: React.FC<CustomProps> = ({ post }) => {

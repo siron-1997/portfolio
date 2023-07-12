@@ -6,7 +6,7 @@ import s from '@/styles/about/ProfileImage.module.css'
 import g from '@/styles/global.module.css'
 
 type CustomProps = {
-    profileImageRef: any
+    profileImageRef: React.RefObject<HTMLDivElement | null>
 }
 
 const ProfileImage: React.FC<CustomProps> = ({ profileImageRef }) => {

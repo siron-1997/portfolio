@@ -10,7 +10,7 @@ import s from '@/styles/works/work/modelViewer/Controls.module.css'
 import g from '@/styles/global.module.css'
 
 type ControlsProps = {
-    data: any
+    data?: any
 }
 type SectionTitleDescriptionProps = {
     title: string,
@@ -20,7 +20,7 @@ type ControlListItemProps = {
     title: string,
     description: string,
     index: number,
-    className: any,
+    className: string,
     style?: any,
     onClick: any
 }
@@ -69,7 +69,7 @@ const Controls: React.FC<ControlsProps> = ({ data }) => {
                         className={s.controls_contents_mb}
                         style={{ display: width < BREAK_POINT_TB ? 'flex' : 'none' }}
                     >
-                        <List sx={{ width: width > BREAK_POINT_LG ? 350 : 300 }}>
+                        <List sx={{ width: width > BREAK_POINT_LG ? 350 : 300 }} id='controls-mb-text'>
                             {data?.control_list?.map((item: any, i: number) => (
                                 <ControlListItem
                                     key={i}
@@ -82,12 +82,16 @@ const Controls: React.FC<ControlsProps> = ({ data }) => {
                                 />
                             ))}
                         </List>
-                        <List sx={{
-                            display: 'flex',
-                            gap:  width >= BREAK_POINT_MB ? 2.3 : 1.6,
-                            margin: '0 auto 30px auto',
-                            padding: '8px 16px'
-                        }}>
+                        {/* Carousel */}
+                        <List
+                            sx={{
+                                display: 'flex',
+                                gap:  width >= BREAK_POINT_MB ? 2.3 : 1.6,
+                                margin: '0 auto 30px auto',
+                                padding: '8px 16px'
+                            }}
+                            id='controls-mb-carousel'
+                        >
                             {data?.control_list?.map((_: any, i: number) => (
                                 <Typography
                                     key={i}

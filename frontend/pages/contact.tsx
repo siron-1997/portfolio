@@ -94,9 +94,8 @@ const stepsReducer = (currentState: any, action: any) => {
 }
             
 export default function ContactPage() {
-    const contactRef = useRef(null),
-          contactStateRef = useRef(null),
-          formRef = useRef(null)
+    const contactRef = useRef<HTMLDivElement | null>(null),
+          contactStateRef = useRef<HTMLDivElement | null>(null)
     /* name、email、message */
     const [contents, contentsDispatch] = useReducer(contentsReducer, contentsInitialState)
     /* send state */
@@ -111,8 +110,8 @@ export default function ContactPage() {
     /* アニメーション作成 */
     useEffect(() => {
         const ctx = contactAnimation({
-            title: contactStateRef.current.children[0],
-            progress: contactStateRef.current.children[1],
+            title: contactStateRef.current.querySelector('h1'),
+            progress: contactStateRef.current.querySelector('div'),
             contactRef
         })
 
@@ -140,7 +139,7 @@ export default function ContactPage() {
                             }}
                         >
                             <ContactState contactStateRef={contactStateRef} />
-                            <Form formRef={formRef} />
+                            <Form />
                         </ContactDataContext.Provider>
                     </div>
                 </Container>

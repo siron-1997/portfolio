@@ -8,7 +8,7 @@ import s from '@/styles/works/work/modelViewer/Introduction.module.css'
 import g from '@/styles/global.module.css'
 
 type CustomProps = {
-    post: any
+    post?: any
 }
 
 const Introduction: React.FC<CustomProps> = ({ post }) => {

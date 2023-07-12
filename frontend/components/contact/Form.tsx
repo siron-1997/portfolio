@@ -9,11 +9,7 @@ import { colors } from '@/assets/colors'
 import s from '@/styles/contact/Form.module.css'
 import g from '@/styles/global.module.css'
 
-type CustomProps = {
-    formRef: any
-}
-
-const Form: React.FC<CustomProps> = ({ formRef }) => {
+const Form: React.FC = () => {
     const {
         contents, contentsDispatch, // name、email、message、を管理・更新
         sendDispatch, // 送信ステータスを更新
@@ -157,7 +153,7 @@ const Form: React.FC<CustomProps> = ({ formRef }) => {
 
     return (
         <div className={s.form_container}>
-            <div className={classNames} style={{ backgroundColor: colors.bgColor.dark.sub }} ref={formRef}>
+            <div className={classNames} style={{ backgroundColor: colors.bgColor.dark.sub }}>
                 {!steps.second.end ? (
                     /* 内容入力 & 入力確認時に表示 */
                     <form className={s.form} onSubmit={handleSubmit} name='form'>

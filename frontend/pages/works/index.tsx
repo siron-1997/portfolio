@@ -10,18 +10,18 @@ import { introduction } from '@/assets/works-contents'
 import g from '@/styles/global.module.css'
 
 type CustomProps = {
-    data: any
+    data?: any
 }
 
 export default function WorksPage({ data }: CustomProps) {
-    const worksRef = useRef(null),
-          contentsRef = useRef(null)
+    const worksRef = useRef<HTMLDivElement | null>(null),
+          contentsRef = useRef<HTMLDivElement | null>(null)
     const [selectTags, setSelectTags] = useState<Array<any>>([])
 
     useEffect(() => {
         const ctx = worksAnimation({
-            title:worksRef.current.children[0],
-            limitTags: worksRef.current.children[1],
+            title: worksRef.current.querySelector('h1'),
+            limitTags: worksRef.current.querySelector('#limit-tags'),
             contents: contentsRef.current,
             worksRef
         })

@@ -5,7 +5,7 @@ import { useIconSize } from '@/utils/hooks'
 import s from '@/styles/ui/buttons/Close.module.css'
 
 type CustomProps = {
-    className?: any,
+    className?: string,
     onClose: any
 }
 

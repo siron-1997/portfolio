@@ -6,7 +6,7 @@ import { siteMap } from '@/assets/site-map'
 import s from '@/styles/layout/Navigation.module.css'
 
 type CustomProps = {
-    className?: any
+    className?: string
 }
 
 const Navigation: React.FC<CustomProps> = ({ className }) => {

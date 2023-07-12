@@ -8,7 +8,7 @@ import { BREAK_POINT_MB, BREAK_POINT_TB } from '@/assets/break-points'
 import s from '@/styles/about/SkillList.module.css'
 
 type CustomProps = {
-    skillListRef: any
+    skillListRef: React.RefObject<HTMLDivElement | null>
 }
 
 const SkillList: React.FC<CustomProps> = ({ skillListRef }) => {

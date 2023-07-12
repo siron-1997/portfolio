@@ -5,11 +5,11 @@ import s from '@/styles/general/PageHeader.module.css'
 
 type CustomProps = {
     id?: string,
-    pageHeaderRef?: any,
+    pageHeaderRef?: React.RefObject<HTMLElement | null>,
     Background?: any,
     children?: any,
-    figureClassName?: any,
-    figcaptionClassName?: any
+    figureClassName?: string,
+    figcaptionClassName?: string
 }
 
 const PageHeader: React.FC<CustomProps> = ({

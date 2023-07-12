@@ -5,7 +5,7 @@ import { introduction } from '@/assets/contact-contents'
 import s from '@/styles/contact/ContactState.module.css'
 
 type CustomProps = {
-    contactStateRef: any
+    contactStateRef: React.RefObject<HTMLDivElement | null>
 }
 
 const ContactState: React.FC<CustomProps> = ({ contactStateRef }) => {

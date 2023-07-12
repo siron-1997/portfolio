@@ -40,6 +40,7 @@ const ToggleButton: React.FC = () => {
         <div
             ref={toggleButtonRef}
             className={s.toggle}
+            id='toggle-button'
             style={{ marginTop: setIsViewerActive ? 'auto' : '0' }}
         >
             <div className={s.bg} ref={bgRef} />

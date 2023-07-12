@@ -5,7 +5,7 @@ type CustomProps = {
     title: string,
     keywords: any,
     description: string,
-    image_path: any,
+    image_path: string,
     type: string
 }
 

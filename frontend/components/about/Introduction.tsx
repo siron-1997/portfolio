@@ -4,12 +4,12 @@ import { introduction } from '@/assets/about-contents'
 import s from '@/styles/about/Introduction.module.css'
 
 type CustomProps = {
-    introductionRef: any
+    introductionRef: React.RefObject<HTMLDivElement | null>
 }
 
 const Introduction: React.FC<CustomProps> = ({ introductionRef }) => {
     return (
-        <div ref={introductionRef} className={s.introduction}>
+        <div className={s.introduction} ref={introductionRef}>
             <section className={s.profile_text}>
                 <Typography component='h1' variant='h1'>{introduction.title}</Typography>
                 <Typography component='p' variant='p'>{introduction.description}</Typography>

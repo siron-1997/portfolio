@@ -7,7 +7,7 @@ import s from '@/styles/contact/InputTextFields.module.css'
 type LabelProps = {
     title: string,
     id: string,
-    endSteps: any
+    endSteps: boolean
 }
 
 const InputTextFields: React.FC = () => {

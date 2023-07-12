@@ -1,10 +1,11 @@
+import React from 'react'
 import { gsap } from 'gsap'
 import { power2_out_opacity_top_move } from '@/assets/animation-options'
 
 type CustomProps = {
-    title: HTMLDivElement | null,
+    title: HTMLHeadingElement | null,
     progress: HTMLDivElement | null,
-    contactRef: any
+    contactRef: React.RefObject<HTMLDivElement | null>
 }
 
 export const contactAnimation = ({ title, progress, contactRef }: CustomProps) => {
