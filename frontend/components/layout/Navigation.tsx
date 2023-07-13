@@ -5,11 +5,11 @@ import cn from 'classnames'
 import { siteMap } from '@/assets/site-map'
 import s from '@/styles/layout/Navigation.module.css'
 
-type CustomProps = {
+type Props = {
     className?: string
 }
 
-const Navigation: React.FC<CustomProps> = ({ className }) => {
+const Navigation: React.FC<Props> = ({ className }) => {
     const rootClassNames = cn(className, s.navigation)
 
     return (

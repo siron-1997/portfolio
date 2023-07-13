@@ -4,11 +4,11 @@ import { useHelper } from '@react-three/drei'
 import { PointLight, PointLightHelper } from 'three'
 import { getLightningOccurrence } from '@/utils/environment'
 
-type CustomProps = {
+type Props = {
     currentWeathers: any
 }
 
-const Lightning: React.FC<CustomProps> = ({ currentWeathers }) => {
+const Lightning: React.FC<Props> = ({ currentWeathers }) => {
     const pointLightRef = useRef<PointLight | null>(null)
     const pointLightHelper = useHelper(pointLightRef, PointLightHelper, 100)
 

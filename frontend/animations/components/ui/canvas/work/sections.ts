@@ -15,9 +15,9 @@ type CreateSectionAnimationProps = {
     camera: any
 }
 type SectionsAnimationProps = {
-    pageHeader: HTMLElement | null,
-    introduction: HTMLElement | null,
-    controls: HTMLElement | null,
+    pageHeader: HTMLElement,
+    introduction: HTMLElement,
+    controls: HTMLElement,
     camera: any,
     setIsStartControls: any,
     setIsNavigationVisible: any,

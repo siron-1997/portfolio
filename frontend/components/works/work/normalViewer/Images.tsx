@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React, { useRef, useEffect } from 'react'
 import cn from 'classnames'
 import { Container } from '@/components/ui'
-import { imagesAnimation } from '@/animations/components/works/work'
+import { imagesAnimation } from '@/animations/components/works/work/normalViewer'
 import s from '@/styles/works/work/normalViewer/Images.module.css'
 import g from '@/styles/global.module.css'
 
@@ -12,21 +12,23 @@ type CustomProps = {
 
 const Images: React.FC<CustomProps> = ({ post }) => {
     const imagesRef = useRef<HTMLDivElement | null>(null)
-    const classNames = cn(g.image_container, s.thumbnail)
-
+    const classNames = cn(g.image_container, s.thumbnail, 'image-container')
     const thumbnail = post?.attributes?.thumbnail?.data
 
     useEffect(() => {
-        const ctx = imagesAnimation(imagesRef)
+        const ctx = imagesAnimation({
+            images: imagesRef.current.querySelectorAll('.image-container'),
+            imagesRef
+        })
 
         return () => ctx.revert()
-    }, [imagesRef])
+    }, [])
 
     return (
-        <Container>
-            <div ref={imagesRef}>
+        <div ref={imagesRef}>
+            <Container>
                 {thumbnail?.map((item: any, i: number) => (
-                    <div key={i} className={classNames}>
+                    <div className={classNames} key={i}>
                         <Image
                             src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${item?.attributes?.url}`}
                             alt={item?.attributes?.alternativeText}
@@ -37,8 +39,8 @@ const Images: React.FC<CustomProps> = ({ post }) => {
                         />
                     </div>
                 ))}
-            </div>
-        </Container>
+            </Container>
+        </div>
     )
 }
 

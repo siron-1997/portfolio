@@ -3,17 +3,22 @@ import cn from 'classnames'
 import { Container } from '@/components/ui'
 import s from '@/styles/general/PageHeader.module.css'
 
-type CustomProps = {
-    id?: string,
-    pageHeaderRef?: React.RefObject<HTMLElement | null>,
-    Background?: any,
-    children?: any,
-    figureClassName?: string,
+type Props = {
+    id?: string
+    pageHeaderRef?: React.RefObject<HTMLElement | null>
+    Background?: any
+    children?: any
+    figureClassName?: string
     figcaptionClassName?: string
 }
 
-const PageHeader: React.FC<CustomProps> = ({
-    id, pageHeaderRef, Background, children, figureClassName, figcaptionClassName
+const PageHeader: React.FC<Props> = ({
+    id,
+    pageHeaderRef,
+    Background,
+    children,
+    figureClassName,
+    figcaptionClassName
 }) => {
     const figureClassNames = cn(s.figure, figureClassName),
           figcaptionClassNames = cn(s.figcaption, figcaptionClassName)
@@ -22,9 +27,7 @@ const PageHeader: React.FC<CustomProps> = ({
         <figure className={figureClassNames} ref={pageHeaderRef} id={id}>
             {Background && Background}
             <figcaption className={figcaptionClassNames}>
-                <Container>
-                    {children}
-                </Container>
+                <Container>{children}</Container>
             </figcaption>
         </figure>
     )

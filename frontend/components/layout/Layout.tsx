@@ -4,13 +4,13 @@ import Header from './Header'
 import Footer from './Footer'
 import { ScrollToTopButton } from '@/components/ui'
 
-type CustomProps = {
-    children: any,
-    metaProps?: any,
+type Props = {
+    children: any
+    metaProps?: any
     isViewerActive?: boolean
 }
 
-const Layout: React.FC<CustomProps> = ({ children, metaProps, isViewerActive }) => {
+const Layout: React.FC<Props> = ({ children, metaProps, isViewerActive }) => {
     return (
         <>
             <Meta {...metaProps} />

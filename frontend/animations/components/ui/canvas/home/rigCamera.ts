@@ -2,7 +2,7 @@ import { gsap } from 'gsap'
 import { MathUtils, Group, Mesh, Material } from 'three'
 import { BREAK_POINT_MB } from '@/assets/break-points'
 
-type CustomProps = {
+type Props = {
     startPosition: any,
     endPosition: any,
     pageHeader: HTMLElement | null,
@@ -13,9 +13,7 @@ type CustomProps = {
     width: number
 }
 
-const rigCameraAnimation = ({
-    startPosition, endPosition, pageHeader, door, room, cameraContainerRef, camera, width
-}: CustomProps) => {
+const rigCameraAnimation = ({ startPosition, endPosition, pageHeader, door, room, cameraContainerRef, camera, width }: Props) => {
     const ctx = gsap.context(() => {
         const cameraAnimation = gsap.timeline({ // カメラ位置アニメーション
             scrollTrigger: {

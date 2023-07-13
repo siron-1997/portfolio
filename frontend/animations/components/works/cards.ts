@@ -1,47 +1,32 @@
 import React from 'react'
 import { gsap } from 'gsap'
+import { getScrollTriggerOption } from '@/utils/gsap'
 import { BREAK_POINT_MB, BREAK_POINT_TB } from '@/assets/break-points'
 import {
     back_out_opacity_right_move,
-    back_out_opacity_left_move,
-    power4_out_opacity_top_move
+    back_out_opacity_left_move
 } from '@/assets/animation-options'
 
-type CustomProps = {
-    title: HTMLHeadingElement | null,
-    limitTags: HTMLDivElement | null,
-    contents: HTMLDivElement | null,
-    worksRef: React.RefObject<HTMLDivElement | null>
+type Props = {
+    cards: any
+    cardsRef: React.RefObject<HTMLDivElement>
 }
 
-export const worksAnimation = ({ title, limitTags, contents, worksRef }: CustomProps) => {
+const cardsAnimation = ({ cards, cardsRef }: Props) => {
     const ctx = gsap.context(() => {
-        const width: number = window.innerWidth
-        let point: boolean = true
-    
-        // works title
-        gsap.fromTo(
-            title,
-            back_out_opacity_left_move.from,
-            { ...back_out_opacity_left_move.to, delay: 0.4 }
-        )
-        // limitTags
-        gsap.fromTo(
-            limitTags,
-            power4_out_opacity_top_move.from,
-            { ...power4_out_opacity_top_move.to, delay: 0.8 }
-        )
-        // card
-        Array.from(contents.children).forEach((item, i: number) => {
+        const width = window.innerWidth
+        let point = true
+
+        Array.from(cards).forEach((item: any, i: number) => {
             const cardAnimate = gsap.timeline({
-                delay: 0.4,
-                scrollTrigger: {
-                    trigger: item,
+                ...getScrollTriggerOption({
+                    delay: 0.4,
+                    element: item,
                     start: 'top 90%',
                     end: 'bottom top',
                     markers: false,
                     id: i.toString()
-                }
+                })
             })
             cardAnimate.fromTo(
                 item,
@@ -64,7 +49,9 @@ export const worksAnimation = ({ title, limitTags, contents, worksRef }: CustomP
                     break
             }
         })
-    }, worksRef)
+    }, cardsRef)
 
     return ctx
 }
+
+export default cardsAnimation

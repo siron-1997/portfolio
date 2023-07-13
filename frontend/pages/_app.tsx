@@ -14,13 +14,12 @@ import '@/styles/globals.css'
 gsap.registerPlugin(ScrollTrigger)
 
 type Options = {
-  showAfterMs: boolean,
+  showAfterMs: boolean
   speed: number
 }
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
   const options: Options = { showAfterMs: false, speed: 500, }
 
   const handleRouteChangeStart = (): void => setIsLoading(() => true)

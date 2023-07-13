@@ -4,12 +4,12 @@ import { getRainState } from '@/utils/environment'
 import { BREAK_POINT_MB } from '@/assets/break-points'
 import s from '@/styles/Home.module.css'
 
-type CustomProps = {
-    currentWeathers: any,
+type Props = {
+    currentWeathers: any
     data: any
 }
 
-const Rain: React.FC<CustomProps> = ({ currentWeathers, data }) => {
+const Rain: React.FC<Props> = ({ currentWeathers, data }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const { width, height } = useWindowSize()
     const windSpeed: number = data?.wind?.speed

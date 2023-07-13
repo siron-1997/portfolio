@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Typography, List, ListItem } from '@mui/material'
 import cn from 'classnames'
 import { Container } from '@/components/ui'
 import { useWindowSize } from '@/utils/hooks'
 import { WorkDataContext, SectionsContext } from '@/pages/works/[slug]'
+import { controlsAnimation } from '@/animations/components/works/work/modelViewer'
 import { BREAK_POINT_MB, BREAK_POINT_TB, BREAK_POINT_LG } from '@/assets/break-points'
 import { colors } from '@/assets/colors'
 import s from '@/styles/works/work/modelViewer/Controls.module.css'
@@ -11,31 +12,44 @@ import g from '@/styles/global.module.css'
 
 type ControlsProps = {
     data?: any
+    isLoading: boolean
 }
 type SectionTitleDescriptionProps = {
-    title: string,
+    title: string
     description: string
 }
 type ControlListItemProps = {
-    title: string,
-    description: string,
-    index: number,
-    className: string,
-    style?: any,
+    title: string
+    description: string
+    index: number
+    className: string
+    style?: any
     onClick: any
 }
 
-const Controls: React.FC<ControlsProps> = ({ data }) => {
-    const { setIsInitialControl, currentIndex, setCurrentIndex } = useContext(WorkDataContext)
+const Controls: React.FC<ControlsProps> = ({ data, isLoading }) => {
     const { controlsRef } = useContext(SectionsContext)
+    const { setIsInitialControl, currentIndex, setCurrentIndex } = useContext(WorkDataContext)
     const { width } = useWindowSize()
-
     const rootClassNames = cn(g.root_container, s.controls)
 
     const handleClick = (index: number): void => {
         setIsInitialControl(false)
         setCurrentIndex(index)
     }
+
+    useEffect(() => {
+        if (!isLoading) {
+            const ctx = controlsAnimation({
+                section: controlsRef.current.querySelector('section'),
+                listPC: controlsRef.current.querySelector('#contents-pc'),
+                listMB: controlsRef.current.querySelector('#contents-mb'),
+                controlsRef
+            })
+    
+            return () => ctx.revert()
+        }
+    }, [controlsRef, isLoading])
 
     return (
         <div className={rootClassNames} id='controls' ref={controlsRef}>

@@ -6,14 +6,13 @@ import { useIconSize, useWindowSize } from '@/utils/hooks'
 import s from '@/styles/etc/ModelViewerLoading.module.css'
 import g from '@/styles/global.module.css'
 
-type CustomProps = {
-    readonly isLoading: boolean
+type Props = {
+    isLoading: boolean
 }
 
-const ModelViewerLoading: React.FC<CustomProps> = ({ isLoading }) => {
+const ModelViewerLoading: React.FC<Props> = ({ isLoading }) => {
     const iconSize = useIconSize(150, 150, 150)
     const { height } = useWindowSize()
-
     const imageClassNames = cn(g.image_container, s.image_container)
 
     useEffect(() => {

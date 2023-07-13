@@ -1,24 +1,21 @@
 import React from 'react'
 import { gsap } from 'gsap'
 
-type CustomProps = {
-    image: HTMLImageElement | null,
-    text: HTMLParagraphElement | null,
-    fingerPressRef: React.RefObject<HTMLDivElement | null>,
+type Props = {
+    image: HTMLImageElement,
+    text: HTMLParagraphElement,
+    fingerPressRef: React.RefObject<HTMLDivElement>,
     currentWidth: number,
     isFingerVisible: boolean
 }
 
-const fingerPressAnimation = ({
-    image, text, fingerPressRef, currentWidth, isFingerVisible
-}: CustomProps) => {
+const fingerPressAnimation = ({ image, text, fingerPressRef, currentWidth, isFingerVisible }: Props) => {
     const ctx = gsap.context(() => {
         const opacities = { point1: 0, point2: 0.85, point3: 0.4 }
-    
-        const imageAnimation = gsap.timeline({ paused: true, repeat: - 1 }),
-              textAnimation = gsap.timeline({ paused: true }),
+        const imageAnimation = gsap.timeline({ repeat: - 1 }),
+              textAnimation = gsap.timeline({  }),
               arrowIconAnimation = gsap.timeline({ paused: true })
-    
+
         if (image !== null) {
             imageAnimation.fromTo(image,
                 { opacity: 0 },
@@ -40,7 +37,6 @@ const fingerPressAnimation = ({
                 imageAnimation.play()
             }
         }
-    
         if (text !== null) {
             textAnimation.fromTo(text,
                 { opacity: opacities.point1, y: 50 },
@@ -54,8 +50,6 @@ const fingerPressAnimation = ({
                 { y: 0 },
                 { y: 20, duration: 1.2, delay: 1.2, yoyo: true, repeat: - 1, ease: 'none' }            
             )
-            textAnimation.play()
-            arrowIconAnimation.play()
         }
     }, fingerPressRef)
 

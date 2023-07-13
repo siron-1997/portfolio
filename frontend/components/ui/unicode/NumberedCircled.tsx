@@ -2,14 +2,14 @@ import React, { useRef, useEffect } from 'react'
 import { Typography } from '@mui/material'
 import { modelAnimation } from '@/animations/components/ui/canvas/work'
 
-type CustomProps = {
-    index: number,
-    sx: any,
-    onClick: any,
+type Props = {
+    index: number
+    sx: any
+    onClick: any
     isNavigationVisible: boolean
 }
 
-const NumberedCircled: React.FC<CustomProps> = ({ index, sx, onClick, isNavigationVisible }) => {
+const NumberedCircled: React.FC<Props> = ({ index, sx, onClick, isNavigationVisible }) => {
     const navigationRef = useRef<HTMLSpanElement | null>(null)
 
     useEffect(() => {

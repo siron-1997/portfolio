@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Fab, styled } from '@mui/material'
 import { KeyboardArrowUp } from '@mui/icons-material'
 import { colors } from '@/assets/colors'
 import s from '@/styles/ui/buttons/ScrollToTopButton.module.css'
 
-type CustomProps = {
+type Props = {
     isViewerActive: boolean
 }
 
@@ -20,11 +20,26 @@ const StyledFab = styled(Fab)(() => ({
     }
 }))
 
-const ScrollToTopButton: React.FC<CustomProps> = ({ isViewerActive }) => {
+const ScrollToTopButton: React.FC<Props> = ({ isViewerActive }) => {
+    const [isVisible, setIsVisible] = useState<boolean>(false)
+
+    const handleVisible = (): void => {
+        if (window.scrollY > 300) {
+            setIsVisible(true)
+        } else {
+            setIsVisible(false)
+        }
+    }
     const handleClick = (): void => {
         // ページトップにスクロール
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleVisible)
+
+        return () => window.removeEventListener('scroll', handleVisible)
+    }, [])
 
     return (
         <StyledFab
@@ -32,7 +47,7 @@ const ScrollToTopButton: React.FC<CustomProps> = ({ isViewerActive }) => {
             onClick={handleClick}
             aria-label='scroll to top'
             className={s.scroll_to_top}
-            style={{ zIndex: isViewerActive ? 0 : 1000 }}
+            style={{ zIndex: isViewerActive ? 0 : 1000, opacity: isVisible ? 1 : 0, transition: 'all 0.25s' }}
         >
             <KeyboardArrowUp />
         </StyledFab>

@@ -4,11 +4,11 @@ import { disableScroll } from '@/utils'
 import { useIconSize, useWindowSize } from '@/utils/hooks'
 import s from '@/styles/etc/PageLoading.module.css'
 
-type CustomProps = {
-    readonly isLoading: boolean
+type Props = {
+    isLoading: boolean
 }
 
-const PageLoading: React.FC<CustomProps> = ({ isLoading }) => {
+const PageLoading: React.FC<Props> = ({ isLoading }) => {
     const iconSize = useIconSize(70, 90, 110)
     const { height } = useWindowSize()
 

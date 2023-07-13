@@ -4,14 +4,13 @@ import cn from 'classnames'
 import { useIconSize } from '@/utils/hooks'
 import s from '@/styles/ui/buttons/Hamburger.module.css'
 
-type CustomProps = {
-    className?: string,
+type Props = {
+    className?: string
     onOpen: any
 }
 
-const Hamburger: React.FC<CustomProps> = ({ className, onOpen }) => {
+const Hamburger: React.FC<Props> = ({ className, onOpen }) => {
     const iconSize = useIconSize(40, 50, 50)
-
     const classNames = cn(className, s.hamburger)
 
     return (

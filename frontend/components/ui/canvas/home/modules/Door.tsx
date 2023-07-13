@@ -4,13 +4,13 @@ import { useGLTF } from '@react-three/drei'
 import { PointLight, MathUtils, BackSide } from 'three'
 import { getEnvMapIntensity } from '@/utils/environment'
 
-type CustomProps = {
-    currentWeathers: any,
+type Props = {
+    currentWeathers: any
     timePoint: 'evening' | 'night' | 'lunch'
     doorRef: any
 }
 
-const Door: React.FC<CustomProps> = ({ currentWeathers, timePoint, doorRef }) => {
+const Door: React.FC<Props> = ({ currentWeathers, timePoint, doorRef }) => {
     const pointLightRef = useRef<PointLight | null>(null)
     const { nodes }: any = useGLTF('/models/gltf/door.glb') // glbファイル読込み
     const { scene } = useThree()

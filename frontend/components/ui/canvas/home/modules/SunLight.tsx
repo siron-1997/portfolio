@@ -3,12 +3,12 @@ import { useHelper } from '@react-three/drei'
 import { DirectionalLightHelper, DirectionalLight } from 'three'
 import { getSunIntensity, getSunColor } from '@/utils/environment'
 
-type CustomProps = {
-    currentWeathers: any,
+type Props = {
+    currentWeathers: any
     timePoint: 'evening' | 'night' | 'lunch'
 }
 
-const SunLight: React.FC<CustomProps> = ({ currentWeathers, timePoint }) => {
+const SunLight: React.FC<Props> = ({ currentWeathers, timePoint }) => {
     const sunLightRef = useRef<DirectionalLight | null>(null)
     const sunLightHelper = useHelper(sunLightRef, DirectionalLightHelper, 1)
 

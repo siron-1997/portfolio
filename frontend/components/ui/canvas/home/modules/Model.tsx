@@ -5,12 +5,12 @@ import { Mesh, Color, Texture, MeshStandardMaterial } from 'three'
 import { materials } from '@/assets/mountain-materials'
 import { getEnvMapIntensity } from '@/utils/environment'
 
-type CustomProps = {
-    currentWeathers: any,
+type Props = {
+    currentWeathers: any
     timePoint: 'evening' | 'night' | 'lunch'
 }
 
-const Model: React.FC<CustomProps> = ({ currentWeathers, timePoint }) => {
+const Model: React.FC<Props> = ({ currentWeathers, timePoint }) => {
     const model = useGLTF('models/gltf/mountain.glb')
     model.scene.name = 'mountain'
     const children = [...model.scene.children]

@@ -1,5 +1,5 @@
 type Navigation = {
-    readonly text: string,
+    readonly text: string
     readonly link: string
 }
 type SiteMap = readonly Navigation[]

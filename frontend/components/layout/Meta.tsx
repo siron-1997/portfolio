@@ -1,15 +1,15 @@
 import Head from 'next/head'
 import React from 'react'
 
-type CustomProps = {
-    title: string,
-    keywords: any,
-    description: string,
-    image_path: string,
-    type: string
+type Props = {
+    title?: string
+    keywords?: any
+    description?: string
+    image_path?: string
+    type?: string
 }
 
-const Meta: React.FC<CustomProps> = ({ title, keywords, description, image_path, type }) => {
+const Meta: React.FC<Props> = ({ title, keywords, description, image_path, type }) => {
     const twitter_user_name = '@Jsiron2029'
 
     return (

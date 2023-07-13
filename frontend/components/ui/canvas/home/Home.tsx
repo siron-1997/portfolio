@@ -13,18 +13,17 @@ const Model = lazy(() => import('./modules/Model')),
       Ocean = lazy(() => import('./modules/Ocean')),
       Lightning = lazy(() => import('./modules/Lightning'))
 
-type CustomProps = {
+type Props = {
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
-
 type Points = {
-    lunch: boolean,
-    evening: boolean,
+    lunch: boolean
+    evening: boolean
     night: boolean
 }
 type TimePoint = 'evening' | 'night' | 'lunch'
 
-const Home: React.FC<CustomProps> = ({ setIsLoading }) => {
+const Home: React.FC<Props> = ({ setIsLoading }) => {
     const doorRef = useRef<Group | null>(null)
     const [data, setData] = useState<any>(null)
     const [timePoint, setTimePoint] = useState<TimePoint>('lunch')

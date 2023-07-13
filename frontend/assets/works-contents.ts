@@ -1,5 +1,5 @@
 type Introduction = {
-    readonly title: string,
+    readonly title: string
     readonly description: string
 }
 

@@ -1,15 +1,15 @@
 type WeatherConfig = {
-    readonly fog: string,
-    readonly clearSky: string,
-    readonly thinCloud: string,
-    readonly thickCloud: string,
-    readonly background: string,
+    readonly fog: string
+    readonly clearSky: string
+    readonly thinCloud: string
+    readonly thickCloud: string
+    readonly background: string
     readonly environment: string
 }
 
 type EnvColors = {
-    readonly evening: WeatherConfig,
-    readonly night: WeatherConfig,
+    readonly evening: WeatherConfig
+    readonly night: WeatherConfig
     readonly lunch: WeatherConfig
 }
 

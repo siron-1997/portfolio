@@ -7,12 +7,12 @@ import { BREAK_POINT_MB } from '@/assets/break-points'
 import { colors } from '@/assets/colors'
 import s from '@/styles/layout/MyDrawer.module.css'
 
-type CustomProps = {
-    open: boolean,
+type Props = {
+    open: boolean
     onClose: any
 }
 
-const MyDrawer: React.FC<CustomProps> = ({ open, onClose }) => {
+const MyDrawer: React.FC<Props> = ({ open, onClose }) => {
     const { width } = useWindowSize()
 
     return (

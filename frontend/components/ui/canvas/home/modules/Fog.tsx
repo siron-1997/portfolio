@@ -3,12 +3,12 @@ import { getFogColor } from '@/utils/environment'
 import { useWindowSize } from '@/utils/hooks'
 import { BREAK_POINT_MB } from '@/assets/break-points'
 
-type CustomProps = {
-    humidity: number,
+type Props = {
+    humidity: number
     timePoint: 'evening' | 'night' | 'lunch'
 }
 
-const Fog: React.FC<CustomProps> = ({ humidity = 0, timePoint }) => {
+const Fog: React.FC<Props> = ({ humidity = 0, timePoint }) => {
     const { width } = useWindowSize()
     const color = getFogColor(timePoint)
 

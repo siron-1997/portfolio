@@ -8,11 +8,11 @@ import { useWindowSize } from '@/utils/hooks'
 import { getSectionsCameraParams } from '@/utils/environment/getCameraParams'
 import { BREAK_POINT_MB } from '@/assets/break-points'
 
-type CustomProps = {
+type Props = {
     setIsNavigationVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MyCamera: React.FC<CustomProps> = ({ setIsNavigationVisible }) => {
+const MyCamera: React.FC<Props> = ({ setIsNavigationVisible }) => {
     const cameraRef = useRef(null),
           previousPositionRef = useRef<Vector3 | null>(null), // カメラ位置を監視
           previousRotationRef = useRef<Vector3 | null>(null), // カメラアングルを監視

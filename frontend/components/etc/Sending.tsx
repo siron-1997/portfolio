@@ -3,11 +3,11 @@ import { Typography } from '@mui/material'
 import cn from 'classnames'
 import s from '@/styles/etc/Sending.module.css'
 
-type CustomProps = {
-    readonly isLoading: boolean
+type Props = {
+    isLoading: boolean
 }
 
-const Sending: React.FC<CustomProps> = ({ isLoading }) => {
+const Sending: React.FC<Props> = ({ isLoading }) => {
     const classNames = cn(s.sending, { [s.sending_visible]: !isLoading })
 
     useEffect(() => {
