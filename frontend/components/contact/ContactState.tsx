@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Typography } from '@mui/material'
 import { StepProgressBar } from '@/components/etc'
+import { contactStateAnimation } from '@/animations/components/contact'
 import { introduction } from '@/assets/contact-contents'
 import s from '@/styles/contact/ContactState.module.css'
 
-type CustomProps = {
-    contactStateRef: React.RefObject<HTMLDivElement | null>
-}
+const ContactState: React.FC = () => {
+    const contactStateRef = useRef<HTMLDivElement | null>(null)
 
-const ContactState: React.FC<CustomProps> = ({ contactStateRef }) => {
+    useEffect(() => {
+        const ctx = contactStateAnimation({
+            title: contactStateRef.current.querySelector('h1'),
+            progressBar: contactStateRef.current.querySelector('div'),
+            contactStateRef
+        })
+
+        return () => ctx.revert()
+    }, [])
+
     return (
         <div className={s.contact_txt} ref={contactStateRef}>
             <Typography component='h1' variant='h1'>{introduction.title}</Typography>

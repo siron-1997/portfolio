@@ -1,6 +1,6 @@
 type Sns = {
-    readonly image: string,
-    readonly alt: string,
+    readonly image: string
+    readonly alt: string
     readonly link: string
 }
 type SnsList = readonly Sns[]

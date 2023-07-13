@@ -1,21 +1,31 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Typography } from '@mui/material'
 import { Container } from '@/components/ui'
+import { descriptionAnimation } from '@/animations/components/works/work/normalViewer'
 import { colors } from '@/assets/colors'
 import s from '@/styles/works/work/normalViewer/Description.module.css'
 
-type CustomProps = {
-    post: any,
-    descriptionRef: any
+type Props = {
+    post?: any
 }
 
-const Description: React.FC<CustomProps> = ({ post, descriptionRef }) => {
+const Description: React.FC<Props> = ({ post }) => {
+    const descriptionrRef = useRef<HTMLDivElement | null>(null)
     const url = post?.attributes?.url,
           description = post?.attributes?.description
 
+    useEffect(() => {
+        const ctx = descriptionAnimation({
+            description: descriptionrRef.current.querySelector('#description'),
+            descriptionrRef
+        })
+
+        return () => ctx.revert()
+    }, [])
+
     return (
-        <Container>
-            <div ref={descriptionRef}>
+        <div ref={descriptionrRef}>
+            <Container>
                 <div className={s.description} id='description'>
                     {url !== null && (
                         <Typography component='p' variant='p' className={s.link_text}>
@@ -31,8 +41,8 @@ const Description: React.FC<CustomProps> = ({ post, descriptionRef }) => {
                     )}
                     <Typography component='p' variant='p'>{description}</Typography>
                 </div>
-            </div>
-        </Container>
+            </Container>
+        </div>
     )
 }
 

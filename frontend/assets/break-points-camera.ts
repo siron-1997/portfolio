@@ -1,18 +1,18 @@
 import { Vector3 } from 'three'
 
 type LocationPath = {
-    readonly start: Vector3,
+    readonly start: Vector3
     readonly end: Vector3
 }
 type CameraPositions = {
-    readonly xs: LocationPath,
+    readonly xs: LocationPath
     readonly sm: {
-        readonly wrap: LocationPath,
+        readonly wrap: LocationPath
         readonly side: LocationPath
-    },
-    readonly tb: LocationPath,
-    readonly lg: LocationPath,
-    readonly xl: LocationPath,
+    }
+    readonly tb: LocationPath
+    readonly lg: LocationPath
+    readonly xl: LocationPath
     readonly xxl: LocationPath
 }
 

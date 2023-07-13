@@ -1,27 +1,27 @@
 type Film = {
-    readonly title: '3D' | 'web' | 'app',
-    readonly type: 'three' | 'web' | 'app',
+    readonly title: '3D' | 'web' | 'app'
+    readonly type: 'three' | 'web' | 'app'
     readonly key: number
 }
 type FilmsInitialState = readonly Film[]
 
 type ContentsInitialState = {
-    name: boolean,
-    email: boolean,
+    name: boolean
+    email: boolean
     message: boolean
 }
 type SendInitialState = {
-    isLoading: boolean,
-    isError: boolean,
+    isLoading: boolean
+    isError: boolean
     isComplete: boolean
 }
 
 type Step = {
-    start: boolean,
+    start: boolean
     end: boolean
 }
 type StepsState = {
-    first: Step,
+    first: Step
     second: Step
 }
 

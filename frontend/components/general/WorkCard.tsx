@@ -10,19 +10,17 @@ import h from '@/styles/Home.module.css'
 import s from '@/styles/general/WorkCard.module.css'
 import g from '@/styles/global.module.css'
 
-type CustomProps = {
-    image?: string,
-    link?: string,
-    title?: string,
-    description?: string,
-    tags?: string,
-    alternativeText?: string,
+type Props = {
+    image?: string
+    link?: string
+    title?: string
+    description?: string
+    tags?: string
+    alternativeText?: string
     type?: string
 }
 
-const WorkCard: React.FC<CustomProps> = ({
-    image, link, title, description, tags, alternativeText, type
-}) => {
+const WorkCard: React.FC<Props> = ({ image, link, title, description, tags, alternativeText, type }) => {
     const { pointWidth, pointHeight } = useImageSize({
         sm: { pointWidth: 320, pointHeight: 240 },
         md: { pointWidth: 360, pointHeight: 270 },
@@ -32,16 +30,14 @@ const WorkCard: React.FC<CustomProps> = ({
         xl3: { pointWidth: 520, pointHeight: 390 }
     })
     const { width } = useWindowSize()
-
     const termsWorks = type === 'works' || (type === 'home' && !(width >= BREAK_POINT_MB && width < BREAK_POINT_TB)),
           termsHome = type === 'home' && width >= BREAK_POINT_MB && width < BREAK_POINT_TB
-
     const cardClassNames = cn({ [s.card]: termsWorks, [h.card]: termsHome }, g.card),
           cardMediaClassNames = cn({ [s.card_media]: termsWorks }),
           txtClassNames = cn({ [s.txt_container]: termsWorks, [h.card_txt_container]: termsHome })
 
     return (
-        <div>
+        <div className='work-card'>
             <Card
                 className={cardClassNames}
                 sx={{ bgcolor: colors.bgColor.dark.sub }}

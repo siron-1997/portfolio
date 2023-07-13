@@ -9,12 +9,12 @@ import s from '@/styles/works/work/index.module.css'
 
 const MyModel = lazy(() => import('./modules/MyModel'))
 
-type CustomProps = {
-    post: any,
+type Props = {
+    post: any
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Work: React.FC<CustomProps> = ({ post, setIsLoading }) => {
+const Work: React.FC<Props> = ({ post, setIsLoading }) => {
     const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(false)
     const { setIsFingerVisible } = useContext(WorkDataContext)
     const { width } = useWindowSize()

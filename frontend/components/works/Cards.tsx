@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { WorkCard } from '@/components/general'
 import { truncateString } from '@/utils'
+import { cardsAnimation } from '@/animations/components/works'
 import s from '@/styles/works/Cards.module.css'
 
-type CustomProps = {
-    data?: any,
-    selectTags: any,
-    contentsRef: React.RefObject<HTMLDivElement | null>
+type Props = {
+    data?: any
+    selectTags: any
 }
 
-const Cards: React.FC<CustomProps> = ({ data, selectTags, contentsRef }) => {
+const Cards: React.FC<Props> = ({ data, selectTags }) => {
+    const cardsRef = useRef<HTMLDivElement | null>(null)
+    const path = '/works/'
     /* filtering data */
     const filteredData = data?.reduce((filteredData: any, item: any) => {
         if (selectTags.length > 0) {
@@ -21,10 +23,17 @@ const Cards: React.FC<CustomProps> = ({ data, selectTags, contentsRef }) => {
         return filteredData
     }, [])
 
-    const path = '/works/'
+    useEffect(() => {
+        const ctx = cardsAnimation({
+            cards: cardsRef.current.querySelectorAll('.work-card'),
+            cardsRef
+        })
+
+        return () => ctx.revert()
+    }, [])
 
     return (
-        <div className={s.contents} ref={contentsRef}>
+        <div className={s.contents} ref={cardsRef}>
             {filteredData.map((item: any, i: number) => (
                 <WorkCard
                     key={i}

@@ -1,25 +1,23 @@
 type Introduction = {
-    readonly title: string,
+    readonly title: string
     readonly description: string
 }
 
 type Skill = {
-    readonly image: string,
-    readonly alt: string,
-    readonly title: string,
+    readonly image: string
+    readonly alt: string
+    readonly title: string
     readonly text: string
 }
-
-type SkillCategory = {
-    readonly title: string,
+type SkillList = {
+    readonly title: string
     readonly skills: readonly Skill[]
 }
+type skillsList = readonly SkillList[]
 
-type ProfileSkills = readonly SkillCategory[]
-
-const path: string = '/icons/'
-const svg: string = '.svg',
-      webp: string = '.webp'
+const path = '/icons/'
+const svg = '.svg',
+      webp = '.webp'
 
 
 export const introduction: Introduction = {
@@ -32,7 +30,7 @@ export const introduction: Introduction = {
     'これからの展望としては気象情報と三次元的形状およびAPI技術などを用いた作品制作、webサービスやデスクトップアプリ開発およびUI・UXデザインの設計をメインに活動をしていきたいと考えています。\n'
 }
 
-export const profileSkills: ProfileSkills = [
+export const skillsList: skillsList = [
     {
         title: 'Languages & Frameworks',
         skills: [

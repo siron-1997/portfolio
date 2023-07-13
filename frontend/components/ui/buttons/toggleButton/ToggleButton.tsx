@@ -9,7 +9,6 @@ const ToggleButton: React.FC = () => {
     const bgRef = useRef<HTMLDivElement | null>(null)
     const { toggleButtonRef } = useContext(SectionsContext)
     const { setIsFingerVisible, isViewerActive, setIsViewerActive } = useContext(WorkDataContext)
-
     const textStyle = {
         display: 'block',
         position: 'relative',
@@ -19,7 +18,6 @@ const ToggleButton: React.FC = () => {
         height: 45,
         transition: 'all 0.25s'
     }
-
     const leftButtonClassNames = cn(s.toggle_button, s.left),
           rightButtonClassNames = cn(s.toggle_button, s.right)
 
@@ -28,10 +26,13 @@ const ToggleButton: React.FC = () => {
         setIsViewerActive(bool)
     }
 
+    /* アニメーション作成 */
     useEffect(() => {
-        const bg = bgRef.current
-        /* アニメーション作成 */
-        const ctx = toggleButtonAnimation(bg, toggleButtonRef, isViewerActive)
+        const ctx = toggleButtonAnimation({
+            bg: bgRef.current,
+            toggleButtonRef,
+            isViewerActive
+        })
 
         return () => ctx.revert()
     }, [toggleButtonRef, isViewerActive])

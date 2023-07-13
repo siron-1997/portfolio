@@ -1,32 +1,29 @@
 type BorderColorConfig = {
-    readonly default: string,
-    readonly hover: string,
+    readonly default: string
+    readonly hover: string
     readonly focus: string
 }
-
 type BgColorConfig = {
-    readonly main: string,
-    readonly sub: string,
+    readonly main: string
+    readonly sub: string
     readonly textField: string
 }
-
 type NormalColorConfig = {
-    readonly default: string,
+    readonly default: string
     readonly hover: string
 }
-
 type Colors = {
     readonly border: {
         readonly dark: BorderColorConfig
-    },
+    }
     readonly text: {
         readonly dark: string
-    },
+    }
     readonly bgColor: {
         readonly dark: BgColorConfig
-    },
-    readonly main: NormalColorConfig,
-    readonly error: NormalColorConfig,
+    }
+    readonly main: NormalColorConfig
+    readonly error: NormalColorConfig
     readonly navigation: string 
 }
 

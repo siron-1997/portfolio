@@ -5,12 +5,12 @@ import { useIconSize } from '@/utils/hooks'
 import { ContactDataContext } from '@/pages/contact'
 import s from '@/styles/etc/StepProgressBar.module.css'
 
-type StepProgressBarProps = {
-    stepPoints: any,
-    wrapperClass: any,
-    progressClass: any,
-    labelClass: any,
-    contentClass: any
+type Props = {
+    stepPoints: any
+    wrapperClass?: string
+    progressClass?: string
+    labelClass?: string
+    contentClass?: string
 }
 
 const StepStates = {
@@ -37,14 +37,11 @@ const stepsReducer = (stepPoints: any, action: any) => {
     })
 }
 
-export default function StepProgressBar({
-    stepPoints, wrapperClass, progressClass, labelClass, contentClass
-}: StepProgressBarProps) {
+export default function StepProgressBar({ stepPoints, wrapperClass, progressClass, labelClass, contentClass }: Props) {
     const [currentIndex, setCurrentIndex] = useState<number>(0) // ステップカウント
     const [state, dispatch] = useReducer(stepsReducer, stepPoints)
     const { sendResult, steps } = useContext(ContactDataContext)
     const iconSize = useIconSize(25, 25, 25)
-
     const wrapperClassNames = cn(s.progress_bar_wrapper, wrapperClass),
           progressClassNames = cn(s.step_progress_bar, progressClass),
           labelClassNames = cn(s.step_label, labelClass),
@@ -67,7 +64,6 @@ export default function StepProgressBar({
             })
         }
     }, [currentIndex, sendResult, stepPoints.length, steps.first.end])
-
     /* ステップアップ */
     const handlePrev = useCallback(() => {
         /* ファーストステップの場合は終了 */

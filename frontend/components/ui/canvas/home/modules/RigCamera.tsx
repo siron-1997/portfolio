@@ -7,11 +7,11 @@ import { useWindowSize } from '@/utils/hooks'
 import { setCameraPositions } from '@/utils/environment'
 import { rigCameraAnimation } from '@/animations/components/ui/canvas/home'
 
-type CustomProps = {
+type Props = {
     doorRef: React.RefObject<Group | null>
 }
 
-const RigCamera: React.FC<CustomProps> = ({ doorRef }) => {
+const RigCamera: React.FC<Props> = ({ doorRef }) => {
     const cameraContainerRef = useRef<Group | null>(null)
     const { pageHeaderRef } = useContext(HomeElementContext)
     const { scene, camera } = useThree()

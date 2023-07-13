@@ -2,8 +2,8 @@ import { gsap } from 'gsap'
 import { MathUtils } from 'three'
 import { getViwerToggleCameraParams } from '@/utils/environment/getCameraParams'
 
-type CustomProps = {
-    introduction: HTMLElement | null,
+type Props = {
+    introduction: HTMLElement,
     cameraRef: any,
     offset: number,
     cameraConfigsData: any,
@@ -14,9 +14,7 @@ type CustomProps = {
 /* ==========================================================================================
     ビュワーモード切り替えアニメーション
 ===========================================================================================*/
-const viewerToggleAnimation = ({
-    introduction, cameraRef, offset, cameraConfigsData, toggleButton, width
-}: CustomProps) => {
+const viewerToggleAnimation = ({ introduction, cameraRef, offset, cameraConfigsData, toggleButton, width }: Props) => {
     const ctx = gsap.context(self => {
         const duration = 0.6
         const elementOffsetTop: number = introduction.getBoundingClientRect().top + window.scrollY + offset

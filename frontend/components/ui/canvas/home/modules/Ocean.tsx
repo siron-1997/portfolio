@@ -1,6 +1,5 @@
 import React, { useRef, useMemo } from 'react'
 import { extend, useThree, useLoader, useFrame, Object3DNode } from '@react-three/fiber'
-
 import {
     Texture,
     TextureLoader,
@@ -22,23 +21,22 @@ declare global {
     }
 }
 
-type CustomProps = {
+type Props = {
     visible: boolean
 }
-
 type WaterConfig = {
-    textureWidth: number,
-    textureHeight: number,
-    waterNormals: Texture,
-    sunDirection: Vector3,
-    sunColor: string,
-    waterColor: string,
-    distortionScale: number,
-    fog: boolean,
-    format: WebGLRenderer,
+    textureWidth: number
+    textureHeight: number
+    waterNormals: Texture
+    sunDirection: Vector3
+    sunColor: string
+    waterColor: string
+    distortionScale: number
+    fog: boolean
+    format: WebGLRenderer
 }
 
-const Ocean: React.FC<CustomProps> = ({ visible }) => {
+const Ocean: React.FC<Props> = ({ visible }) => {
     const waterRef = useRef<Water | null>(null)
     const gl = useThree(state => state.gl)
 

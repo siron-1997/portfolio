@@ -11,19 +11,19 @@ import { pointLightsAnimation } from '@/animations/components/ui/canvas/work'
 import { BREAK_POINT_MB } from '@/assets/break-points'
 import { colors } from '@/assets/colors'
 
-type MyModelCustomProps = {
-    modelUrl: string,
+type MyModelProps = {
+    modelUrl: string
     isNavigationVisible: boolean
 }
-type ModelCustomProps = {
-    modelUrl: string,
-    currentIndex: number,
-    controlsData: any,
-    isInitialControl: boolean,
+type ModelProps = {
+    modelUrl: string
+    currentIndex: number
+    controlsData: any
+    isInitialControl: boolean
     isStartControls: boolean
 }
 
-const MyModel: React.FC<MyModelCustomProps> = ({ modelUrl, isNavigationVisible }) => {
+const MyModel: React.FC<MyModelProps> = ({ modelUrl, isNavigationVisible }) => {
     const pointLightsRef = useRef<Group | null>(null)
     const {
         isInitialControl,
@@ -129,7 +129,7 @@ const MyModel: React.FC<MyModelCustomProps> = ({ modelUrl, isNavigationVisible }
     )
 }
 
-const Model: React.FC<ModelCustomProps> = React.memo(({
+const Model: React.FC<ModelProps> = React.memo(({
     modelUrl, currentIndex, controlsData, isInitialControl, isStartControls
 }) => {
     const groupRef = useRef<Group | null>(null)

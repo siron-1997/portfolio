@@ -1,4 +1,4 @@
-.skill_list {
+.skills_list {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,20 +8,20 @@
     overflow: hidden;
 }
 
-.skill_list_container {
+.skills_list_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.contents {
+.skill_list {
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 0 !important;
 }
 
-.content {
+.skill {
     display: flex;
     align-items: center;
     position: relative;
@@ -38,22 +38,22 @@
 }
 
 @media screen and (min-width: 1024px) {
-    .skill_list {
+    .skills_list {
         gap: 30px;
     }
 
-    .skill_list_container h3 {
+    .skills_list_container h3 {
         text-align: left;
         margin-bottom: 15px;
     }
 
-    .contents {
+    .skill_list {
         flex-direction: row;
         justify-content: start;
         gap: 15px;
     }
 
-    .content {
+    .skill {
         position: relative;
         width: 55px !important;
         transition: all 0.3s ease 0s;

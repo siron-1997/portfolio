@@ -15,12 +15,10 @@ const FingerPress: React.FC = () => {
     const { isFingerVisible, setIsFingerVisible, isViewerActive } = useContext(WorkDataContext)
     const { width } = useWindowSize()
     const iconSize = useIconSize(75, 85, 95)
-
     const breakPoint: boolean = width < BREAK_POINT_MB
 
     useEffect(() => {
         let currentWidth: number = 250
-
         if (width < BREAK_POINT_MB) {
             currentWidth = 130
         } else {

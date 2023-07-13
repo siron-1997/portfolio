@@ -6,13 +6,13 @@ import { useIsIos, useWindowSize } from '@/utils/hooks'
 import { getEnvMapIntensity, setCloudsVisible } from '@/utils/environment'
 import { BREAK_POINT_MB } from '@/assets/break-points'
 
-type CustomProps = {
-    cloudsAll: any,
-    currentWeathers: any,
+type Props = {
+    cloudsAll: any
+    currentWeathers: any
     timePoint: 'evening' | 'night' | 'lunch'
 }
 
-const Clouds: React.FC<CustomProps> = ({ cloudsAll, currentWeathers, timePoint }) => {
+const Clouds: React.FC<Props> = ({ cloudsAll, currentWeathers, timePoint }) => {
     const isIos = useIsIos()
     const { width } = useWindowSize()
     const { scene } = useThree()

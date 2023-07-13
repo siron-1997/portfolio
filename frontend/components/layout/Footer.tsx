@@ -8,9 +8,8 @@ import s from '@/styles/layout/Footer.module.css'
 
 const Footer: React.FC = () => {
     const iconSize = useIconSize(35, 35, 35)
-
-    const currentYear: number = 2023
-    const copyright: string = `${currentYear} Junpei Oue`
+    const currentYear = 2023
+    const copyright = `${currentYear} Junpei Oue`
 
     return (
         <footer className={s.footer}>

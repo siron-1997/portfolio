@@ -2,12 +2,12 @@ import React from 'react'
 import { BufferGeometry, BufferAttribute, PointsMaterial, Points } from 'three'
 import { useIsIos } from '@/utils/hooks'
 
-type CustomProps = {
-    opacity: number,
+type Props = {
+    opacity: number
     timePoint: 'evening' | 'night' | 'lunch'
 }
 
-const Star: React.FC<CustomProps> = ({ opacity, timePoint }) =>  {
+const Star: React.FC<Props> = ({ opacity, timePoint }) =>  {
     const isIos = useIsIos()
 
     const starCount: number = 9500

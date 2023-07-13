@@ -3,11 +3,11 @@ import { Environment } from '@react-three/drei'
 import { BackSide } from 'three'
 import { getEnvironmentColor } from '@/utils/environment'
 
-type CustomProps = {
+type Props = {
     timePoint: 'evening' | 'night' | 'lunch'
 }
 
-const WeatherEnvironment: React.FC<CustomProps> = ({ timePoint }) => {
+const WeatherEnvironment: React.FC<Props> = ({ timePoint }) => {
     const color: string = getEnvironmentColor(timePoint)
 
     return (

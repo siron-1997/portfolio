@@ -1,9 +1,8 @@
-import React, { useRef, useState, useReducer, useEffect } from 'react'
+import React, { useState, useReducer } from 'react'
 import { Layout } from '@/components/layout'
 import { ContactState, Form } from '@/components/contact'
 import { Container } from '@/components/ui'
 import { Sending } from '@/components/etc'
-import { contactAnimation } from '@/animations/pages/contact'
 import { introduction } from '@/assets/contact-contents'
 import { contentsInitialState, sendInitialState, stepsState } from '@/assets/contact-initial-states'
 import g from '@/styles/global.module.css'
@@ -94,8 +93,6 @@ const stepsReducer = (currentState: any, action: any) => {
 }
             
 export default function ContactPage() {
-    const contactRef = useRef<HTMLDivElement | null>(null),
-          contactStateRef = useRef<HTMLDivElement | null>(null)
     /* name、email、message */
     const [contents, contentsDispatch] = useReducer(contentsReducer, contentsInitialState)
     /* send state */
@@ -107,17 +104,6 @@ export default function ContactPage() {
     /* 編集中を管理 */
     const [isEdited, setIsEdited] = useState<boolean>(false)
 
-    /* アニメーション作成 */
-    useEffect(() => {
-        const ctx = contactAnimation({
-            title: contactStateRef.current.querySelector('h1'),
-            progress: contactStateRef.current.querySelector('div'),
-            contactRef
-        })
-
-        return () => ctx.revert()
-    }, [])
-
     return (
         <Layout metaProps={{
             title: `Junpei Oue | ${introduction.title}`,
@@ -128,7 +114,7 @@ export default function ContactPage() {
             <Sending isLoading={send.isLoading} />
             <div className={g.root_container}>
                 <Container className={g.top_container}>
-                    <div className={g.container} ref={contactRef}>
+                    <div className={g.container}>
                         <ContactDataContext.Provider
                             value={{
                                 contents, contentsDispatch,
@@ -138,7 +124,7 @@ export default function ContactPage() {
                                 isEdited, setIsEdited
                             }}
                         >
-                            <ContactState contactStateRef={contactStateRef} />
+                            <ContactState />
                             <Form />
                         </ContactDataContext.Provider>
                     </div>

@@ -4,14 +4,13 @@ import cn from 'classnames'
 import { useIconSize } from '@/utils/hooks'
 import s from '@/styles/ui/buttons/Close.module.css'
 
-type CustomProps = {
-    className?: string,
+type Props = {
+    className?: string
     onClose: any
 }
 
-const Close: React.FC<CustomProps> = ({ className, onClose }) => {
+const Close: React.FC<Props> = ({ className, onClose }) => {
     const iconSize = useIconSize(35, 40, 50)
-
     const rootClassNames = cn(className, s.close)
 
     return (
