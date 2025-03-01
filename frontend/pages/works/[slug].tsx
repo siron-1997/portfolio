@@ -28,7 +28,7 @@ type WorkDataContextProps = {
     setIsFingerVisible?: React.Dispatch<React.SetStateAction<boolean>>,
     isViewerActive?: boolean,
     setIsViewerActive?: React.Dispatch<React.SetStateAction<boolean>>
-    controlsData?: any,
+    // controlsData?: any,
     post?: any
 }
 type SectionsContextProps = {
@@ -56,7 +56,10 @@ export default function WorkPage({ post }: Props) {
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const normalViewerClassNames = cn(g.root_container, s.normal_viewer)
-    const controlsData = post?.attributes?.sections?.filter((item: any) => item?.__component.match(/.controls$/))[0]
+    // const controlsData = post?.attributes?.sections?.filter((item: any) => item?.__component.match(/.controls$/))[0]
+
+    console.log("======================================")
+    console.log(post)
 
     return (
         <Layout
@@ -86,7 +89,7 @@ export default function WorkPage({ post }: Props) {
                                             currentIndex, setCurrentIndex,
                                             setIsFingerVisible,
                                             isViewerActive,
-                                            controlsData,
+                                            // controlsData,
                                             post
                                         }}
                                     >
@@ -105,9 +108,9 @@ export default function WorkPage({ post }: Props) {
                                 <Introduction post={post} isLoading={isLoading} />
                             </WorkDataContext.Provider>
                             {/* Controls */}
-                            <WorkDataContext.Provider value={{ setIsInitialControl, currentIndex, setCurrentIndex }}>
+                            {/* <WorkDataContext.Provider value={{ setIsInitialControl, currentIndex, setCurrentIndex }}>
                                 <Controls data={controlsData} isLoading={isLoading} />
-                            </WorkDataContext.Provider>
+                            </WorkDataContext.Provider> */}
                         </SectionsContext.Provider>
                     </article>
                 </>
@@ -150,7 +153,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params: { slug } }) => {
     let post = {}
-
     try {
         const res = await fetcher(`/api/works/${slug}?populate=*`)
         post = res.data.data

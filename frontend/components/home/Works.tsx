@@ -16,6 +16,7 @@ type Props = {
 
 const Works: React.FC<Props> = ({ data }) => {
     const worksRef = useRef<HTMLElement | null>(null)
+    // console.log(data)
     const works: any = data?.slice(0, 3)
     const path: string = '/works/'
     const rootClassNames = cn(g.root_container, s.works)

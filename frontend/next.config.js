@@ -2,10 +2,18 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: [
-      'stingray-app-ofyua.ondigitalocean.app',
-      '127.0.0.1'
-    ],
+    // domains: [
+    //   'stingray-app-ofyua.ondigitalocean.app',
+    //   '127.0.0.1'
+    // ],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '1337',
+        pathname: '/uploads/**',
+      }
+    ]
   },
   env: {
     OPEN_WEATHER_API_KEY: process.env.OPEN_WEATHER_API_KEY,

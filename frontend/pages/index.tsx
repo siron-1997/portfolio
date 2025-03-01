@@ -49,11 +49,11 @@ export default function HomePage({ data }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let data = {}
+  let data = []
 
   try {
     const res = await fetcher('/api/works?populate=main')
-    data = res.data.data
+    data = Array.isArray(res.data.data) ? res.data.data : []
   } catch (error) {
     console.log('error', error)
   }

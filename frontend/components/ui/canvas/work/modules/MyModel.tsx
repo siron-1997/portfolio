@@ -31,7 +31,7 @@ const MyModel: React.FC<MyModelProps> = ({ modelUrl, isNavigationVisible }) => {
         isStartControls,
         currentIndex,
         setCurrentIndex,
-        controlsData,
+        // controlsData,
         post
     } = useContext(WorkDataContext)
     const { width } = useWindowSize()
@@ -63,7 +63,7 @@ const MyModel: React.FC<MyModelProps> = ({ modelUrl, isNavigationVisible }) => {
     return (
         <group name='import-model' scale={[scale, scale, scale]}>
             <group name='navigations'>
-                {controlsData.control_list.map((item: any, i: number) => (
+                {/* {controlsData.control_list.map((item: any, i: number) => (
                     <Html
                         key={i}
                         position={[ item?.position.x, item?.position.y, item?.position.z ]}
@@ -87,12 +87,12 @@ const MyModel: React.FC<MyModelProps> = ({ modelUrl, isNavigationVisible }) => {
                             isNavigationVisible={isNavigationVisible}
                         />
                     </Html>
-                ))}
+                ))} */}
             </group>
             <Model
                 modelUrl={modelUrl}
                 currentIndex={currentIndex}
-                controlsData={controlsData}
+                // controlsData={controlsData}
                 isInitialControl={isInitialControl}
                 isStartControls={isStartControls}
             />
@@ -130,7 +130,9 @@ const MyModel: React.FC<MyModelProps> = ({ modelUrl, isNavigationVisible }) => {
 }
 
 const Model: React.FC<ModelProps> = React.memo(({
-    modelUrl, currentIndex, controlsData, isInitialControl, isStartControls
+    modelUrl, currentIndex, 
+    // controlsData, 
+    isInitialControl, isStartControls
 }) => {
     const groupRef = useRef<Group | null>(null)
     const gltf = useLoader(GLTFLoader, modelUrl, loader => {
@@ -150,15 +152,15 @@ const Model: React.FC<ModelProps> = React.memo(({
                   endPrefix = animation.name.split('_')[1]
             const patternName = new RegExp(`^${prefix}`),
                   endPatternName = new RegExp(`^end_${endPrefix}`)
-            const pattern = controlsData?.control_list[currentIndex]?.animationName?.match(patternName),
-                  endPattern = `end_${controlsData?.control_list[currentIndex]?.animationName}`.match(endPatternName)
+            // const pattern = controlsData?.control_list[currentIndex]?.animationName?.match(patternName),
+            //       endPattern = `end_${controlsData?.control_list[currentIndex]?.animationName}`.match(endPatternName)
             const action = actions.clipAction(animation)
             if (isStartControls && !isInitialControl) {
                 if (pattern) { // マッチするアニメーション名を再生
-                    if (!controlsData?.control_list[currentIndex]?.loop){
-                        action.clampWhenFinished = true
-                        action.setLoop(LoopOnce, 0)
-                    }
+                    // if (!controlsData?.control_list[currentIndex]?.loop){
+                    //     action.clampWhenFinished = true
+                    //     action.setLoop(LoopOnce, 0)
+                    // }
                     action.startAt(1) // 遅延再生
                     action.play()
                 } else if (!endPattern && animation.name.match(/^end_/)) { // 再生中以外の終了アニメーションを再生
